@@ -12,6 +12,15 @@
   position: relative;
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .card-item {
+    padding: 1.15rem 1rem;
+  }
 }
 
 .card-item:hover {
@@ -27,6 +36,7 @@
   justify-content: space-between;
   margin-bottom: 1rem;
   gap: 0.4rem;
+  width: 100%;
 }
 
 .card-badges-left {
@@ -75,10 +85,15 @@
 .credit-card-render-wrapper {
   margin-bottom: 1.25rem;
   cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .credit-card-visual {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   aspect-ratio: 1.586 / 1;
   border-radius: 12px;
   padding: 1.1rem 1.25rem;
@@ -90,6 +105,12 @@
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
   transition: transform var(--transition-fast);
+}
+
+@media (max-width: 480px) {
+  .credit-card-visual {
+    padding: 0.85rem 1rem;
+  }
 }
 
 .card-item:hover .credit-card-visual {
