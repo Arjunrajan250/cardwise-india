@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="/src/styles/card-ui.css" />
   <link rel="stylesheet" href="/src/styles/comparator.css" />
   <link rel="stylesheet" href="/src/styles/calculator.css" />
+  <link rel="stylesheet" href="/src/styles/loans.css" />
   <link rel="stylesheet" href="/src/styles/modal.css" />
 </head>
 <body>
@@ -37,9 +38,11 @@
       </a>
 
       <nav class="nav-menu">
-        <a href="#card-directory" class="nav-link active">All Cards</a>
-        <a href="#calculator-section" class="nav-link">Rewards Calculator</a>
-        <a href="#faq-section" class="nav-link">Editorial Guides</a>
+        <a href="#card-directory" class="nav-link active">Credit Cards</a>
+        <a href="#credit-score-section" class="nav-link">Free CIBIL Score</a>
+        <a href="#loans-section" class="nav-link">Personal Loans</a>
+        <a href="#calculator-section" class="nav-link">Spend Calculator</a>
+        <a href="#faq-section" class="nav-link">Guides</a>
       </nav>
 
       <div class="nav-actions">
@@ -239,6 +242,141 @@
       </div>
     </section>
 
+    <!-- ==========================================================================
+         FREE CIBIL CREDIT SCORE SECTION
+         ========================================================================== -->
+    <section class="credit-score-section" id="credit-score-section">
+      <div class="container">
+        <!-- Hero CIBIL Banner -->
+        <div class="cibil-hero-banner">
+          <div class="cibil-banner-content">
+            <span class="promo-badge promo-badge-quiz">100% Free • No Impact on Score</span>
+            <h2>Check Your Official CIBIL Credit Score for Free</h2>
+            <p>Know your credit health, uncover pre-approved credit card offers, and detect errors before applying for loans. Free monthly bureau report with zero spam.</p>
+            
+            <ul class="cibil-features-list">
+              <li class="cibil-feature-item">
+                <span>✓</span>
+                <span>Official TransUnion CIBIL & Experian score report</span>
+              </li>
+              <li class="cibil-feature-item">
+                <span>✓</span>
+                <span>Unlocks guaranteed & pre-approved 0% rejection cards</span>
+              </li>
+              <li class="cibil-feature-item">
+                <span>✓</span>
+                <span>Encrypted with bank-grade 256-bit security</span>
+              </li>
+            </ul>
+
+            <div>
+              <a href="https://tracking.vcommission.com/aff_c?offer_id=paisabazaar_cibil&aff_id=YOUR_AFF_ID" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-cibil-check" data-loan-partner="paisabazaar-cibil">
+                Check My Free Score Now ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Score Gauge Meter Graphic -->
+          <div class="cibil-gauge-card">
+            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Bureau Rating Scale</div>
+            <div class="gauge-meter-wrapper">
+              <div class="gauge-arc"></div>
+              <div class="gauge-score-display">
+                <div class="gauge-score-num">785</div>
+                <div class="gauge-score-status">Excellent</div>
+              </div>
+            </div>
+            <div style="font-size: 0.75rem; color: #cbd5e1; max-width: 220px; line-height: 1.4;">
+              Scores above 750+ unlock instant card approvals and the lowest loan interest rates.
+            </div>
+          </div>
+        </div>
+
+        <!-- Verified Score Partners Grid -->
+        <div style="text-align: center; margin-bottom: 1.75rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Choose Your Preferred Credit Bureau Partner</h3>
+          <p class="text-secondary" style="font-size: 0.88rem;">Select from leading authorized credit assessment platforms in India.</p>
+        </div>
+
+        <div class="cibil-cards-grid" id="cibilOffersGrid">
+          <!-- Rendered dynamically via loans.js / app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INSTANT PERSONAL LOANS SECTION
+         ========================================================================== -->
+    <section class="loans-section" id="loans-section">
+      <div class="container">
+        <div class="loans-section-header">
+          <span class="promo-badge promo-badge-calc">Instant Disbursal • Paperless KYC</span>
+          <h2>Compare Instant Personal Loans in India</h2>
+          <p>Get instant cash loans from ₹10,000 up to ₹35 Lakh with flexible tenures and minimum documentation. Disbursal directly into your bank account in under 2 hours.</p>
+        </div>
+
+        <!-- Interactive Loan EMI & Eligibility Estimator -->
+        <div class="loan-calc-box">
+          <div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.4rem;">Loan EMI & Repayment Calculator</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Adjust your desired loan amount and repayment period to estimate your monthly EMI.</p>
+
+            <div class="sliders-wrapper" style="background: transparent; padding: 0; border: none;">
+              <!-- Amount Slider -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label" for="loanAmountSlider">Required Loan Amount</label>
+                  <span class="slider-value-display" id="loanAmountDisplay">₹2,00,000</span>
+                </div>
+                <input type="range" id="loanAmountSlider" class="range-slider" min="20000" max="1000000" step="10000" value="200000" />
+              </div>
+
+              <!-- Tenure Slider -->
+              <div class="slider-group" style="margin-top: 1rem;">
+                <div class="slider-label-row">
+                  <label class="slider-label" for="loanTenureSlider">Repayment Period</label>
+                  <span class="slider-value-display" id="loanTenureDisplay">24 Months (2 Yrs)</span>
+                </div>
+                <input type="range" id="loanTenureSlider" class="range-slider" min="6" max="60" step="6" value="24" />
+              </div>
+            </div>
+          </div>
+
+          <!-- EMI Output Panel -->
+          <div class="emi-output-panel">
+            <span class="emi-amount-label">Estimated Monthly EMI</span>
+            <span class="emi-amount-val" id="estimatedEmiDisplay">₹9,780</span>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">(Calculated at 15.99% avg annual rate)</span>
+
+            <div class="emi-breakdown-metrics">
+              <div class="emi-metric-mini">
+                <span>Principal</span>
+                <span id="loanPrincipalDisplay">₹2,00,000</span>
+              </div>
+              <div class="emi-metric-mini">
+                <span>Total Interest</span>
+                <span id="loanTotalInterestDisplay">₹34,720</span>
+              </div>
+              <div class="emi-metric-mini">
+                <span>Total Payable</span>
+                <span id="loanTotalPayableDisplay">₹2,34,720</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leading Personal Loan Providers Grid -->
+        <div style="text-align: center; margin-bottom: 1.75rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Top Approved Instant Loan Providers (2026)</h3>
+          <p class="text-secondary" style="font-size: 0.88rem;">100% digital KYC with rapid disbursal for salaried and self-employed applicants.</p>
+        </div>
+
+        <div class="loans-grid" id="loansCardsGrid">
+          <!-- Rendered dynamically via loans.js / app.js -->
+        </div>
+      </div>
+    </section>
+
     <!-- Editorial FAQ Section -->
     <section class="controls-bar" id="faq-section" style="padding: 2rem 2.5rem; margin-bottom: 3.5rem;">
       <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
@@ -369,21 +507,22 @@
         </div>
 
         <div class="footer-column">
-          <h4>Categories</h4>
+          <h4>Credit Cards</h4>
           <ul>
             <li><a href="#card-directory">Cashback Cards</a></li>
             <li><a href="#card-directory">Lifetime Free Cards</a></li>
+            <li><a href="#card-directory">100% Guaranteed (FD)</a></li>
             <li><a href="#card-directory">Airport Lounge Cards</a></li>
-            <li><a href="#card-directory">RuPay UPI Cards</a></li>
           </ul>
         </div>
 
         <div class="footer-column">
-          <h4>Tools & Guides</h4>
+          <h4>Loans & CIBIL</h4>
           <ul>
-            <li><a href="#calculator-section">Rewards Calculator</a></li>
-            <li><a href="#" class="btn-launch-quiz">Card Finder Quiz</a></li>
-            <li><a href="#faq-section">Editorial Guides</a></li>
+            <li><a href="#credit-score-section">Free CIBIL Score</a></li>
+            <li><a href="#loans-section">Instant Personal Loans</a></li>
+            <li><a href="#loans-section">Loan EMI Calculator</a></li>
+            <li><a href="#calculator-section">Spend Rewards Calculator</a></li>
           </ul>
         </div>
 

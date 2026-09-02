@@ -1,4 +1,5 @@
 import { CREDIT_CARDS, CATEGORIES, BANKS, NETWORKS } from './data/cards.js';
+import { CREDIT_SCORE_OFFERS, PERSONAL_LOANS } from './data/loans.js';
 import { CardComparator } from './comparator.js';
 import { RewardsCalculator } from './calculator.js';
 import { CardQuiz } from './quiz.js';
@@ -7,6 +8,8 @@ import { affiliateManager } from './affiliate.js';
 class App {
   constructor() {
     this.cards = CREDIT_CARDS;
+    this.creditScoreOffers = CREDIT_SCORE_OFFERS;
+    this.personalLoans = PERSONAL_LOANS;
     this.filteredCards = [...this.cards];
     this.activeCategory = 'all';
     this.selectedBank = 'all';
@@ -28,6 +31,9 @@ class App {
     this.populateFilterDropdowns();
     this.applyFilters();
     this.initCalculator();
+    this.initCreditScoreSection();
+    this.initLoansSection();
+    this.initLoanCalculator();
     this.bindEvents();
     this.checkInitialAffiliateConfig();
   }
@@ -739,7 +745,139 @@ class App {
   }
 
   /* --------------------------------------------------------------------------
-     8. Affiliate Config & Admin Settings
+     8. Credit Score & Personal Loans Revenue Engine
+     -------------------------------------------------------------------------- */
+  initCreditScoreSection() {
+    const grid = document.getElementById('cibilOffersGrid');
+    if (!grid) return;
+
+    grid.innerHTML = this.creditScoreOffers.map(offer => {
+      const finalUrl = affiliateManager.resolveUrl(offer.affiliateUrl, offer.id);
+      return `
+        <div class="cibil-provider-card">
+          <div>
+            <div class="provider-card-header">
+              <span class="provider-badge">${offer.badge}</span>
+              <div class="rating-badge">★ ${offer.rating}</div>
+            </div>
+            <h4 class="provider-title">${offer.name}</h4>
+            <div class="provider-sub">${offer.provider}</div>
+            <div style="font-size: 0.8rem; color: var(--brand-primary); font-weight: 700; margin-bottom: 0.85rem;">
+              Score Range: ${offer.scoreRange} (${offer.reportFrequency})
+            </div>
+
+            <ul class="perks-list" style="margin-bottom: 1.25rem;">
+              ${offer.keyBenefits.map(b => `
+                <li class="perk-item">
+                  <span class="perk-icon">✓</span>
+                  <span>${b}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald" style="width: 100%; text-align: center;">
+            ${offer.ctaText}
+          </a>
+        </div>
+      `;
+    }).join('');
+  }
+
+  initLoansSection() {
+    const grid = document.getElementById('loansCardsGrid');
+    if (!grid) return;
+
+    grid.innerHTML = this.personalLoans.map(loan => {
+      const finalUrl = affiliateManager.resolveUrl(loan.affiliateUrl, loan.id);
+      return `
+        <div class="loan-card">
+          <div class="loan-card-header">
+            <span class="loan-badge">${loan.badge}</span>
+            <div class="rating-badge">★ ${loan.rating}</div>
+          </div>
+
+          <h4 class="loan-title">${loan.name}</h4>
+          <div class="loan-lender">${loan.lender}</div>
+
+          <div class="loan-metrics-grid">
+            <div class="loan-metric-item">
+              <span class="label">Max Loan</span>
+              <span class="val" style="color: var(--brand-success);">${loan.maxAmountLabel}</span>
+            </div>
+            <div class="loan-metric-item">
+              <span class="label">Interest Rate</span>
+              <span class="val">${loan.interestRateRange}</span>
+            </div>
+            <div class="loan-metric-item">
+              <span class="label">Disbursal Time</span>
+              <span class="val">${loan.disbursalTime}</span>
+            </div>
+            <div class="loan-metric-item">
+              <span class="label">Min Income</span>
+              <span class="val">${loan.minSalaryLabel}</span>
+            </div>
+          </div>
+
+          <ul class="loan-perks-list">
+            ${loan.keyPerks.slice(0, 3).map(perk => `
+              <li class="loan-perk-item">
+                <span>✓</span>
+                <span>${perk}</span>
+              </li>
+            `).join('')}
+          </ul>
+
+          <div class="loan-eligibility-note">
+            <strong>Eligibility:</strong> ${loan.eligibility}
+          </div>
+
+          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; text-align: center; margin-top: auto;">
+            Apply for Instant Loan ↗
+          </a>
+        </div>
+      `;
+    }).join('');
+  }
+
+  initLoanCalculator() {
+    const amountSlider = document.getElementById('loanAmountSlider');
+    const tenureSlider = document.getElementById('loanTenureSlider');
+    const amountDisplay = document.getElementById('loanAmountDisplay');
+    const tenureDisplay = document.getElementById('loanTenureDisplay');
+    const emiDisplay = document.getElementById('estimatedEmiDisplay');
+    const principalDisplay = document.getElementById('loanPrincipalDisplay');
+    const interestDisplay = document.getElementById('loanTotalInterestDisplay');
+    const payableDisplay = document.getElementById('loanTotalPayableDisplay');
+
+    if (!amountSlider || !tenureSlider) return;
+
+    const updateLoanCalc = () => {
+      const p = parseFloat(amountSlider.value);
+      const n = parseInt(tenureSlider.value, 10);
+      const annualRate = 15.99; // 15.99% standard loan APR
+      const r = (annualRate / 12) / 100;
+
+      // EMI = [P x R x (1+R)^N]/[(1+R)^N-1]
+      const emi = Math.round((p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+      const totalPayable = Math.round(emi * n);
+      const totalInterest = Math.round(totalPayable - p);
+
+      if (amountDisplay) amountDisplay.textContent = `₹${p.toLocaleString('en-IN')}`;
+      if (tenureDisplay) tenureDisplay.textContent = `${n} Months (${(n / 12).toFixed(1)} Yrs)`;
+      if (emiDisplay) emiDisplay.textContent = `₹${emi.toLocaleString('en-IN')}`;
+      if (principalDisplay) principalDisplay.textContent = `₹${p.toLocaleString('en-IN')}`;
+      if (interestDisplay) interestDisplay.textContent = `₹${totalInterest.toLocaleString('en-IN')}`;
+      if (payableDisplay) payableDisplay.textContent = `₹${totalPayable.toLocaleString('en-IN')}`;
+    };
+
+    amountSlider.addEventListener('input', updateLoanCalc);
+    tenureSlider.addEventListener('input', updateLoanCalc);
+    updateLoanCalc();
+  }
+
+  /* --------------------------------------------------------------------------
+     9. Affiliate Config & Admin Settings
      -------------------------------------------------------------------------- */
   checkInitialAffiliateConfig() {
     const affiliateModal = document.getElementById('affiliateModal');
