@@ -80,6 +80,28 @@
   gap: 0.5rem;
 }
 
+@media (max-width: 640px) {
+  .compare-tray {
+    width: 96%;
+    bottom: 0.6rem;
+    padding: 0.65rem 0.85rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .compare-tray-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .compare-tray-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.4rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Comparison Matrix & Tabular Comparison
    ========================================================================== */

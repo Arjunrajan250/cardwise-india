@@ -132,7 +132,55 @@ input, select {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+  
+  .brand-badge {
+    display: none;
+  }
+  
+  .hero-section {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .controls-bar {
+    padding: 0.85rem;
+    margin: 1.25rem 0;
+  }
+
+  .filter-selectors {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .custom-select {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .results-count {
+    width: 100%;
+    text-align: center;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-selectors {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-launch-quiz span {
+    font-size: 0.8rem;
+  }
 }
 
 /* Buttons */
