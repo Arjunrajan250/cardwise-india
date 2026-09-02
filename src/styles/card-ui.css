@@ -1,0 +1,320 @@
+/* ==========================================================================
+   Credit Card UI & Authentic Card Artwork
+   ========================================================================== */
+
+.card-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card Header & Badges */
+.card-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 0.5rem;
+}
+
+.badge-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-xs);
+  background-color: var(--brand-primary-light);
+  color: var(--brand-primary);
+  border: 1px solid #bfdbfe;
+  white-space: nowrap;
+}
+
+.badge-tag.tag-free {
+  background-color: var(--brand-success-light);
+  color: var(--brand-success);
+  border-color: var(--brand-success-border);
+}
+
+.rating-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--brand-accent);
+  background-color: var(--brand-accent-light);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+/* --------------------------------------------------------------------------
+   Authentic Credit Card Visual Representation
+   -------------------------------------------------------------------------- */
+.credit-card-render-wrapper {
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+}
+
+.credit-card-visual {
+  width: 100%;
+  aspect-ratio: 1.586 / 1;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  transition: transform var(--transition-fast);
+}
+
+.card-item:hover .credit-card-visual {
+  transform: scale(1.01);
+}
+
+/* Theme Gradients */
+.theme-sbi-blue { background: var(--card-sbi); }
+.theme-hdfc-indigo { background: var(--card-hdfc); }
+.theme-icici-brown { background: var(--card-icici); }
+.theme-airtel-red { background: var(--card-axis); }
+.theme-flipkart-yellow { background: var(--card-amazon); }
+.theme-atlas-gold { background: var(--card-atlas); }
+.theme-regalia-gold { background: var(--card-regalia); }
+.theme-tata-neu { background: var(--card-tata); }
+.theme-swiggy-orange { background: var(--card-swiggy); }
+.theme-amex-platinum { background: var(--card-amex); }
+.theme-scapia-green { background: var(--card-scapia); }
+.theme-au-lit { background: var(--card-au); }
+.theme-sbi-fuel { background: var(--card-sbi); }
+.theme-hsbc-red { background: var(--card-hsbc); }
+.theme-infinia-black { background: var(--card-infinia); }
+.theme-idfc-wealth { background: var(--card-idfc); }
+.theme-amazon-dark { background: var(--card-amazon); }
+
+/* Card Physical Texture Overlay */
+.credit-card-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.bank-name-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contactless-icon {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.card-middle-row {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  margin: 0.25rem 0;
+}
+
+.emv-chip {
+  width: 32px;
+  height: 24px;
+  background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.emv-chip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.card-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.card-title-preview {
+  font-size: 0.85rem;
+  font-weight: 600;
+  max-width: 72%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.95;
+}
+
+.network-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Card Details & Financial Metrics
+   -------------------------------------------------------------------------- */
+.card-details-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-main-title {
+  font-size: 1.15rem;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+
+.card-cashback-summary {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand-success);
+  background-color: var(--brand-success-light);
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--brand-success);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Financial Metrics Grid */
+.metrics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.metric-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.metric-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metric-value.free {
+  color: var(--brand-success);
+}
+
+.metric-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+/* Key Perks List */
+.perks-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.perk-item {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  line-height: 1.4;
+}
+
+.perk-icon {
+  color: var(--brand-success);
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* Actions Row */
+.card-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.btn-compare {
+  flex: 1;
+  font-size: 0.82rem;
+  padding: 0.55rem 0.75rem;
+}
+
+.btn-compare.selected {
+  background-color: var(--brand-primary-light);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.btn-details {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.btn-apply {
+  flex: 1.3;
+  font-size: 0.85rem;
+  padding: 0.55rem 0.85rem;
+  background-color: var(--brand-primary);
+  color: #ffffff;
+}
+
+.btn-apply:hover {
+  background-color: var(--brand-primary-hover);
+}

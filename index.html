@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CardWise India | Credit Card Reviews, Comparisons & Rewards Calculator</title>
+  <meta name="description" content="Compare credit cards in India across Cashback, Airport Lounge Access, Travel Rewards, Lifetime Free cards, and Fuel Savings with verified fee and waiver terms." />
+  <meta name="keywords" content="Credit Cards India, Cashback Credit Cards, Lifetime Free Cards, Airport Lounge Cards, SBI Cashback, HDFC Millennia, Axis Bank, Credit Card Comparison" />
+  
+  <!-- OpenGraph Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CardWise India - Credit Card Reviews & Comparisons" />
+  <meta property="og:description" content="Compare 16 leading credit cards in India. Calculate your annual cashback savings and find the best card for your monthly spending." />
+  
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- App Stylesheets -->
+  <link rel="stylesheet" href="/src/styles/variables.css" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+  <link rel="stylesheet" href="/src/styles/card-ui.css" />
+  <link rel="stylesheet" href="/src/styles/comparator.css" />
+  <link rel="stylesheet" href="/src/styles/calculator.css" />
+  <link rel="stylesheet" href="/src/styles/modal.css" />
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <div class="brand-icon">💳</div>
+        <span>CardWise<span class="brand-domain">.in</span></span>
+        <span class="brand-badge">2026 Edition</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#card-directory" class="nav-link active">All Cards</a>
+        <a href="#calculator-section" class="nav-link">Rewards Calculator</a>
+        <a href="#faq-section" class="nav-link">Editorial Guides</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn btn-secondary btn-launch-quiz">
+          <span>Card Finder Quiz</span>
+        </button>
+        <button type="button" class="btn-icon-only" id="btnOpenAffiliateModal" title="Affiliate Tracking Settings">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span>Independent Credit Card Advisory for India</span>
+      </div>
+      <h1 class="hero-title">
+        Compare Top Indian Credit Cards
+      </h1>
+      <p class="hero-subtitle">
+        Find the card that delivers the highest cashback and travel value based on your actual monthly spending habits.
+      </p>
+
+      <!-- Search Input -->
+      <div class="search-box-wrapper">
+        <div class="search-input-group">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Search by card name, bank, or perk (e.g. 'Cashback', 'Lounge', 'SBI', 'RuPay')..." 
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="category-chips-scroll" id="categoryChipsContainer">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Directory Container -->
+  <main class="container" id="card-directory">
+
+    <!-- Promo Action Cards (Quiz & Calculator Callouts) -->
+    <div class="promo-grid">
+      <div class="promo-card promo-card-quiz">
+        <div>
+          <span class="promo-badge promo-badge-quiz">Pre-Qualification Quiz</span>
+          <h3>Looking for a personalized recommendation?</h3>
+          <p>Answer 3 quick questions about your monthly income and primary spending habits to see the cards with the highest approval odds.</p>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary btn-launch-quiz">
+            Start Card Finder
+          </button>
+        </div>
+      </div>
+
+      <div class="promo-card promo-card-calc">
+        <div>
+          <span class="promo-badge promo-badge-calc">Net Savings Estimator</span>
+          <h3>Estimate Your Annual Net Rewards</h3>
+          <p>Enter your monthly spend on online shopping, dining, fuel, and travel to calculate your net savings after accounting for annual fees.</p>
+        </div>
+        <div>
+          <a href="#calculator-section" class="btn btn-emerald">
+            Open Spend Calculator
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Sort Controls Bar -->
+    <section class="controls-bar">
+      <div class="filter-row">
+        <div class="filter-selectors">
+          <select id="bankFilterSelect" class="custom-select" aria-label="Filter by Bank">
+            <option value="all">All Banks</option>
+          </select>
+
+          <select id="feeFilterSelect" class="custom-select" aria-label="Filter by Annual Fee">
+            <option value="all">All Fee Tiers</option>
+            <option value="free">Lifetime Free (₹0)</option>
+            <option value="under1k">Under ₹1,000 / year</option>
+            <option value="1k-5k">₹1,000 – ₹5,000 / year</option>
+            <option value="premium">Premium (> ₹5,000)</option>
+          </select>
+
+          <select id="networkFilterSelect" class="custom-select" aria-label="Filter by Card Network">
+            <option value="all">All Networks</option>
+          </select>
+
+          <select id="sortBySelect" class="custom-select" aria-label="Sort Credit Cards">
+            <option value="popularity">Sort: Most Popular</option>
+            <option value="rating">Sort: Highest Rated</option>
+            <option value="fee-low">Sort: Lowest Annual Fee</option>
+            <option value="fee-high">Sort: Premium First</option>
+          </select>
+        </div>
+
+        <div class="results-count" id="resultsCount">
+          Showing <strong>16</strong> Credit Cards
+        </div>
+      </div>
+    </section>
+
+    <!-- Credit Card Grid -->
+    <section class="card-grid" id="cardGrid">
+      <!-- Injected dynamically via app.js -->
+    </section>
+
+    <!-- Interactive Rewards & Spend Calculator Section -->
+    <section class="calculator-section" id="calculator-section">
+      <div class="calc-container">
+        <div class="calc-header">
+          <span class="promo-badge promo-badge-calc">Rewards & Cashback Calculator</span>
+          <h2>Calculate Your Net Annual Value</h2>
+          <p>Adjust your estimated monthly spending below to see which card provides the highest return after accounting for annual renewal fees.</p>
+        </div>
+
+        <div class="calc-grid">
+          <!-- Sliders Side -->
+          <div class="sliders-wrapper">
+            <!-- Online Shopping -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label class="slider-label">Online Shopping (Amazon, Flipkart, Myntra)</label>
+                <span class="slider-value-display" id="display-online">₹15,000</span>
+              </div>
+              <input type="range" class="range-slider" data-calc-category="online" min="0" max="100000" step="1000" value="15000" />
+            </div>
+
+            <!-- Dining & Food Delivery -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label class="slider-label">Food & Dining (Swiggy, Zomato, Restaurants)</label>
+                <span class="slider-value-display" id="display-dining">₹6,000</span>
+              </div>
+              <input type="range" class="range-slider" data-calc-category="dining" min="0" max="50000" step="500" value="6000" />
+            </div>
+
+            <!-- Groceries -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label class="slider-label">Groceries (Blinkit, Zepto, DMart, Supermarkets)</label>
+                <span class="slider-value-display" id="display-grocery">₹8,000</span>
+              </div>
+              <input type="range" class="range-slider" data-calc-category="grocery" min="0" max="50000" step="500" value="8000" />
+            </div>
+
+            <!-- Fuel -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label class="slider-label">Fuel (Petrol / Diesel / EV Charging)</label>
+                <span class="slider-value-display" id="display-fuel">₹4,000</span>
+              </div>
+              <input type="range" class="range-slider" data-calc-category="fuel" min="0" max="30000" step="500" value="4000" />
+            </div>
+
+            <!-- Travel & Flights -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label class="slider-label">Flights & Hotel Bookings</label>
+                <span class="slider-value-display" id="display-travel">₹5,000</span>
+              </div>
+              <input type="range" class="range-slider" data-calc-category="travel" min="0" max="100000" step="1000" value="5000" />
+            </div>
+
+            <!-- Utility Bills -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label class="slider-label">Utility Bills & Mobile Recharges</label>
+                <span class="slider-value-display" id="display-bills">₹4,000</span>
+              </div>
+              <input type="range" class="range-slider" data-calc-category="bills" min="0" max="30000" step="500" value="4000" />
+            </div>
+
+            <div class="total-spend-pill">
+              <span class="total-spend-label">Total Estimated Monthly Spend:</span>
+              <span class="total-spend-amount" id="calcTotalSpendDisplay">₹42,000/mo</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Side -->
+          <div class="calc-results-wrapper" id="calcWinnerContainer">
+            <!-- Rendered dynamically by app.js / calculator.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial FAQ Section -->
+    <section class="controls-bar" id="faq-section" style="padding: 2rem 2.5rem; margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.35rem; color: var(--text-primary);">Which credit card is best for direct cashback in India?</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+            The <strong>SBI Cashback Credit Card</strong> is widely regarded as the top option for online shopping, offering 5% cashback on most online purchases without specific merchant tie-ins. For food delivery and groceries, <strong>Swiggy HDFC</strong> offers 10% on Swiggy services, while <strong>Airtel Axis</strong> provides 25% on Airtel recharges and 10% on utility bills.
+          </p>
+        </div>
+
+        <div style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.35rem; color: var(--text-primary);">What is a Lifetime Free (LTF) credit card?</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+            A Lifetime Free credit card requires ₹0 joining fee and ₹0 annual maintenance fee for life, with no minimum annual spend condition to waive the fee. Prominent examples include <strong>Amazon Pay ICICI Card</strong>, <strong>Scapia Federal Card</strong>, and <strong>IDFC FIRST Wealth Card</strong>.
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.05rem; margin-bottom: 0.35rem; color: var(--text-primary);">How does RuPay UPI credit card linking work?</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+            Credit cards issued on the <strong>RuPay network</strong> (such as the <em>Tata Neu Infinity RuPay</em>) can be linked directly to UPI payment apps like Google Pay, Paytm, PhonePe, or BHIM. This allows cardholders to scan QR codes at local merchants and pay from their credit line while earning reward points.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Comparator Bottom Bar Wrapper -->
+  <div id="compareTrayWrapper"></div>
+
+  <!-- ==========================================================================
+       MODALS & DIALOGS
+       ========================================================================== -->
+
+  <!-- 1. Side-by-Side Comparison Matrix Modal -->
+  <div class="modal-backdrop" id="compareModal" role="dialog" aria-modal="true">
+    <div class="modal-container comparator-modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Side-by-Side Card Comparison</h3>
+        <button type="button" class="btn-close-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="compareModalContent">
+        <!-- Injected via comparator.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Card Detail Specification Modal -->
+  <div class="modal-backdrop" id="cardDetailModal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" id="cardDetailModalTitle">Card Details</h3>
+        <button type="button" class="btn-close-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="cardDetailModalBody">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Pre-Qualification Quiz Modal -->
+  <div class="modal-backdrop" id="quizModal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Card Finder Assistant</h3>
+        <button type="button" class="btn-close-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="quizModalBody">
+        <!-- Injected via quiz.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Outbound Redirect Modal -->
+  <div class="modal-backdrop" id="redirectModal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 480px;">
+      <div class="modal-body" id="redirectModalBody">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Affiliate Config Modal -->
+  <div class="modal-backdrop" id="affiliateModal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 540px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Affiliate Campaign Settings</h3>
+        <button type="button" class="btn-close-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-secondary" style="font-size: 0.88rem; margin-bottom: 1.25rem; line-height: 1.5;">
+          Configure your <strong>vCommission</strong> or network affiliate publisher credentials below. All application buttons will use your tracking link and campaign sub-IDs.
+        </p>
+
+        <div class="affiliate-form-group">
+          <label class="affiliate-form-label" for="inputAffiliateId">vCommission / Network Affiliate ID</label>
+          <input type="text" id="inputAffiliateId" class="affiliate-form-input" placeholder="e.g. 104829 or YOUR_AFF_ID" />
+          <span class="affiliate-helper-text">Replaces 'YOUR_AFF_ID' in all tracking URLs.</span>
+        </div>
+
+        <div class="affiliate-form-group">
+          <label class="affiliate-form-label" for="inputAffiliateSubId">Tracking Sub-ID (Campaign Source)</label>
+          <input type="text" id="inputAffiliateSubId" class="affiliate-form-input" placeholder="e.g. cardwise_web" />
+          <span class="affiliate-helper-text">Appended as <code>&aff_sub=...</code> to monitor conversion sources.</span>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.6rem;">
+          <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="btnSaveAffiliateSettings">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="brand-icon">💳</div>
+            <span>CardWise<span class="brand-domain">.in</span></span>
+          </div>
+          <p>Independent credit card comparison and rewards analytics platform for Indian consumers.</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#card-directory">Cashback Cards</a></li>
+            <li><a href="#card-directory">Lifetime Free Cards</a></li>
+            <li><a href="#card-directory">Airport Lounge Cards</a></li>
+            <li><a href="#card-directory">RuPay UPI Cards</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Tools & Guides</h4>
+          <ul>
+            <li><a href="#calculator-section">Rewards Calculator</a></li>
+            <li><a href="#" class="btn-launch-quiz">Card Finder Quiz</a></li>
+            <li><a href="#faq-section">Editorial Guides</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Major Issuers</h4>
+          <ul>
+            <li><a href="#card-directory">HDFC Bank</a></li>
+            <li><a href="#card-directory">SBI Card</a></li>
+            <li><a href="#card-directory">Axis Bank</a></li>
+            <li><a href="#card-directory">ICICI Bank</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Affiliate & Regulatory Disclosure -->
+      <div class="disclaimer-box">
+        <strong>Editorial & Affiliate Disclosure:</strong> CardWise India is an independent comparison website. We may receive financial compensation when you apply for a credit card through links on our website from our affiliate partners (including vCommission, EarnKaro, and direct partner networks). This does not influence our editorial assessments or reward calculations. Credit card approval, credit limits, interest rates, and fee waivers are solely determined by the issuing financial institutions subject to credit assessment and verification.
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 CardWise India. All rights reserved.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Editorial Standards</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Bootstrap JS -->
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

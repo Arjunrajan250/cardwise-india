@@ -1,0 +1,249 @@
+/* ==========================================================================
+   Spend & Rewards Calculator Styles
+   ========================================================================== */
+
+.calculator-section {
+  padding: 3rem 0;
+  margin-bottom: 3.5rem;
+}
+
+.calc-container {
+  background-color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.calc-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2.25rem;
+}
+
+.calc-header h2 {
+  font-size: 1.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.calc-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 960px) {
+  .calc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sliders */
+.sliders-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: var(--bg-subtle);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.slider-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.slider-value-display {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  background-color: #ffffff;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-strong);
+}
+
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background-color: var(--border-strong);
+  border-radius: var(--radius-pill);
+  outline: none;
+  cursor: pointer;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--brand-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.total-spend-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  margin-top: 0.25rem;
+}
+
+.total-spend-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.total-spend-amount {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Calculator Results Output Card
+   -------------------------------------------------------------------------- */
+.calc-results-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.winner-card-box {
+  background-color: var(--brand-success-light);
+  border: 1.5px solid var(--brand-success-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.winner-badge-top {
+  position: absolute;
+  top: -11px;
+  left: 1.25rem;
+  background-color: var(--brand-success);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-xs);
+}
+
+.winner-card-title {
+  font-size: 1.25rem;
+  margin: 0.4rem 0 0.15rem;
+  color: var(--text-primary);
+}
+
+.winner-bank-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.winner-savings-highlight {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid var(--brand-success-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.savings-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.savings-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand-success);
+}
+
+.calc-breakdown-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.calc-breakdown-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: 0.3rem;
+}
+
+.runner-ups-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.runner-up-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}
+
+.runner-up-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.runner-up-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.runner-up-bank {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.runner-up-savings {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand-success);
+}
