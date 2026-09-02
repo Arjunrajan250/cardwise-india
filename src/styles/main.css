@@ -161,9 +161,67 @@ input, select {
   line-height: 1.2;
 }
 
+/* Mobile Sticky Navigation Bar */
+.mobile-nav-bar {
+  display: none;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-subtle);
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 860px) {
+  .mobile-nav-bar {
+    display: block;
+  }
+
+  .mobile-nav-scroll {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    overflow-x: auto;
+    padding: 0.35rem 0.65rem 0.45rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .mobile-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--bg-subtle);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--border-subtle);
+    text-decoration: none;
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--brand-primary);
+    background-color: var(--bg-muted);
+  }
+
+  .mobile-nav-link.active {
+    color: #ffffff;
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+  }
+}
+
 @media (max-width: 768px) {
   .nav-container {
-    height: 56px;
+    height: 54px;
   }
 
   .nav-menu {

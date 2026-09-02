@@ -34,6 +34,7 @@ class App {
     this.initCreditScoreSection();
     this.initLoansSection();
     this.initLoanCalculator();
+    this.initScrollSpy();
     this.bindEvents();
     this.checkInitialAffiliateConfig();
   }
@@ -874,6 +875,66 @@ class App {
     amountSlider.addEventListener('input', updateLoanCalc);
     tenureSlider.addEventListener('input', updateLoanCalc);
     updateLoanCalc();
+  }
+
+  /* --------------------------------------------------------------------------
+     8b. Mobile Section Nav & ScrollSpy
+     -------------------------------------------------------------------------- */
+  initScrollSpy() {
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const sections = [
+      { id: 'card-directory', el: document.getElementById('card-directory') },
+      { id: 'credit-score-section', el: document.getElementById('credit-score-section') },
+      { id: 'loans-section', el: document.getElementById('loans-section') },
+      { id: 'calculator-section', el: document.getElementById('calculator-section') },
+      { id: 'faq-section', el: document.getElementById('faq-section') }
+    ].filter(s => s.el);
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerHeight = document.querySelector('.site-header')?.offsetHeight || 90;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight + 10;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+
+            mobileLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+        }
+      });
+    });
+
+    // Highlight active chip on scroll
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 140;
+      let currentSectionId = '';
+
+      for (const section of sections) {
+        if (section.el.offsetTop <= scrollPos) {
+          currentSectionId = section.id;
+        }
+      }
+
+      if (currentSectionId) {
+        mobileLinks.forEach(link => {
+          if (link.dataset.section === currentSectionId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    }, { passive: true });
   }
 
   /* --------------------------------------------------------------------------
