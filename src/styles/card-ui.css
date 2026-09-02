@@ -103,6 +103,13 @@
 .theme-infinia-black { background: var(--card-infinia); }
 .theme-idfc-wealth { background: var(--card-idfc); }
 .theme-amazon-dark { background: var(--card-amazon); }
+.theme-idfc-wow { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #b45309 100%); }
+.theme-axis-myzone { background: linear-gradient(135deg, #83103c 0%, #4c0519 100%); }
+.theme-indusind-legend { background: linear-gradient(135deg, #78350f 0%, #451a03 60%, #1c1917 100%); }
+.theme-hdfc-moneyback { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+.theme-onecard-metal { background: linear-gradient(135deg, #18181b 0%, #27272a 60%, #09090b 100%); }
+.theme-kotak-811 { background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%); }
+.theme-rbl-shoprite { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); }
 
 /* Card Physical Texture Overlay */
 .credit-card-visual::after {

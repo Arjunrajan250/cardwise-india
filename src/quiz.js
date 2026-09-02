@@ -59,9 +59,13 @@ export class CardQuiz {
 
       // 1. Income feasibility
       if (card.eligibility.minIncome <= maxAllowedIncome) {
-        score += 20;
+        score += 25;
+        if (income === 'low' && (card.categories.includes('Guaranteed Approval') || card.categories.includes('High Approval'))) {
+          score += 20; // Extra boost for high acceptance cards on low income
+          reasons.push('High approval odds for your income profile');
+        }
       } else {
-        score -= 40; // Penalty for out of budget
+        score -= 50; // Penalty for out of budget
       }
 
       // 2. Primary Spend Category Match

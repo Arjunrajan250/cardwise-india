@@ -118,6 +118,65 @@ export const CREDIT_CARDS = [
     campaignName: "HDFC Bank Credit Cards"
   },
   {
+    id: "idfc-first-wow",
+    name: "IDFC FIRST WOW Credit Card",
+    bank: "IDFC FIRST Bank",
+    network: "Visa Infinite",
+    cardTheme: "idfc-wow",
+    joiningFee: 0,
+    annualFee: 0,
+    feeWaiverSpend: 0,
+    isLifetimeFree: true,
+    rating: 4.9,
+    reviewsCount: 3120,
+    primaryCategory: "Guaranteed Approval",
+    categories: ["Guaranteed Approval", "Lifetime Free", "Travel & Miles"],
+    tag: "100% Guaranteed Approval (FD-Backed)",
+    cashbackSummary: "Zero Forex Markup + 100% approval against ₹2,000 Fixed Deposit (No CIBIL / Income proof)",
+    rewardStructure: {
+      online: 3.0,
+      dining: 3.0,
+      grocery: 3.0,
+      fuel: 1.0,
+      travel: 6.0,
+      bills: 1.0,
+      others: 1.5
+    },
+    keyPerks: [
+      "100% Guaranteed Approval: Issued against a minimum ₹2,000 Fixed Deposit with zero income verification",
+      "No credit score (CIBIL) required — ideal for students, freelancers, and first-time applicants",
+      "0% Zero Forex Markup fee on international transactions worldwide",
+      "100% Lifetime Free with zero joining and zero annual maintenance fees forever",
+      "Earn up to 7.5% p.a. interest on your underlying Fixed Deposit while using the credit card limit"
+    ],
+    welcomeBonus: "5% cashback (up to ₹1,000) on first transaction value.",
+    loungeAccess: {
+      domestic: 0,
+      international: 0,
+      details: "No airport lounge access."
+    },
+    milestoneRewards: "4X reward points on all spends with zero points expiration.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver across petrol stations in India.",
+    forexMarkup: "0.0% (Zero Forex Markup)",
+    eligibility: {
+      minIncome: 0,
+      minAge: 18,
+      minCibil: 0,
+      employment: "Anyone (Students, Freelancers, Homemakers, Salaried)"
+    },
+    pros: [
+      "Guaranteed 100% approval rate with zero rejection risk",
+      "Zero forex markup fee makes it the best entry card for international travel and online subscriptions",
+      "FD continues to earn high interest while building your CIBIL score"
+    ],
+    cons: [
+      "Credit limit equals 100% of the deposited FD amount",
+      "Does not include airport lounge access"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=YOUR_AFF_ID",
+    campaignName: "IDFC FIRST Bank Cards"
+  },
+  {
     id: "icici-amazon-pay",
     name: "Amazon Pay ICICI Credit Card",
     bank: "ICICI Bank",
@@ -175,6 +234,360 @@ export const CREDIT_CARDS = [
     ],
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_amazon_pay&aff_id=YOUR_AFF_ID",
     campaignName: "ICICI Bank Credit Cards"
+  },
+  {
+    id: "axis-myzone",
+    name: "Axis Bank My Zone Credit Card",
+    bank: "Axis Bank",
+    network: "Visa / RuPay",
+    cardTheme: "axis-myzone",
+    joiningFee: 500,
+    annualFee: 500,
+    feeWaiverSpend: 200000,
+    isLifetimeFree: false,
+    rating: 4.7,
+    reviewsCount: 2240,
+    primaryCategory: "High Approval",
+    categories: ["High Approval", "Dining & Food", "Lounge", "UPI & RuPay"],
+    tag: "High Approval Starter Card",
+    cashbackSummary: "Free SonyLIV Annual Subscription + Buy 1 Get 1 on Paytm Movies & Swiggy ₹120 Off",
+    rewardStructure: {
+      online: 2.0,
+      dining: 6.0,
+      grocery: 2.0,
+      fuel: 0.0,
+      travel: 2.0,
+      bills: 1.0,
+      others: 1.0
+    },
+    keyPerks: [
+      "Complimentary SonyLIV Premium annual subscription worth ₹1,499 upon first spend within 30 days",
+      "Buy 1 Get 1 Free on Paytm Movie tickets (Up to ₹200 discount per calendar month)",
+      "Flat ₹120 off on Swiggy on minimum order of ₹500 (twice a month with coupon AXISMYZONE)",
+      "1 complimentary domestic airport lounge access per calendar quarter (spend based)",
+      "4 EDGE Reward Points per ₹200 spent on all standard transactions"
+    ],
+    welcomeBonus: "Free 1-Year SonyLIV Premium subscription upon card activation.",
+    loungeAccess: {
+      domestic: 4,
+      international: 0,
+      details: "1 complimentary domestic airport lounge visit per calendar quarter upon spending ₹50,000 in previous 3 months."
+    },
+    milestoneRewards: "Annual fee waived on spending ₹2,00,000 in the anniversary year.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver for spends ₹400 to ₹4,000.",
+    forexMarkup: "3.5% + GST",
+    eligibility: {
+      minIncome: 15000,
+      minAge: 18,
+      minCibil: 700,
+      employment: "Salaried or Self-Employed (Very High Approval Rate)"
+    },
+    pros: [
+      "Accessible entry-level eligibility criteria with high approval rates for young professionals",
+      "SonyLIV subscription and movie discounts easily recover the ₹500 annual fee",
+      "Available on RuPay network for UPI payments"
+    ],
+    cons: [
+      "Reward point earning rate is relatively modest on general spends",
+      "Swiggy discount has a ₹500 minimum order threshold"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_my_zone&aff_id=YOUR_AFF_ID",
+    campaignName: "Axis Bank Credit Cards"
+  },
+  {
+    id: "indusind-legend",
+    name: "IndusInd Bank Legend Credit Card",
+    bank: "IndusInd Bank",
+    network: "Visa Signature",
+    cardTheme: "indusind-legend",
+    joiningFee: 0,
+    annualFee: 0,
+    feeWaiverSpend: 0,
+    isLifetimeFree: true,
+    rating: 4.8,
+    reviewsCount: 1890,
+    primaryCategory: "Lifetime Free",
+    categories: ["Lifetime Free", "High Approval", "Lounge", "Shopping"],
+    tag: "Lifetime Free with Lounge Access",
+    cashbackSummary: "Lifetime Free + 1 Domestic Lounge/Quarter + Buy 1 Get 1 Movie Tickets",
+    rewardStructure: {
+      online: 2.0,
+      dining: 2.0,
+      grocery: 1.5,
+      fuel: 0.0,
+      travel: 3.0,
+      bills: 1.0,
+      others: 1.0
+    },
+    keyPerks: [
+      "100% Lifetime Free Card with zero annual maintenance fees on pre-approved issuance drives",
+      "1 complimentary domestic airport lounge visit per calendar quarter across major Indian airports",
+      "Buy 1 Get 1 Free on BookMyShow movie tickets (Up to ₹200 discount per ticket, twice a month)",
+      "Earn 1 Reward Point per ₹100 on weekdays and 2 Reward Points per ₹100 on weekends",
+      "1:1 cash conversion on reward points or airline voucher redemptions"
+    ],
+    welcomeBonus: "Discount vouchers on luxury retail brands upon card activation.",
+    loungeAccess: {
+      domestic: 4,
+      international: 0,
+      details: "1 complimentary domestic airport lounge visit per calendar quarter."
+    },
+    milestoneRewards: "4,000 bonus reward points on reaching ₹6 Lakh annual spend.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver across all fuel stations in India.",
+    forexMarkup: "3.5% + GST",
+    eligibility: {
+      minIncome: 25000,
+      minAge: 21,
+      minCibil: 720,
+      employment: "Salaried or Self-Employed (High Pre-Approval Volume)"
+    },
+    pros: [
+      "One of the few Lifetime Free cards providing complimentary domestic airport lounge access",
+      "Reliable weekend reward point multiplier",
+      "BOGO movie ticket savings of up to ₹4,800 annually on BookMyShow"
+    ],
+    cons: [
+      "Base weekday reward rate of 1% is moderate",
+      "Points redemption catalogue has minor processing fee"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_legend&aff_id=YOUR_AFF_ID",
+    campaignName: "IndusInd Bank Partner Program"
+  },
+  {
+    id: "hdfc-moneyback",
+    name: "HDFC MoneyBack+ Credit Card",
+    bank: "HDFC Bank",
+    network: "Visa / RuPay",
+    cardTheme: "hdfc-moneyback",
+    joiningFee: 500,
+    annualFee: 500,
+    feeWaiverSpend: 50000,
+    isLifetimeFree: false,
+    rating: 4.6,
+    reviewsCount: 3200,
+    primaryCategory: "High Approval",
+    categories: ["High Approval", "Shopping", "Cashback"],
+    tag: "High Approval Entry Starter",
+    cashbackSummary: "10X CashPoints on Amazon, Flipkart, Swiggy, Reliance Smart & BigBasket",
+    rewardStructure: {
+      online: 3.3,
+      dining: 3.3,
+      grocery: 3.3,
+      fuel: 0.0,
+      travel: 1.0,
+      bills: 1.0,
+      others: 0.7
+    },
+    keyPerks: [
+      "10X CashPoints (3.3% return) on Amazon, Flipkart, Swiggy, BigBasket, and Reliance Smart",
+      "5X CashPoints on EMI spends at merchant locations",
+      "2 CashPoints per ₹150 on other retail spends",
+      "Low ₹50,000 annual spend requirement to waive the ₹500 renewal fee",
+      "₹500 gift voucher on spending ₹50,000 per calendar quarter"
+    ],
+    welcomeBonus: "500 CashPoints upon payment of joining fee.",
+    loungeAccess: {
+      domestic: 0,
+      international: 0,
+      details: "No airport lounge access."
+    },
+    milestoneRewards: "₹500 gift voucher every quarter on ₹50,000 spend (Up to ₹2,000 vouchers/year).",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver for spends ₹400 to ₹5,000 (Max ₹250/cycle).",
+    forexMarkup: "3.5% + GST",
+    eligibility: {
+      minIncome: 20000,
+      minAge: 21,
+      minCibil: 700,
+      employment: "Salaried or Self-Employed (Top Approval Rate in HDFC)"
+    },
+    pros: [
+      "Highest approval rate among all HDFC retail credit cards",
+      "Low ₹50,000 annual spend condition for fee waiver",
+      "Quarterly voucher rewards offer an additional 1% return on spends"
+    ],
+    cons: [
+      "CashPoints redemption value for statement balance is 1 CP = ₹0.25",
+      "Does not include airport lounge access"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_moneyback_plus&aff_id=YOUR_AFF_ID",
+    campaignName: "HDFC Bank Credit Cards"
+  },
+  {
+    id: "onecard-metal",
+    name: "OneCard Metal Credit Card",
+    bank: "Federal / SBM / South Indian Bank",
+    network: "Visa Signature",
+    cardTheme: "onecard-metal",
+    joiningFee: 0,
+    annualFee: 0,
+    feeWaiverSpend: 0,
+    isLifetimeFree: true,
+    rating: 4.8,
+    reviewsCount: 2800,
+    primaryCategory: "Lifetime Free",
+    categories: ["Lifetime Free", "Guaranteed Approval", "Shopping", "Dining"],
+    tag: "Lifetime Free Metal Card (FD & Unsecured)",
+    cashbackSummary: "5X Rewards on top 2 monthly spend categories + 100% approval via FD option",
+    rewardStructure: {
+      online: 3.0,
+      dining: 4.0,
+      grocery: 3.0,
+      fuel: 1.0,
+      travel: 3.0,
+      bills: 1.0,
+      others: 1.0
+    },
+    keyPerks: [
+      "Premium metal credit card with zero joining fee and zero annual fee forever",
+      "Guaranteed approval option available against a Fixed Deposit starting from ₹5,000",
+      "5X Reward Points on your top 2 spending categories each month automatically",
+      "Fractional reward points on every transaction with instant in-app points redemption",
+      "1% fuel surcharge waiver up to ₹400 per month across petrol stations"
+    ],
+    welcomeBonus: "Welcome reward bonus points upon card activation in OneCard mobile app.",
+    loungeAccess: {
+      domestic: 0,
+      international: 0,
+      details: "No airport lounge access on standard tier."
+    },
+    milestoneRewards: "Bonus points multipliers on achieving monthly category spend targets.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver for spends ₹400 to ₹4,000.",
+    forexMarkup: "1.0% + GST (Very low international forex markup)",
+    eligibility: {
+      minIncome: 0,
+      minAge: 18,
+      minCibil: 0,
+      employment: "Salaried, Self-Employed, Students, or Against FD"
+    },
+    pros: [
+      "100% Lifetime Free metal card with sleek mobile app control",
+      "Low 1.0% forex markup is substantially cheaper than traditional bank cards (3.5%)",
+      "FD option guarantees 100% approval without requiring pay slips"
+    ],
+    cons: [
+      "No complimentary domestic airport lounge access",
+      "Reward rate outside the top 2 monthly categories is 0.2%"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=onecard_metal&aff_id=YOUR_AFF_ID",
+    campaignName: "OneCard Partner Network"
+  },
+  {
+    id: "kotak-811-dream",
+    name: "Kotak 811 #DreamDifferent Card",
+    bank: "Kotak Mahindra Bank",
+    network: "Visa",
+    cardTheme: "kotak-811",
+    joiningFee: 0,
+    annualFee: 0,
+    feeWaiverSpend: 0,
+    isLifetimeFree: true,
+    rating: 4.6,
+    reviewsCount: 1650,
+    primaryCategory: "Guaranteed Approval",
+    categories: ["Guaranteed Approval", "Lifetime Free", "Shopping"],
+    tag: "100% Approval Against FD",
+    cashbackSummary: "100% guaranteed approval against ₹10,000 FD + 2X rewards on online spends",
+    rewardStructure: {
+      online: 2.0,
+      dining: 1.5,
+      grocery: 1.5,
+      fuel: 1.0,
+      travel: 1.5,
+      bills: 1.0,
+      others: 1.0
+    },
+    keyPerks: [
+      "100% Guaranteed Approval against a Fixed Deposit of ₹10,000 or more",
+      "Zero income proof, no salary slips, and no prior CIBIL credit score required",
+      "Credit limit up to 90% of your fixed deposit amount",
+      "2X reward points on all online purchases with zero joining or annual maintenance fees",
+      "Interest-free cash withdrawal from ATMs up to 48 days (only nominal transaction fee applies)"
+    ],
+    welcomeBonus: "500 bonus reward points upon card activation and initial spend.",
+    loungeAccess: {
+      domestic: 0,
+      international: 0,
+      details: "No airport lounge access."
+    },
+    milestoneRewards: "₹750 cashback on spending ₹75,000 in an anniversary year.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver for spends ₹500 to ₹3,000 (Max ₹3,500/year).",
+    forexMarkup: "3.5% + GST",
+    eligibility: {
+      minIncome: 0,
+      minAge: 18,
+      minCibil: 0,
+      employment: "Anyone holding or opening a Kotak 811 Fixed Deposit"
+    },
+    pros: [
+      "100% guaranteed approval for individuals without credit history or formal salary slips",
+      "FD continues earning regular interest while you build credit score",
+      "Completely Lifetime Free"
+    ],
+    cons: [
+      "Requires minimum ₹10,000 fixed deposit lock-in",
+      "Basic reward rate on offline retail spends"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kotak_811_card&aff_id=YOUR_AFF_ID",
+    campaignName: "Kotak Mahindra Bank Cards"
+  },
+  {
+    id: "rbl-shoprite",
+    name: "RBL Bank ShopRite Credit Card",
+    bank: "RBL Bank",
+    network: "Mastercard",
+    cardTheme: "rbl-shoprite",
+    joiningFee: 500,
+    annualFee: 500,
+    feeWaiverSpend: 150000,
+    isLifetimeFree: false,
+    rating: 4.6,
+    reviewsCount: 1410,
+    primaryCategory: "High Approval",
+    categories: ["High Approval", "Shopping", "Dining"],
+    tag: "High Approval in Tier 2/3 Cities",
+    cashbackSummary: "5% valueback on grocery shopping + 10% off on BookMyShow movie tickets",
+    rewardStructure: {
+      online: 2.0,
+      dining: 2.5,
+      grocery: 5.0,
+      fuel: 2.5,
+      travel: 1.0,
+      bills: 1.0,
+      others: 1.0
+    },
+    keyPerks: [
+      "High approval rate across Tier-1, Tier-2, and Tier-3 cities in India",
+      "20 Reward Points per ₹100 spent on Grocery shopping (5% valueback, up to 1,000 points/month)",
+      "10% discount on BookMyShow movie tickets (Up to ₹100 off, 15 times a year)",
+      "1 Reward Point per ₹100 spent on all other standard retail categories",
+      "Fuel surcharge waiver at all petrol stations across India"
+    ],
+    welcomeBonus: "2,000 reward points (worth ₹500) upon card fee payment and first transaction.",
+    loungeAccess: {
+      domestic: 0,
+      international: 0,
+      details: "No airport lounge access."
+    },
+    milestoneRewards: "Annual fee reversal on achieving ₹1,50,000 spend in a year.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver for spends ₹500 to ₹4,000 (Max ₹100/month).",
+    forexMarkup: "3.5% + GST",
+    eligibility: {
+      minIncome: 20000,
+      minAge: 21,
+      minCibil: 700,
+      employment: "Salaried or Self-Employed (Broad City Serviceability)"
+    },
+    pros: [
+      "5% valueback return on routine supermarket and grocery shopping",
+      "BookMyShow discount can be used up to 15 times a year (saving up to ₹1,500)",
+      "Flexible approval underwriting for self-employed and small business owners"
+    ],
+    cons: [
+      "Monthly cap on grocery accelerated reward points",
+      "No complimentary airport lounge access"
+    ],
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=rbl_shoprite&aff_id=YOUR_AFF_ID",
+    campaignName: "RBL Bank Partner Program"
   },
   {
     id: "axis-airtel",
@@ -661,7 +1074,7 @@ export const CREDIT_CARDS = [
     rating: 4.7,
     reviewsCount: 980,
     primaryCategory: "Lifetime Free",
-    categories: ["Lifetime Free", "Cashback", "Lounge"],
+    categories: ["Lifetime Free", "Cashback", "Lounge", "High Approval"],
     tag: "Customizable Feature Model",
     cashbackSummary: "Activate 5% cashback or airport lounge visits on-demand via mobile app",
     rewardStructure: {
@@ -690,10 +1103,10 @@ export const CREDIT_CARDS = [
     fuelSurchargeWaiver: "1% fuel surcharge waiver feature available.",
     forexMarkup: "1.99% + GST (when forex booster feature is active)",
     eligibility: {
-      minIncome: 25000,
+      minIncome: 20000,
       minAge: 21,
-      minCibil: 730,
-      employment: "Salaried or Self-Employed"
+      minCibil: 720,
+      employment: "Salaried or Self-Employed (High Approval in Tier 2/3 Cities)"
     },
     pros: [
       "Zero fixed annual overhead: Pay small feature fees only in months you use them",
@@ -947,6 +1360,8 @@ export const CREDIT_CARDS = [
 
 export const CATEGORIES = [
   { id: "all", label: "All Cards" },
+  { id: "Guaranteed Approval", label: "100% Guaranteed Approval (FD)" },
+  { id: "High Approval", label: "High Approval Starters" },
   { id: "Cashback", label: "Cashback" },
   { id: "Lifetime Free", label: "Lifetime Free" },
   { id: "Travel & Miles", label: "Travel & Miles" },
@@ -963,11 +1378,14 @@ export const BANKS = [
   "SBI Card",
   "Axis Bank",
   "ICICI Bank",
+  "IDFC FIRST Bank",
+  "IndusInd Bank",
+  "Kotak Mahindra Bank",
+  "RBL Bank",
+  "Federal / SBM / OneCard",
   "American Express",
   "AU Small Finance Bank",
-  "HSBC Bank",
-  "Federal Bank",
-  "IDFC FIRST Bank"
+  "HSBC Bank"
 ];
 
 export const NETWORKS = ["Visa", "Mastercard", "RuPay", "American Express"];

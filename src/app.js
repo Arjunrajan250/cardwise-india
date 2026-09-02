@@ -73,7 +73,11 @@ class App {
 
     // 2. Bank Filter
     if (this.selectedBank !== 'all') {
-      result = result.filter(card => card.bank === this.selectedBank);
+      result = result.filter(card => 
+        card.bank === this.selectedBank || 
+        card.bank.includes(this.selectedBank) || 
+        this.selectedBank.includes(card.bank)
+      );
     }
 
     // 3. Fee Tier Filter
