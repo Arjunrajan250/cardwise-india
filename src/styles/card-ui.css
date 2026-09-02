@@ -110,6 +110,56 @@
 .theme-onecard-metal { background: linear-gradient(135deg, #18181b 0%, #27272a 60%, #09090b 100%); }
 .theme-kotak-811 { background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%); }
 .theme-rbl-shoprite { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); }
+.theme-sbi-simplyclick { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+.theme-sbi-simplysave { background: linear-gradient(135deg, #0d9488 0%, #115e59 100%); }
+.theme-axis-neo { background: linear-gradient(135deg, #9d174d 0%, #831843 100%); }
+.theme-axis-ace { background: linear-gradient(135deg, #047857 0%, #064e3b 100%); }
+.theme-icici-coral { background: linear-gradient(135deg, #c2410c 0%, #7c2d12 100%); }
+.theme-icici-platinum { background: linear-gradient(135deg, #475569 0%, #1e293b 100%); }
+.theme-indusind-aura { background: linear-gradient(135deg, #b45309 0%, #78350f 100%); }
+.theme-bob-easy { background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); }
+.theme-bob-premier { background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%); }
+.theme-au-altura { background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); }
+.theme-hsbc-platinum { background: linear-gradient(135deg, #b91c1c 0%, #450a0a 100%); }
+.theme-stanc-rewards { background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%); }
+.theme-yes-pop { background: linear-gradient(135deg, #0891b2 0%, #164e63 100%); }
+
+/* Approval Odds Indicator Badges */
+.badge-approval {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.badge-approval.guaranteed {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-approval.high {
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-approval.moderate {
+  background-color: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.badge-approval.strict {
+  background-color: #faf5ff;
+  color: #6b21a8;
+  border: 1px solid #e9d5ff;
+}
 
 /* Card Physical Texture Overlay */
 .credit-card-visual::after {

@@ -111,6 +111,8 @@ class App {
     // 6. Sorting
     if (this.sortBy === 'popularity') {
       result.sort((a, b) => b.reviewsCount - a.reviewsCount);
+    } else if (this.sortBy === 'approval-odds') {
+      result.sort((a, b) => (b.approvalOddsScore || 50) - (a.approvalOddsScore || 50));
     } else if (this.sortBy === 'rating') {
       result.sort((a, b) => b.rating - a.rating);
     } else if (this.sortBy === 'fee-low') {
@@ -159,9 +161,12 @@ class App {
         <article class="card-item" data-card-id="${card.id}">
           <div class="card-item-header">
             <span class="${tagClass}">${card.tag}</span>
-            <div class="rating-badge">
-              <span>★</span>
-              <span>${card.rating.toFixed(1)}</span>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span class="badge-approval ${card.approvalTier || 'moderate'}">${card.approvalLabel || 'Standard'}</span>
+              <div class="rating-badge">
+                <span>★</span>
+                <span>${card.rating.toFixed(1)}</span>
+              </div>
             </div>
           </div>
 
