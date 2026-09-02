@@ -31,23 +31,24 @@ export class AffiliateManager {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings));
   }
 
-  getAffiliateUrl(card) {
-    // Check if there is a custom override link for this card
-    if (this.settings.customLinks && this.settings.customLinks[card.id]) {
-      return this.settings.customLinks[card.id];
+  resolveUrl(rawUrl, id) {
+    if (this.settings.customLinks && id && this.settings.customLinks[id]) {
+      return this.settings.customLinks[id];
     }
 
-    // Replace placeholder affiliate ID and sub-ID in default URL
-    let url = card.affiliateUrl || `https://tracking.vcommission.com/aff_c?offer_id=${card.id}&aff_id=YOUR_AFF_ID`;
-    url = url.replace('YOUR_AFF_ID', this.settings.affiliateId);
+    let url = rawUrl || `https://tracking.vcommission.com/aff_c?offer_id=${id}&aff_id=YOUR_AFF_ID`;
+    url = url.replace('YOUR_AFF_ID', this.settings.affiliateId || 'DEMO_AFF_ID');
     
-    // Append sub-ID parameter
     if (!url.includes('aff_sub=')) {
       const separator = url.includes('?') ? '&' : '?';
-      url = `${url}${separator}aff_sub=${encodeURIComponent(this.settings.subId)}`;
+      url = `${url}${separator}aff_sub=${encodeURIComponent(this.settings.subId || 'cardwise_web')}`;
     }
 
     return url;
+  }
+
+  getAffiliateUrl(card) {
+    return this.resolveUrl(card.affiliateUrl, card.id);
   }
 
   triggerOutboundApply(card, onRedirectReady) {
