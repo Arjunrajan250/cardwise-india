@@ -160,13 +160,13 @@ class App {
       return `
         <article class="card-item" data-card-id="${card.id}">
           <div class="card-item-header">
-            <span class="${tagClass}">${card.tag}</span>
-            <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <div class="card-badges-left">
+              <span class="${tagClass}">${card.tag}</span>
               <span class="badge-approval ${card.approvalTier || 'moderate'}">${card.approvalLabel || 'Standard'}</span>
-              <div class="rating-badge">
-                <span>★</span>
-                <span>${card.rating.toFixed(1)}</span>
-              </div>
+            </div>
+            <div class="rating-badge">
+              <span>★</span>
+              <span>${card.rating.toFixed(1)}</span>
             </div>
           </div>
 
