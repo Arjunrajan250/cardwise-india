@@ -903,7 +903,7 @@ class App {
         return;
       }
 
-      const closeBtn = e.target.closest('.btn-close-modal');
+      const closeBtn = e.target.closest('.btn-close-icon, .btn-close-modal, .btn-cancel-modal');
       if (closeBtn) {
         const modal = closeBtn.closest('.modal-backdrop');
         if (modal) modal.classList.remove('open');

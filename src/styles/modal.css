@@ -57,7 +57,8 @@
   font-weight: 700;
 }
 
-.btn-close-modal {
+.btn-close-icon,
+.btn-close-modal:not(.btn) {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-xs);
@@ -69,11 +70,23 @@
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color var(--transition-fast);
+  border: 1px solid var(--border-subtle);
 }
 
-.btn-close-modal:hover {
+.btn-close-icon:hover,
+.btn-close-modal:not(.btn):hover {
   background-color: var(--bg-muted);
   color: var(--text-primary);
+}
+
+.modal-footer-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .modal-body {
