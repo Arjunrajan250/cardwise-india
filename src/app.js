@@ -1111,6 +1111,15 @@ class App {
         return;
       }
 
+      const openModalTrigger = e.target.closest('[data-open-modal]');
+      if (openModalTrigger) {
+        e.preventDefault();
+        const modalId = openModalTrigger.dataset.openModal;
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add('open');
+        return;
+      }
+
       const closeBtn = e.target.closest('.btn-close-icon, .btn-close-modal, .btn-cancel-modal');
       if (closeBtn) {
         const modal = closeBtn.closest('.modal-backdrop');

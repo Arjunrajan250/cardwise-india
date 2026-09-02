@@ -761,6 +761,17 @@ input, select {
   font-size: 0.82rem;
 }
 
+.legal-link {
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+  cursor: pointer;
+}
+
+.legal-link:hover {
+  color: var(--brand-primary);
+  text-decoration: underline;
+}
+
 /* ==========================================================================
    Toast Notifications
    ========================================================================== */
