@@ -3,7 +3,7 @@
  * Handles affiliate links, vCommission IDs, custom sub-IDs, and outbound redirection
  */
 
-const STORAGE_KEY = 'cardwise_affiliate_settings';
+const STORAGE_KEY = 'instantcred_affiliate_settings';
 
 export class AffiliateManager {
   constructor() {
@@ -21,7 +21,7 @@ export class AffiliateManager {
     }
     return {
       affiliateId: 'DEMO_AFF_ID',
-      subId: 'cardwise_web',
+      subId: 'instantcred_web',
       customLinks: {}
     };
   }
@@ -41,7 +41,7 @@ export class AffiliateManager {
     
     if (!url.includes('aff_sub=')) {
       const separator = url.includes('?') ? '&' : '?';
-      url = `${url}${separator}aff_sub=${encodeURIComponent(this.settings.subId || 'cardwise_web')}`;
+      url = `${url}${separator}aff_sub=${encodeURIComponent(this.settings.subId || 'instantcred_web')}`;
     }
 
     return url;
@@ -65,14 +65,14 @@ export class AffiliateManager {
 
     // Track event for internal analytics
     try {
-      const clickLogs = JSON.parse(localStorage.getItem('cardwise_clicks') || '[]');
+      const clickLogs = JSON.parse(localStorage.getItem('instantcred_clicks') || '[]');
       clickLogs.push({
         cardId: card.id,
         cardName: card.name,
         bank: card.bank,
         timestamp: new Date().toISOString()
       });
-      localStorage.setItem('cardwise_clicks', JSON.stringify(clickLogs.slice(-100)));
+      localStorage.setItem('instantcred_clicks', JSON.stringify(clickLogs.slice(-100)));
     } catch (e) {
       // Ignore storage errors
     }

@@ -954,7 +954,7 @@ class App {
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
         const affId = inputAffId.value.trim() || 'DEMO_AFF_ID';
-        const subId = inputSubId.value.trim() || 'cardwise_web';
+        const subId = inputSubId.value.trim() || 'instantcred_web';
         affiliateManager.saveSettings({ affiliateId: affId, subId });
         this.showToast('Affiliate settings saved successfully.', 'success');
         affiliateModal.classList.remove('open');
