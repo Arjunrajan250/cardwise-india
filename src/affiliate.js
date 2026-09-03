@@ -63,13 +63,23 @@ export class AffiliateManager {
       });
     }
 
-    // Track event for internal analytics
+    // Track event for internal analytics & Google Analytics 4
     try {
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'affiliate_click', {
+          item_id: card.id,
+          item_name: card.name,
+          category: card.lender ? 'loan' : 'credit_card',
+          partner: card.lender || card.bank || 'Partner',
+          outbound_url: finalUrl
+        });
+      }
+
       const clickLogs = JSON.parse(localStorage.getItem('instantcred_clicks') || '[]');
       clickLogs.push({
         cardId: card.id,
         cardName: card.name,
-        bank: card.bank,
+        bank: card.bank || card.lender,
         timestamp: new Date().toISOString()
       });
       localStorage.setItem('instantcred_clicks', JSON.stringify(clickLogs.slice(-100)));
