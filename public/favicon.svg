@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Circle / Base -->
+  <rect width="64" height="64" rx="16" fill="#0f172a" />
+
+  <!-- Credit Card Graphic -->
+  <g filter="url(#shadow)">
+    <!-- Main Card Body -->
+    <rect x="8" y="14" width="48" height="36" rx="6" fill="url(#cardGrad)" />
+
+    <!-- Magnetic / Decorative Stripe -->
+    <rect x="8" y="21" width="48" height="6" fill="#1e293b" opacity="0.35" />
+
+    <!-- EMV Golden Chip -->
+    <rect x="14" y="31" width="9" height="7" rx="1.5" fill="url(#chipGrad)" />
+    
+    <!-- Chip Grid Lines -->
+    <line x1="14" y1="34.5" x2="23" y2="34.5" stroke="#92400e" stroke-width="0.6" />
+    <line x1="18.5" y1="31" x2="18.5" y2="38" stroke="#92400e" stroke-width="0.6" />
+
+    <!-- Card Embossed Lines / Details -->
+    <rect x="27" y="32" width="16" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+    <rect x="27" y="36" width="10" height="2" rx="1" fill="#ffffff" opacity="0.5" />
+
+    <!-- Contactless Wave Icon / Sparkle -->
+    <path d="M47 31 C 49 33, 49 36, 47 38" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M50 28 C 53 32, 53 37, 50 41" fill="none" stroke="#93c5fd" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+</svg>
