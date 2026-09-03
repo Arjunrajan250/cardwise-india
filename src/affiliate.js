@@ -20,7 +20,7 @@ export class AffiliateManager {
       }
     }
     return {
-      affiliateId: 'DEMO_AFF_ID',
+      affiliateId: '131993',
       subId: 'instantcred_web',
       customLinks: {}
     };
@@ -37,7 +37,7 @@ export class AffiliateManager {
     }
 
     let url = rawUrl || `https://tracking.vcommission.com/aff_c?offer_id=${id}&aff_id=YOUR_AFF_ID`;
-    url = url.replace('YOUR_AFF_ID', this.settings.affiliateId || 'DEMO_AFF_ID');
+    url = url.replace('YOUR_AFF_ID', this.settings.affiliateId || '131993');
     
     if (!url.includes('aff_sub=')) {
       const separator = url.includes('?') ? '&' : '?';
