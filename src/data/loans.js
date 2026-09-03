@@ -57,6 +57,34 @@ export const CREDIT_SCORE_OFFERS = [
 
 export const PERSONAL_LOANS = [
   {
+    id: "fibe-loan",
+    name: "Fibe Instant Personal Loan",
+    lender: "Fibe (formerly EarlySalary) / Social Worth Technologies NBFC",
+    category: "instant",
+    maxAmount: 1000000,
+    maxAmountLabel: "Up to ₹10 Lakh",
+    minAmount: 5000,
+    interestRateRange: "From 1.5% / mo (from 18% p.a.)",
+    tenureRange: "3 to 36 Months",
+    disbursalTime: "Disbursal in 2 - 10 Mins",
+    minSalary: 20000,
+    minSalaryLabel: "₹20,000 / month (Salaried)",
+    minCibil: 682,
+    approvalOdds: "97% (Fast OTP Score Check)",
+    rating: 4.8,
+    badge: "Disbursal in 10 Mins (₹10L)",
+    commissionRate: "₹24.50 CPL (Billable on OTP Score Check)",
+    keyPerks: [
+      "Instant digital personal loans up to ₹10 Lakh with direct bank transfer in minutes",
+      "Flexible EMI tenures from 3 to 36 months with zero collateral & paperless OTP approval",
+      "Real-time credit score evaluation with instant eligibility check on mobile & web",
+      "Exclusively for salaried professionals with ₹20k+ bank credit across 5,000+ pin codes"
+    ],
+    eligibility: "Age 21-55 yrs • Salaried (₹20k+ bank credit) • CIBIL 682+ preferred",
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=fibe_in_cair_cpl&aff_id=YOUR_AFF_ID",
+    campaignName: "Fibe.in CAIR CPL - India"
+  },
+  {
     id: "moneyview-loan",
     name: "Moneyview Instant Personal Loan",
     lender: "Moneyview / Whizdm Finance (RBI Registered NBFC)",
