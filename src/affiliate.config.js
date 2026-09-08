@@ -6,9 +6,12 @@
  */
 
 export const DEFAULT_AFFILIATE_CONFIG = {
-  version: 2,
+  version: 3,
   // Active primary affiliate network: 'vcommission' | 'cuelinks' | 'earnkaro' | 'impact' | 'direct'
   primaryNetwork: 'cuelinks',
+
+  // Hide all cards that do not have active affiliate tracking (Only display monetized cards)
+  hideNonAffiliateCards: true,
 
   // Network-specific configuration and publisher credentials
   networks: {

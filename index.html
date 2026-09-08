@@ -608,6 +608,23 @@
         
         <!-- Tab 1: Networks & Credentials -->
         <div class="aff-tab-pane active" id="aff-tab-networks">
+          <!-- Monetized Cards Only Filter Control -->
+          <div class="monetization-filter-banner" style="background: var(--bg-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <strong style="font-size: 0.92rem; color: var(--text-primary);">Hide Cards Without Affiliate Tracking</strong>
+                <span class="url-preview-badge" id="badgeMonetizedCount" style="background: rgba(16, 185, 129, 0.15); color: #059669; font-weight: 700;">17 Monetized Cards Active</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Only display cards that have active affiliate campaigns (SBI, HDFC, Axis, Scapia, BOB). Cards without affiliate tracking are hidden to protect click commissions.
+              </div>
+            </div>
+            <label class="switch" style="flex-shrink: 0;">
+              <input type="checkbox" id="toggleHideNonAffiliate" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
           <div class="aff-section-desc">
             Select your <strong>Primary Affiliate Network</strong>. All credit card and loan apply buttons will dynamically generate tracking links with your publisher credentials.
           </div>

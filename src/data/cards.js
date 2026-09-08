@@ -52,6 +52,7 @@ export const CREDIT_CARDS = [
       "Credit limit equals 100% of the deposited FD amount",
       "Does not include airport lounge access"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.idfcfirstbank.com/credit-card/wow",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=YOUR_AFF_ID",
     campaignName: "IDFC FIRST Bank Cards"
@@ -106,6 +107,7 @@ export const CREDIT_CARDS = [
       "No complimentary domestic airport lounge access",
       "Reward rate outside the top 2 monthly categories is 0.2%"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.getonecard.app/",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=onecard_metal&aff_id=YOUR_AFF_ID",
     campaignName: "OneCard Partner Network"
@@ -160,6 +162,7 @@ export const CREDIT_CARDS = [
       "Requires minimum ₹10,000 fixed deposit lock-in",
       "Basic reward rate on offline retail spends"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.kotak.com/en/personal-banking/cards/credit-cards/811-dream-different-credit-card.html",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kotak_811_card&aff_id=YOUR_AFF_ID",
     campaignName: "Kotak Mahindra Bank Cards"
@@ -218,6 +221,7 @@ export const CREDIT_CARDS = [
       "Does not include airport lounge access",
       "Offline non-Amazon spends earn a modest 1% rate"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.icicibank.com/personal-banking/cards/credit-cards/amazon-pay-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_amazon_pay&aff_id=YOUR_AFF_ID",
     campaignName: "ICICI Bank Credit Cards"
@@ -272,6 +276,9 @@ export const CREDIT_CARDS = [
       "Reward point earning rate is relatively modest on general spends",
       "Swiggy discount has a ₹500 minimum order threshold"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Axis Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/my-zone-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_my_zone&aff_id=YOUR_AFF_ID",
     campaignName: "Axis Bank Credit Cards"
@@ -326,6 +333,7 @@ export const CREDIT_CARDS = [
       "Base weekday reward rate of 1% is moderate",
       "Points redemption catalogue has minor processing fee"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.indusind.com/in/en/personal/cards/credit-cards/legend-credit-card.html",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_legend&aff_id=YOUR_AFF_ID",
     campaignName: "IndusInd Bank Partner Program"
@@ -380,6 +388,9 @@ export const CREDIT_CARDS = [
       "No complimentary domestic airport lounge access",
       "Reward points expire after 24 months"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "SBI Sprint Simply Click Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/simplyclick-sbi-card.page",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_simplyclick&aff_id=YOUR_AFF_ID",
     campaignName: "SBI Card Affiliate Program"
@@ -434,6 +445,9 @@ export const CREDIT_CARDS = [
       "Modest reward rate on non-dining online shopping",
       "No airport lounge access"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "SBI Sprint Simply Save Credit Card - CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/simplysave-sbi-card.page",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_simplysave&aff_id=YOUR_AFF_ID",
     campaignName: "SBI Card Affiliate Program"
@@ -488,6 +502,9 @@ export const CREDIT_CARDS = [
       "Monthly caps on Zomato and Blinkit discounts",
       "No complimentary airport lounge access"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Axis Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/neo-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_neo&aff_id=YOUR_AFF_ID",
     campaignName: "Axis Bank Credit Cards"
@@ -542,6 +559,7 @@ export const CREDIT_CARDS = [
       "Lounge access requires meeting the ₹35,000 quarterly spend threshold",
       "Basic general reward rate of 0.5% - 1%"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.icicibank.com/personal-banking/cards/credit-cards/coral-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_coral&aff_id=YOUR_AFF_ID",
     campaignName: "ICICI Bank Credit Cards"
@@ -596,6 +614,7 @@ export const CREDIT_CARDS = [
       "No complimentary airport lounge access",
       "Modest reward point return"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.icicibank.com/personal-banking/cards/credit-cards/platinum-chip-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_platinum_chip&aff_id=YOUR_AFF_ID",
     campaignName: "ICICI Bank Credit Cards"
@@ -650,6 +669,7 @@ export const CREDIT_CARDS = [
       "Does not include airport lounge access",
       "Points outside your chosen category earn a standard 1% rate"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.indusind.com/in/en/personal/cards/credit-cards/aura-edge-credit-card.html",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_aura_edge&aff_id=YOUR_AFF_ID",
     campaignName: "IndusInd Bank Partner Program"
@@ -704,6 +724,9 @@ export const CREDIT_CARDS = [
       "No complimentary airport lounge access",
       "Base point redemption value is 1 Point = ₹0.25"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "BOB Card CPL",
+    cuelinksPayout: "₹1,350.00 / Sale",
     directUrl: "https://www.bobfinancial.com/easy.jsp",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=bob_easy_card&aff_id=YOUR_AFF_ID",
     campaignName: "Bank of Baroda Credit Cards"
@@ -758,6 +781,7 @@ export const CREDIT_CARDS = [
       "Per-transaction cashback cap on category spends",
       "No domestic airport lounge access (railway lounge included)"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.aubank.in/personal-banking/credit-cards/altura-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=au_altura&aff_id=YOUR_AFF_ID",
     campaignName: "AU Small Finance Bank Cards"
@@ -812,6 +836,7 @@ export const CREDIT_CARDS = [
       "Available primarily to salaried applicants in major metro cities",
       "No airport lounge access included"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.hsbc.co.in/credit-cards/products/platinum/",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hsbc_platinum&aff_id=YOUR_AFF_ID",
     campaignName: "HSBC Bank Cards"
@@ -866,6 +891,9 @@ export const CREDIT_CARDS = [
       "CashPoints redemption value for statement balance is 1 CP = ₹0.25",
       "Does not include airport lounge access"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "HDFC Bank Credit Card CPL",
+    cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/moneyback-plus",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_moneyback_plus&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Bank Credit Cards"
@@ -920,6 +948,7 @@ export const CREDIT_CARDS = [
       "Monthly cap on grocery accelerated reward points",
       "No complimentary airport lounge access"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.rblbank.com/product/credit-cards/shoprite-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=rbl_shoprite&aff_id=YOUR_AFF_ID",
     campaignName: "RBL Bank Partner Program"
@@ -978,6 +1007,9 @@ export const CREDIT_CARDS = [
       "No cashback on Utility bills, Rent, Wallet loads, or Fuel",
       "Does not include airport lounge access"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "SBI Sprint Cashback Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/cashback-sbi-card.page",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_cashback_card&aff_id=YOUR_AFF_ID",
     campaignName: "SBI Card Partner Network"
@@ -1032,6 +1064,9 @@ export const CREDIT_CARDS = [
       "Lounge access requires meeting the quarterly spend criterion",
       "Monthly cap of 1,000 CashPoints on 5% partner transactions"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "HDFC Bank Credit Card CPL",
+    cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/millennia-cards",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_millennia&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Bank Credit Cards"
@@ -1086,6 +1121,9 @@ export const CREDIT_CARDS = [
       "Utility discounts require payment through the Airtel Thanks app",
       "Monthly caps apply on utility and dining cashback"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Axis Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/airtel-axis-bank-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_airtel_card&aff_id=YOUR_AFF_ID",
     campaignName: "Axis Bank Partner Cards"
@@ -1140,6 +1178,9 @@ export const CREDIT_CARDS = [
       "No complimentary airport lounge access",
       "High ₹3.5 Lakh spend threshold for fee waiver"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Axis Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/flipkart-axis-bank-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_flipkart&aff_id=YOUR_AFF_ID",
     campaignName: "Axis Bank Credit Cards"
@@ -1194,6 +1235,9 @@ export const CREDIT_CARDS = [
       "No airport lounge access",
       "Excludes fuel, wallet reloads, and government/utility payments"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "HDFC Bank Swiggy Credit Card CPL",
+    cuelinksPayout: "₹1,829.25 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/swiggy-hdfc-bank-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=swiggy_hdfc&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Co-brand Cards"
@@ -1248,6 +1292,9 @@ export const CREDIT_CARDS = [
       "NeuCoins are redeemable exclusively within the Tata brand network",
       "₹1,499 annual fee is higher than standard cashback cards"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "HDFC Bank Credit Card CPL",
+    cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.tataneu.com/financial-services/credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=tata_neu_infinity&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Bank RuPay Cards"
@@ -1302,6 +1349,9 @@ export const CREDIT_CARDS = [
       "Approvals depend on Federal Bank internal serviceable location guidelines",
       "Scapia coins are redeemable only for travel bookings inside the Scapia app"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Federal Scapia Credit Card CPL",
+    cuelinksPayout: "₹1,200.00 / Lead",
     directUrl: "https://www.scapia.cards/",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=scapia_federal&aff_id=YOUR_AFF_ID",
     campaignName: "Scapia Travel Cards"
@@ -1356,6 +1406,7 @@ export const CREDIT_CARDS = [
       "Feature packs require manual renewal in the app after expiration",
       "Requires active management through mobile banking"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.aubank.in/personal-banking/credit-cards/lit-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=au_lit_card&aff_id=YOUR_AFF_ID",
     campaignName: "AU Small Finance Bank Cards"
@@ -1410,6 +1461,9 @@ export const CREDIT_CARDS = [
       "Fuel benefits apply exclusively at BPCL petrol stations",
       "Monthly ceiling of 2,500 bonus reward points on fuel purchases"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "SBI BPCL Octane Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/bpcl-sbi-card-octane.page",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_bpcl_octane&aff_id=YOUR_AFF_ID",
     campaignName: "SBI Card Affiliate Program"
@@ -1464,6 +1518,7 @@ export const CREDIT_CARDS = [
       "Accelerated 10% cashback is capped at ₹1,000 per month",
       "Strict city serviceable requirements for HSBC approvals"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.hsbc.co.in/credit-cards/products/cashback/",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hsbc_live_plus&aff_id=YOUR_AFF_ID",
     campaignName: "HSBC Bank Cards"
@@ -1522,6 +1577,9 @@ export const CREDIT_CARDS = [
       "Annual fee of ₹5,000 is not waivable (renewed with 2,500 bonus miles)",
       "Strict merchant categorization on airline booking portals"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Axis Credit Card CPL",
+    cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/atlas-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_atlas&aff_id=YOUR_AFF_ID",
     campaignName: "Axis Bank Premium Cards"
@@ -1576,6 +1634,9 @@ export const CREDIT_CARDS = [
       "SmartBuy point redemptions are subject to a 70% points / 30% cash rule",
       "₹4 Lakh annual spend required for fee waiver"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "HDFC Bank Credit Card CPL",
+    cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-gold-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_regalia_gold&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Bank Credit Cards"
@@ -1630,6 +1691,7 @@ export const CREDIT_CARDS = [
       "₹5,000 annual fee is non-waivable",
       "American Express offline acceptance is lower in Tier-2 and Tier-3 cities"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.americanexpress.com/in/credit-cards/platinum-travel-credit-card/",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=amex_platinum_travel&aff_id=YOUR_AFF_ID",
     campaignName: "American Express India"
@@ -1684,6 +1746,7 @@ export const CREDIT_CARDS = [
       "Requires ₹20,000 spend in previous month to unlock quarterly lounge and spa access",
       "High qualification requirements for the Wealth tier"
     ],
+    hasAffiliate: false,
     directUrl: "https://www.idfcfirstbank.com/credit-card/wealth",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wealth&aff_id=YOUR_AFF_ID",
     campaignName: "IDFC FIRST Bank Cards"
@@ -1738,6 +1801,9 @@ export const CREDIT_CARDS = [
       "Strict invitation-only income and credit criteria",
       "₹12,500 annual maintenance fee"
     ],
+    hasAffiliate: true,
+    cuelinksCampaign: "HDFC Bank Credit Card CPL",
+    cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/infinia-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_infinia&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Super Premium Cards"

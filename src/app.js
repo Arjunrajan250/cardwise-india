@@ -7,7 +7,8 @@ import { affiliateManager } from './affiliate.js';
 
 class App {
   constructor() {
-    this.cards = CREDIT_CARDS;
+    this.allCards = CREDIT_CARDS;
+    this.updateActiveCards();
     this.creditScoreOffers = CREDIT_SCORE_OFFERS;
     this.personalLoans = PERSONAL_LOANS;
     this.filteredCards = [...this.cards];
@@ -24,6 +25,15 @@ class App {
     this.quiz = new CardQuiz(this.cards);
 
     this.init();
+  }
+
+  updateActiveCards() {
+    const shouldHide = affiliateManager.settings.hideNonAffiliateCards !== false;
+    if (shouldHide) {
+      this.cards = this.allCards.filter(c => c.hasAffiliate !== false);
+    } else {
+      this.cards = [...this.allCards];
+    }
   }
 
   init() {
@@ -46,7 +56,19 @@ class App {
     const container = document.getElementById('categoryChipsContainer');
     if (!container) return;
 
-    container.innerHTML = CATEGORIES.map(cat => `
+    // Filter categories to only those that have at least one card in this.cards
+    const availableCategories = CATEGORIES.filter(cat => {
+      if (cat.id === 'all') return true;
+      return this.cards.some(card => 
+        card.primaryCategory === cat.id || (card.categories && card.categories.includes(cat.id))
+      );
+    });
+
+    if (this.activeCategory !== 'all' && !availableCategories.some(c => c.id === this.activeCategory)) {
+      this.activeCategory = 'all';
+    }
+
+    container.innerHTML = availableCategories.map(cat => `
       <button type="button" class="category-chip ${cat.id === this.activeCategory ? 'active' : ''}" data-category-id="${cat.id}">
         <span>${cat.label}</span>
       </button>
@@ -56,13 +78,15 @@ class App {
   populateFilterDropdowns() {
     const bankSelect = document.getElementById('bankFilterSelect');
     if (bankSelect) {
-      const bankOptions = BANKS.map(b => `<option value="${b}">${b}</option>`).join('');
+      const activeBanks = [...new Set(this.cards.map(c => c.bank))].sort();
+      const bankOptions = activeBanks.map(b => `<option value="${b}">${b}</option>`).join('');
       bankSelect.innerHTML = `<option value="all">All Banks</option>${bankOptions}`;
     }
 
     const networkSelect = document.getElementById('networkFilterSelect');
     if (networkSelect) {
-      const netOptions = NETWORKS.map(n => `<option value="${n}">${n}</option>`).join('');
+      const netOptions = NETWORKS.filter(n => this.cards.some(c => c.network?.includes(n)))
+        .map(n => `<option value="${n}">${n}</option>`).join('');
       networkSelect.innerHTML = `<option value="all">All Networks</option>${netOptions}`;
     }
   }
@@ -1007,6 +1031,26 @@ class App {
         }
       });
 
+      // Monetization Filter toggle
+      const toggleHideNonAffiliate = document.getElementById('toggleHideNonAffiliate');
+      const badgeMonetizedCount = document.getElementById('badgeMonetizedCount');
+      if (toggleHideNonAffiliate) {
+        toggleHideNonAffiliate.checked = settings.hideNonAffiliateCards !== false;
+        const activeMonetizedCount = this.allCards.filter(c => c.hasAffiliate !== false).length;
+        if (badgeMonetizedCount) {
+          badgeMonetizedCount.textContent = toggleHideNonAffiliate.checked 
+            ? `${activeMonetizedCount} Monetized Cards Active` 
+            : `All ${this.allCards.length} Cards Active`;
+        }
+        toggleHideNonAffiliate.onchange = () => {
+          if (badgeMonetizedCount) {
+            badgeMonetizedCount.textContent = toggleHideNonAffiliate.checked 
+              ? `${activeMonetizedCount} Monetized Cards Active` 
+              : `All ${this.allCards.length} Cards Active`;
+          }
+        };
+      }
+
       // Show matching network panel
       const panels = ['vcommission', 'cuelinks', 'earnkaro', 'impact', 'direct'];
       panels.forEach(p => {
@@ -1187,6 +1231,13 @@ class App {
       btnResetDefaults.addEventListener('click', () => {
         if (confirm('Are you sure you want to reset all affiliate credentials and custom overrides to defaults?')) {
           affiliateManager.resetToDefaults();
+          this.updateActiveCards();
+          if (this.comparator) this.comparator.cards = this.cards;
+          if (this.calculator) this.calculator.cards = this.cards;
+          if (this.quiz) this.quiz.cards = this.cards;
+          this.populateFilterDropdowns();
+          this.renderCategoryChips();
+          this.applyFilters();
           populateNetworkInputs();
           this.renderAffiliateOffersTable();
           this.renderAffiliateAnalytics();
@@ -1219,19 +1270,19 @@ class App {
       });
     }
 
-    // Save All Settings Button
-    if (saveBtn) {
-      saveBtn.addEventListener('click', () => {
+    const btnSave = document.getElementById('btnSaveAffiliateSettings');
+    if (btnSave) {
+      btnSave.addEventListener('click', () => {
         const selectedRadio = document.querySelector('input[name="affPrimaryNetwork"]:checked');
-        const primaryNet = selectedRadio ? selectedRadio.value : 'vcommission';
+        const selectedNetwork = selectedRadio ? selectedRadio.value : 'cuelinks';
 
         const vcommAffId = document.getElementById('inputVcommAffId')?.value.trim() || '131993';
         const vcommSubId = document.getElementById('inputVcommSubId')?.value.trim() || 'instantcred_web';
         const vcommSubId2 = document.getElementById('inputVcommSubId2')?.value.trim() || '';
 
-        const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '';
+        const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '271664';
         const cuelinksSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
-        const selectCuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'cprewritten';
+        const selectCuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'linksredirect';
         const isScriptEnabled = document.getElementById('toggleCuelinksScript')?.checked || false;
 
         const earnkaroUserId = document.getElementById('inputEarnkaroUserId')?.value.trim() || '';
@@ -1244,32 +1295,37 @@ class App {
         const utmMedium = document.getElementById('inputUtmMedium')?.value.trim() || 'affiliate';
         const utmCampaign = document.getElementById('inputUtmCampaign')?.value.trim() || 'credit_cards_2026';
 
-        // Collect custom links and network overrides
+        const hideNonAffiliate = document.getElementById('toggleHideNonAffiliate')
+          ? document.getElementById('toggleHideNonAffiliate').checked
+          : true;
+
+        // Collect custom link overrides
         const customLinks = { ...affiliateManager.settings.customLinks };
         const networkOverrides = { ...affiliateManager.settings.networkOverrides };
 
         document.querySelectorAll('.aff-override-input').forEach(input => {
-          const itemId = input.dataset.itemId;
+          const id = input.dataset.itemId;
           const val = input.value.trim();
           if (val) {
-            customLinks[itemId] = val;
+            customLinks[id] = val;
           } else {
-            delete customLinks[itemId];
+            delete customLinks[id];
           }
         });
 
         document.querySelectorAll('.aff-route-select').forEach(select => {
-          const itemId = select.dataset.itemId;
+          const id = select.dataset.itemId;
           const val = select.value;
           if (val && val !== 'default') {
-            networkOverrides[itemId] = val;
+            networkOverrides[id] = val;
           } else {
-            delete networkOverrides[itemId];
+            delete networkOverrides[id];
           }
         });
 
         const newSettings = {
-          primaryNetwork: primaryNet,
+          primaryNetwork: selectedNetwork,
+          hideNonAffiliateCards: hideNonAffiliate,
           networks: {
             vcommission: {
               name: 'vCommission',
@@ -1280,6 +1336,7 @@ class App {
             cuelinks: {
               name: 'Cuelinks',
               pubId: cuelinksPubId,
+              channelId: affiliateManager.settings.networks?.cuelinks?.channelId || '317055',
               subId: cuelinksSubId,
               enableAutoTaggingScript: isScriptEnabled,
               redirectFormat: selectCuelinksFormat
@@ -1307,6 +1364,15 @@ class App {
 
         affiliateManager.saveSettings(newSettings);
 
+        // Refresh cards and sub-systems if visibility changed
+        this.updateActiveCards();
+        if (this.comparator) this.comparator.cards = this.cards;
+        if (this.calculator) this.calculator.cards = this.cards;
+        if (this.quiz) this.quiz.cards = this.cards;
+        this.populateFilterDropdowns();
+        this.renderCategoryChips();
+        this.applyFilters();
+
         // Re-render live sections to immediately apply new tracking links
         this.initCreditScoreSection();
         this.initLoansSection();
@@ -1323,8 +1389,8 @@ class App {
 
   updateAffiliateLivePreview() {
     const selectedRadio = document.querySelector('input[name="affPrimaryNetwork"]:checked');
-    const net = selectedRadio ? selectedRadio.value : 'vcommission';
-    const sampleCard = this.cards[0] || { id: 'idfc-first-wow', name: 'IDFC FIRST WOW Credit Card', directUrl: 'https://www.idfcfirstbank.com/credit-card/wow', affiliateUrl: 'https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=YOUR_AFF_ID' };
+    const net = selectedRadio ? selectedRadio.value : 'cuelinks';
+    const sampleCard = this.cards.find(c => c.id === 'sbi-cashback') || this.cards[0] || { id: 'sbi-cashback', name: 'SBI Cashback Credit Card', directUrl: 'https://www.sbicard.com/en/personal/credit-cards/rewards/cashback-sbi-card.page', affiliateUrl: '' };
 
     const previewNameEl = document.getElementById('previewCardName');
     const previewUrlEl = document.getElementById('previewResolvedUrl');
@@ -1332,9 +1398,9 @@ class App {
 
     const vcommAffId = document.getElementById('inputVcommAffId')?.value.trim() || '131993';
     const vcommSubId = document.getElementById('inputVcommSubId')?.value.trim() || 'instantcred_web';
-    const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || 'YOUR_CUELINKS_PUB_ID';
+    const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '271664';
     const cuelinksSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
-    const cuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'cprewritten';
+    const cuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'linksredirect';
     const isScript = document.getElementById('toggleCuelinksScript')?.checked || false;
     const earnkaroId = document.getElementById('inputEarnkaroUserId')?.value.trim() || 'YOUR_EARNKARO_ID';
     const impactMpId = document.getElementById('inputImpactMpId')?.value.trim() || 'YOUR_IMPACT_MP_ID';
@@ -1344,10 +1410,11 @@ class App {
     const directUrl = sampleCard.directUrl;
 
     if (net === 'cuelinks') {
+      const channelId = affiliateManager.settings.networks?.cuelinks?.channelId || '317055';
       if (isScript && cuelinksPubId !== 'YOUR_CUELINKS_PUB_ID') {
         previewUrl = `${directUrl} (Auto-monetized via Cuelinks JS Widget)`;
       } else if (cuelinksFormat === 'linksredirect') {
-        previewUrl = `https://linksredirect.com/?cid=${encodeURIComponent(cuelinksPubId)}&subid=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
+        previewUrl = `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
       } else {
         previewUrl = `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(cuelinksPubId)}&sub_id=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
       }
@@ -1367,6 +1434,11 @@ class App {
   renderAffiliateOffersTable(filterType = 'all', searchQuery = '') {
     const tbody = document.getElementById('affCardTableBody');
     if (!tbody) return;
+
+    const pillAll = document.querySelector('.aff-filter-pill[data-type="all"]');
+    const pillCards = document.querySelector('.aff-filter-pill[data-type="cards"]');
+    if (pillCards) pillCards.textContent = `Credit Cards (${this.cards.length})`;
+    if (pillAll) pillAll.textContent = `All (${this.cards.length + this.personalLoans.length + this.creditScoreOffers.length})`;
 
     let items = [];
     if (filterType === 'all' || filterType === 'cards') {
@@ -1390,7 +1462,7 @@ class App {
     }
 
     const settings = affiliateManager.settings;
-    const globalNet = settings.primaryNetwork || 'vcommission';
+    const globalNet = settings.primaryNetwork || 'cuelinks';
 
     tbody.innerHTML = items.map(item => {
       const customUrl = settings.customLinks?.[item.id] || '';
@@ -1405,6 +1477,7 @@ class App {
             <div class="aff-card-meta">
               <span class="aff-card-name">${item.name}</span>
               <span class="aff-card-sub">${typeBadge} • ${item.bankLabel}</span>
+              ${item.cuelinksCampaign ? `<span style="display: inline-block; font-size: 0.72rem; color: #059669; font-weight: 600; margin-top: 0.2rem; background: rgba(16, 185, 129, 0.12); padding: 0.1rem 0.4rem; border-radius: 4px;">🎯 ${item.cuelinksCampaign} (${item.cuelinksPayout || ''})</span>` : ''}
             </div>
           </td>
           <td>
