@@ -18,12 +18,22 @@ console.log('--- Starting Affiliate Engine Unit & Integration Tests ---');
 
 const mgr = new AffiliateManager();
 
-// Test 1: Default vCommission resolution
-console.log('\n[Test 1] vCommission Resolution:');
+// Test 1: Default Cuelinks resolution (Auto-configured for Channel ID 317055)
+console.log('\n[Test 1] Default Cuelinks Resolution:');
 const wowCard = CREDIT_CARDS.find(c => c.id === 'idfc-first-wow');
 const wowUrl = mgr.resolveUrl(wowCard);
 console.log('IDFC WOW URL:', wowUrl);
-if (!wowUrl.includes('aff_id=131993') || !wowUrl.includes('aff_sub=instantcred_web')) {
+if (!wowUrl.startsWith('https://linksredirect.com/?cid=317055&subid=instantcred_web&url=')) {
+  throw new Error('Default Cuelinks resolution failed!');
+}
+console.log('✓ Default Cuelinks resolution passed.');
+
+// Test 1b: Switch to vCommission
+console.log('\n[Test 1b] vCommission Resolution:');
+mgr.saveSettings({ primaryNetwork: 'vcommission' });
+const vcommUrl = mgr.resolveUrl(wowCard);
+console.log('IDFC WOW vCommission URL:', vcommUrl);
+if (!vcommUrl.includes('aff_id=131993') || !vcommUrl.includes('aff_sub=instantcred_web')) {
   throw new Error('vCommission resolution failed!');
 }
 console.log('✓ vCommission resolution passed.');

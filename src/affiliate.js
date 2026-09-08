@@ -31,6 +31,14 @@ export class AffiliateManager {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
+          if (!parsed.version || parsed.version < (DEFAULT_AFFILIATE_CONFIG.version || 1)) {
+            const upgraded = this.deepMerge(DEFAULT_AFFILIATE_CONFIG, {
+              customLinks: parsed.customLinks || {},
+              networkOverrides: parsed.networkOverrides || {}
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(upgraded));
+            return upgraded;
+          }
           // Deep merge with DEFAULT_AFFILIATE_CONFIG to ensure all structure exists
           return this.deepMerge(DEFAULT_AFFILIATE_CONFIG, parsed);
         }

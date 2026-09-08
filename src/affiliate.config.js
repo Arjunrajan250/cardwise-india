@@ -6,8 +6,9 @@
  */
 
 export const DEFAULT_AFFILIATE_CONFIG = {
+  version: 2,
   // Active primary affiliate network: 'vcommission' | 'cuelinks' | 'earnkaro' | 'impact' | 'direct'
-  primaryNetwork: 'vcommission',
+  primaryNetwork: 'cuelinks',
 
   // Network-specific configuration and publisher credentials
   networks: {
