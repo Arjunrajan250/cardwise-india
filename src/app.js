@@ -36,7 +36,7 @@ class App {
     this.initLoanCalculator();
     this.initScrollSpy();
     this.bindEvents();
-    this.checkInitialAffiliateConfig();
+    this.initAffiliateControlCenter();
   }
 
   /* --------------------------------------------------------------------------
@@ -753,7 +753,7 @@ class App {
     if (!grid) return;
 
     grid.innerHTML = this.creditScoreOffers.map(offer => {
-      const finalUrl = affiliateManager.resolveUrl(offer.affiliateUrl, offer.id);
+      const finalUrl = affiliateManager.resolveUrl(offer);
       return `
         <div class="cibil-provider-card">
           <div>
@@ -777,12 +777,22 @@ class App {
             </ul>
           </div>
 
-          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald" style="width: 100%; text-align: center;">
+          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-track-cibil" data-offer-id="${offer.id}" style="width: 100%; text-align: center;">
             ${offer.ctaText}
           </a>
         </div>
       `;
     }).join('');
+
+    grid.querySelectorAll('.btn-track-cibil').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const offerId = btn.dataset.offerId;
+        const offer = this.creditScoreOffers.find(o => o.id === offerId);
+        if (offer) {
+          affiliateManager.logClick(offer, btn.href, affiliateManager.getNetworkForItem(offer));
+        }
+      });
+    });
   }
 
   initLoansSection() {
@@ -790,7 +800,7 @@ class App {
     if (!grid) return;
 
     grid.innerHTML = this.personalLoans.map(loan => {
-      const finalUrl = affiliateManager.resolveUrl(loan.affiliateUrl, loan.id);
+      const finalUrl = affiliateManager.resolveUrl(loan);
       return `
         <div class="loan-card">
           <div class="loan-card-header">
@@ -833,12 +843,22 @@ class App {
             <strong>Eligibility:</strong> ${loan.eligibility}
           </div>
 
-          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; text-align: center; margin-top: auto;">
+          <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-track-loan" data-loan-id="${loan.id}" style="width: 100%; text-align: center; margin-top: auto;">
             Apply for Instant Loan ↗
           </a>
         </div>
       `;
     }).join('');
+
+    grid.querySelectorAll('.btn-track-loan').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const loanId = btn.dataset.loanId;
+        const loan = this.personalLoans.find(l => l.id === loanId);
+        if (loan) {
+          affiliateManager.logClick(loan, btn.href, affiliateManager.getNetworkForItem(loan));
+        }
+      });
+    });
   }
 
   initLoanCalculator() {
@@ -938,27 +958,548 @@ class App {
   }
 
   /* --------------------------------------------------------------------------
-     9. Affiliate Config & Admin Settings
+     9. Affiliate & Monetization Control Center
      -------------------------------------------------------------------------- */
-  checkInitialAffiliateConfig() {
+  initAffiliateControlCenter() {
     const affiliateModal = document.getElementById('affiliateModal');
     const saveBtn = document.getElementById('btnSaveAffiliateSettings');
-    const inputAffId = document.getElementById('inputAffiliateId');
-    const inputSubId = document.getElementById('inputAffiliateSubId');
+    const btnAffConfig = document.getElementById('btnOpenAffiliateModal');
 
-    if (inputAffId && inputSubId) {
-      inputAffId.value = affiliateManager.settings.affiliateId || '';
-      inputSubId.value = affiliateManager.settings.subId || '';
+    // Tab Navigation
+    const tabButtons = document.querySelectorAll('.aff-tab-btn');
+    const tabPanes = document.querySelectorAll('.aff-tab-pane');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabPanes.forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        const targetPane = document.getElementById(btn.dataset.tab);
+        if (targetPane) targetPane.classList.add('active');
+
+        // Refresh dynamic content when tab opens
+        if (btn.dataset.tab === 'aff-tab-analytics') {
+          this.renderAffiliateAnalytics();
+        } else if (btn.dataset.tab === 'aff-tab-code') {
+          this.renderAffiliateCodeAndBackup();
+        } else if (btn.dataset.tab === 'aff-tab-links') {
+          this.renderAffiliateOffersTable();
+        }
+      });
+    });
+
+    // Populate Tab 1: Networks & Credentials
+    const populateNetworkInputs = () => {
+      const settings = affiliateManager.settings;
+      const primaryNet = settings.primaryNetwork || 'vcommission';
+
+      // Set active network radio & card styling
+      document.querySelectorAll('.network-card').forEach(card => {
+        const net = card.dataset.network;
+        const radio = card.querySelector('input[type="radio"]');
+        if (net === primaryNet) {
+          card.classList.add('active');
+          if (radio) radio.checked = true;
+        } else {
+          card.classList.remove('active');
+          if (radio) radio.checked = false;
+        }
+      });
+
+      // Show matching network panel
+      const panels = ['vcommission', 'cuelinks', 'earnkaro', 'impact', 'direct'];
+      panels.forEach(p => {
+        const el = document.getElementById(`panel-${p}`);
+        if (el) el.style.display = p === primaryNet ? 'block' : 'none';
+      });
+
+      // vCommission inputs
+      const inputVcommAffId = document.getElementById('inputVcommAffId');
+      const inputVcommSubId = document.getElementById('inputVcommSubId');
+      const inputVcommSubId2 = document.getElementById('inputVcommSubId2');
+      if (inputVcommAffId) inputVcommAffId.value = settings.networks?.vcommission?.affiliateId || '';
+      if (inputVcommSubId) inputVcommSubId.value = settings.networks?.vcommission?.subId || '';
+      if (inputVcommSubId2) inputVcommSubId2.value = settings.networks?.vcommission?.subId2 || '';
+
+      // Cuelinks inputs
+      const inputCuelinksPubId = document.getElementById('inputCuelinksPubId');
+      const inputCuelinksSubId = document.getElementById('inputCuelinksSubId');
+      const selectCuelinksFormat = document.getElementById('selectCuelinksFormat');
+      const toggleCuelinksScript = document.getElementById('toggleCuelinksScript');
+      const cuelinksScriptStatusText = document.getElementById('cuelinksScriptStatusText');
+
+      if (inputCuelinksPubId) inputCuelinksPubId.value = settings.networks?.cuelinks?.pubId || '';
+      if (inputCuelinksSubId) inputCuelinksSubId.value = settings.networks?.cuelinks?.subId || '';
+      if (selectCuelinksFormat) selectCuelinksFormat.value = settings.networks?.cuelinks?.redirectFormat || 'cprewritten';
+      if (toggleCuelinksScript) {
+        toggleCuelinksScript.checked = !!settings.networks?.cuelinks?.enableAutoTaggingScript;
+        if (cuelinksScriptStatusText) {
+          cuelinksScriptStatusText.textContent = toggleCuelinksScript.checked
+            ? 'Active (Auto-tagging direct bank links via JS)'
+            : 'Disabled (Using Redirection Links)';
+          cuelinksScriptStatusText.style.color = toggleCuelinksScript.checked ? 'var(--brand-success)' : 'var(--text-secondary)';
+        }
+      }
+
+      // EarnKaro inputs
+      const inputEarnkaroUserId = document.getElementById('inputEarnkaroUserId');
+      const inputEarnkaroSubId = document.getElementById('inputEarnkaroSubId');
+      if (inputEarnkaroUserId) inputEarnkaroUserId.value = settings.networks?.earnkaro?.userId || '';
+      if (inputEarnkaroSubId) inputEarnkaroSubId.value = settings.networks?.earnkaro?.subId || '';
+
+      // Impact inputs
+      const inputImpactMpId = document.getElementById('inputImpactMpId');
+      const inputImpactSubId = document.getElementById('inputImpactSubId');
+      if (inputImpactMpId) inputImpactMpId.value = settings.networks?.impact?.mediaPartnerId || '';
+      if (inputImpactSubId) inputImpactSubId.value = settings.networks?.impact?.campaignSubId || '';
+
+      // Direct UTM inputs
+      const inputUtmSource = document.getElementById('inputUtmSource');
+      const inputUtmMedium = document.getElementById('inputUtmMedium');
+      const inputUtmCampaign = document.getElementById('inputUtmCampaign');
+      if (inputUtmSource) inputUtmSource.value = settings.networks?.direct?.utmSource || '';
+      if (inputUtmMedium) inputUtmMedium.value = settings.networks?.direct?.utmMedium || '';
+      if (inputUtmCampaign) inputUtmCampaign.value = settings.networks?.direct?.utmCampaign || '';
+
+      this.updateAffiliateLivePreview();
+    };
+
+    populateNetworkInputs();
+
+    // Network Card Selection
+    document.querySelectorAll('.network-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const net = card.dataset.network;
+        document.querySelectorAll('.network-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+
+        const panels = ['vcommission', 'cuelinks', 'earnkaro', 'impact', 'direct'];
+        panels.forEach(p => {
+          const el = document.getElementById(`panel-${p}`);
+          if (el) el.style.display = p === net ? 'block' : 'none';
+        });
+
+        this.updateAffiliateLivePreview();
+      });
+    });
+
+    // Cuelinks script toggle listener
+    const toggleCuelinksScript = document.getElementById('toggleCuelinksScript');
+    if (toggleCuelinksScript) {
+      toggleCuelinksScript.addEventListener('change', () => {
+        const statusText = document.getElementById('cuelinksScriptStatusText');
+        if (statusText) {
+          statusText.textContent = toggleCuelinksScript.checked
+            ? 'Active (Auto-tagging direct bank links via JS)'
+            : 'Disabled (Using Redirection Links)';
+          statusText.style.color = toggleCuelinksScript.checked ? 'var(--brand-success)' : 'var(--text-secondary)';
+        }
+        this.updateAffiliateLivePreview();
+      });
     }
 
+    // Live preview on input changes
+    const modalInputs = affiliateModal ? affiliateModal.querySelectorAll('.affiliate-form-input') : [];
+    modalInputs.forEach(input => {
+      input.addEventListener('input', () => this.updateAffiliateLivePreview());
+      input.addEventListener('change', () => this.updateAffiliateLivePreview());
+    });
+
+    // Tab 2 Search & Filter Pills
+    const searchInput = document.getElementById('inputAffSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const activePill = document.querySelector('.aff-filter-pill.active');
+        const filterType = activePill ? activePill.dataset.type : 'all';
+        this.renderAffiliateOffersTable(filterType, e.target.value);
+      });
+    }
+
+    document.querySelectorAll('.aff-filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.aff-filter-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const searchVal = searchInput ? searchInput.value : '';
+        this.renderAffiliateOffersTable(pill.dataset.type, searchVal);
+      });
+    });
+
+    // Tab 3 Analytics Actions
+    const btnDownloadCSV = document.getElementById('btnDownloadClicksCSV');
+    if (btnDownloadCSV) {
+      btnDownloadCSV.addEventListener('click', () => this.downloadClicksCSV());
+    }
+
+    const btnClearLogs = document.getElementById('btnClearClicksLog');
+    if (btnClearLogs) {
+      btnClearLogs.addEventListener('click', () => {
+        if (confirm('Clear all recorded click logs?')) {
+          affiliateManager.clearClickLogs();
+          this.renderAffiliateAnalytics();
+          this.showToast('Click logs cleared.', 'info');
+        }
+      });
+    }
+
+    // Tab 4 Backup & Code Actions
+    const btnExportJSON = document.getElementById('btnExportJSON');
+    if (btnExportJSON) {
+      btnExportJSON.addEventListener('click', () => {
+        const jsonStr = affiliateManager.exportConfigJSON();
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `instantcred-affiliate-config-${new Date().toISOString().slice(0, 10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        this.showToast('Affiliate settings exported to JSON.', 'success');
+      });
+    }
+
+    const inputImportJSON = document.getElementById('inputImportJSON');
+    if (inputImportJSON) {
+      inputImportJSON.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const res = affiliateManager.importConfigJSON(event.target.result);
+          if (res.success) {
+            populateNetworkInputs();
+            this.renderAffiliateOffersTable();
+            this.renderAffiliateAnalytics();
+            this.renderAffiliateCodeAndBackup();
+            this.showToast('Settings imported successfully!', 'success');
+          } else {
+            alert('Failed to parse JSON file: ' + res.error);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    const btnResetDefaults = document.getElementById('btnResetDefaults');
+    if (btnResetDefaults) {
+      btnResetDefaults.addEventListener('click', () => {
+        if (confirm('Are you sure you want to reset all affiliate credentials and custom overrides to defaults?')) {
+          affiliateManager.resetToDefaults();
+          populateNetworkInputs();
+          this.renderAffiliateOffersTable();
+          this.renderAffiliateAnalytics();
+          this.renderAffiliateCodeAndBackup();
+          this.showToast('All settings reset to defaults.', 'info');
+        }
+      });
+    }
+
+    const btnCopyCode = document.getElementById('btnCopyConfigCode');
+    if (btnCopyCode) {
+      btnCopyCode.addEventListener('click', () => {
+        const code = affiliateManager.generateConfigCode();
+        navigator.clipboard.writeText(code).then(() => {
+          this.showToast('Configuration code copied to clipboard!', 'success');
+        }).catch(() => {
+          this.showToast('Code copied.', 'success');
+        });
+      });
+    }
+
+    // Modal Open Refresh
+    if (btnAffConfig) {
+      btnAffConfig.addEventListener('click', () => {
+        populateNetworkInputs();
+        this.renderAffiliateOffersTable();
+        this.renderAffiliateAnalytics();
+        this.renderAffiliateCodeAndBackup();
+        if (affiliateModal) affiliateModal.classList.add('open');
+      });
+    }
+
+    // Save All Settings Button
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
-        const affId = inputAffId.value.trim() || 'DEMO_AFF_ID';
-        const subId = inputSubId.value.trim() || 'instantcred_web';
-        affiliateManager.saveSettings({ affiliateId: affId, subId });
-        this.showToast('Affiliate settings saved successfully.', 'success');
-        affiliateModal.classList.remove('open');
+        const selectedRadio = document.querySelector('input[name="affPrimaryNetwork"]:checked');
+        const primaryNet = selectedRadio ? selectedRadio.value : 'vcommission';
+
+        const vcommAffId = document.getElementById('inputVcommAffId')?.value.trim() || '131993';
+        const vcommSubId = document.getElementById('inputVcommSubId')?.value.trim() || 'instantcred_web';
+        const vcommSubId2 = document.getElementById('inputVcommSubId2')?.value.trim() || '';
+
+        const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '';
+        const cuelinksSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
+        const selectCuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'cprewritten';
+        const isScriptEnabled = document.getElementById('toggleCuelinksScript')?.checked || false;
+
+        const earnkaroUserId = document.getElementById('inputEarnkaroUserId')?.value.trim() || '';
+        const earnkaroSubId = document.getElementById('inputEarnkaroSubId')?.value.trim() || 'instantcred_web';
+
+        const impactMpId = document.getElementById('inputImpactMpId')?.value.trim() || '';
+        const impactSubId = document.getElementById('inputImpactSubId')?.value.trim() || 'instantcred_web';
+
+        const utmSource = document.getElementById('inputUtmSource')?.value.trim() || 'instantcred';
+        const utmMedium = document.getElementById('inputUtmMedium')?.value.trim() || 'affiliate';
+        const utmCampaign = document.getElementById('inputUtmCampaign')?.value.trim() || 'credit_cards_2026';
+
+        // Collect custom links and network overrides
+        const customLinks = { ...affiliateManager.settings.customLinks };
+        const networkOverrides = { ...affiliateManager.settings.networkOverrides };
+
+        document.querySelectorAll('.aff-override-input').forEach(input => {
+          const itemId = input.dataset.itemId;
+          const val = input.value.trim();
+          if (val) {
+            customLinks[itemId] = val;
+          } else {
+            delete customLinks[itemId];
+          }
+        });
+
+        document.querySelectorAll('.aff-route-select').forEach(select => {
+          const itemId = select.dataset.itemId;
+          const val = select.value;
+          if (val && val !== 'default') {
+            networkOverrides[itemId] = val;
+          } else {
+            delete networkOverrides[itemId];
+          }
+        });
+
+        const newSettings = {
+          primaryNetwork: primaryNet,
+          networks: {
+            vcommission: {
+              name: 'vCommission',
+              affiliateId: vcommAffId,
+              subId: vcommSubId,
+              subId2: vcommSubId2
+            },
+            cuelinks: {
+              name: 'Cuelinks',
+              pubId: cuelinksPubId,
+              subId: cuelinksSubId,
+              enableAutoTaggingScript: isScriptEnabled,
+              redirectFormat: selectCuelinksFormat
+            },
+            earnkaro: {
+              name: 'EarnKaro',
+              userId: earnkaroUserId,
+              subId: earnkaroSubId
+            },
+            impact: {
+              name: 'Impact.com',
+              mediaPartnerId: impactMpId,
+              campaignSubId: impactSubId
+            },
+            direct: {
+              name: 'Direct Official Bank Links',
+              utmSource: utmSource,
+              utmMedium: utmMedium,
+              utmCampaign: utmCampaign
+            }
+          },
+          customLinks,
+          networkOverrides
+        };
+
+        affiliateManager.saveSettings(newSettings);
+
+        // Re-render live sections to immediately apply new tracking links
+        this.initCreditScoreSection();
+        this.initLoansSection();
+        if (this.comparator) {
+          const content = document.getElementById('comparisonModalContent');
+          if (content) content.innerHTML = this.comparator.renderComparisonMatrixHTML(affiliateManager);
+        }
+
+        this.showToast('Affiliate settings saved and active!', 'success');
+        if (affiliateModal) affiliateModal.classList.remove('open');
       });
+    }
+  }
+
+  updateAffiliateLivePreview() {
+    const selectedRadio = document.querySelector('input[name="affPrimaryNetwork"]:checked');
+    const net = selectedRadio ? selectedRadio.value : 'vcommission';
+    const sampleCard = this.cards[0] || { id: 'idfc-first-wow', name: 'IDFC FIRST WOW Credit Card', directUrl: 'https://www.idfcfirstbank.com/credit-card/wow', affiliateUrl: 'https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=YOUR_AFF_ID' };
+
+    const previewNameEl = document.getElementById('previewCardName');
+    const previewUrlEl = document.getElementById('previewResolvedUrl');
+    if (previewNameEl) previewNameEl.textContent = sampleCard.name;
+
+    const vcommAffId = document.getElementById('inputVcommAffId')?.value.trim() || '131993';
+    const vcommSubId = document.getElementById('inputVcommSubId')?.value.trim() || 'instantcred_web';
+    const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || 'YOUR_CUELINKS_PUB_ID';
+    const cuelinksSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
+    const cuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'cprewritten';
+    const isScript = document.getElementById('toggleCuelinksScript')?.checked || false;
+    const earnkaroId = document.getElementById('inputEarnkaroUserId')?.value.trim() || 'YOUR_EARNKARO_ID';
+    const impactMpId = document.getElementById('inputImpactMpId')?.value.trim() || 'YOUR_IMPACT_MP_ID';
+    const utmSrc = document.getElementById('inputUtmSource')?.value.trim() || 'instantcred';
+
+    let previewUrl = '';
+    const directUrl = sampleCard.directUrl;
+
+    if (net === 'cuelinks') {
+      if (isScript && cuelinksPubId !== 'YOUR_CUELINKS_PUB_ID') {
+        previewUrl = `${directUrl} (Auto-monetized via Cuelinks JS Widget)`;
+      } else if (cuelinksFormat === 'linksredirect') {
+        previewUrl = `https://linksredirect.com/?cid=${encodeURIComponent(cuelinksPubId)}&subid=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
+      } else {
+        previewUrl = `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(cuelinksPubId)}&sub_id=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
+      }
+    } else if (net === 'earnkaro') {
+      previewUrl = `https://earnkaro.com/deal/redirect?deal_id=${encodeURIComponent(directUrl)}&r=${encodeURIComponent(earnkaroId)}&subid=${encodeURIComponent(vcommSubId)}`;
+    } else if (net === 'impact') {
+      previewUrl = `${directUrl}?irclickid=instantcred_web&mpid=${encodeURIComponent(impactMpId)}`;
+    } else if (net === 'direct') {
+      previewUrl = `${directUrl}?utm_source=${encodeURIComponent(utmSrc)}&utm_medium=affiliate&utm_campaign=credit_cards_2026`;
+    } else {
+      previewUrl = `https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=${encodeURIComponent(vcommAffId)}&aff_sub=${encodeURIComponent(vcommSubId)}`;
+    }
+
+    if (previewUrlEl) previewUrlEl.textContent = previewUrl;
+  }
+
+  renderAffiliateOffersTable(filterType = 'all', searchQuery = '') {
+    const tbody = document.getElementById('affCardTableBody');
+    if (!tbody) return;
+
+    let items = [];
+    if (filterType === 'all' || filterType === 'cards') {
+      items.push(...this.cards.map(c => ({ ...c, itemType: 'card', bankLabel: c.bank })));
+    }
+    if (filterType === 'all' || filterType === 'loans') {
+      items.push(...this.personalLoans.map(l => ({ ...l, itemType: 'loan', bankLabel: l.lender })));
+    }
+    if (filterType === 'all' || filterType === 'cibil') {
+      items.push(...this.creditScoreOffers.map(s => ({ ...s, itemType: 'cibil', bankLabel: s.provider })));
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+    if (query) {
+      items = items.filter(i => (i.name && i.name.toLowerCase().includes(query)) || (i.bankLabel && i.bankLabel.toLowerCase().includes(query)));
+    }
+
+    if (items.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">No matching cards or offers found.</td></tr>`;
+      return;
+    }
+
+    const settings = affiliateManager.settings;
+    const globalNet = settings.primaryNetwork || 'vcommission';
+
+    tbody.innerHTML = items.map(item => {
+      const customUrl = settings.customLinks?.[item.id] || '';
+      const currentRoute = settings.networkOverrides?.[item.id] || 'default';
+      const resolvedUrl = affiliateManager.resolveUrl(item);
+
+      const typeBadge = item.itemType === 'card' ? '💳 Card' : item.itemType === 'loan' ? '💰 Loan' : '📊 Score';
+
+      return `
+        <tr>
+          <td>
+            <div class="aff-card-meta">
+              <span class="aff-card-name">${item.name}</span>
+              <span class="aff-card-sub">${typeBadge} • ${item.bankLabel}</span>
+            </div>
+          </td>
+          <td>
+            <select class="aff-route-select" data-item-id="${item.id}">
+              <option value="default" ${currentRoute === 'default' ? 'selected' : ''}>Global (${globalNet})</option>
+              <option value="vcommission" ${currentRoute === 'vcommission' ? 'selected' : ''}>vCommission</option>
+              <option value="cuelinks" ${currentRoute === 'cuelinks' ? 'selected' : ''}>Cuelinks</option>
+              <option value="earnkaro" ${currentRoute === 'earnkaro' ? 'selected' : ''}>EarnKaro</option>
+              <option value="impact" ${currentRoute === 'impact' ? 'selected' : ''}>Impact</option>
+              <option value="direct" ${currentRoute === 'direct' ? 'selected' : ''}>Direct Bank UTM</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="aff-override-input" data-item-id="${item.id}" placeholder="Override URL (or leave blank to inherit route)" value="${customUrl}" />
+          </td>
+          <td style="text-align: right;">
+            <a href="${resolvedUrl}" target="_blank" rel="noopener noreferrer" class="aff-test-btn" title="Open resolved tracking URL in new tab">
+              Test ↗
+            </a>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  renderAffiliateAnalytics() {
+    const logs = affiliateManager.getClickLogs();
+    const statTotalClicks = document.getElementById('statTotalClicks');
+    const statActiveNetwork = document.getElementById('statActiveNetwork');
+    const statTopCard = document.getElementById('statTopCard');
+    const container = document.getElementById('clicksLogContainer');
+
+    if (statTotalClicks) statTotalClicks.textContent = logs.length;
+    if (statActiveNetwork) statActiveNetwork.textContent = affiliateManager.settings.primaryNetwork?.toUpperCase() || 'VCOMMISSION';
+
+    if (logs.length > 0) {
+      const counts = {};
+      logs.forEach(l => { counts[l.name] = (counts[l.name] || 0) + 1; });
+      const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+      if (statTopCard) statTopCard.textContent = top ? `${top[0]} (${top[1]})` : '—';
+    } else {
+      if (statTopCard) statTopCard.textContent = '—';
+    }
+
+    if (!container) return;
+
+    if (logs.length === 0) {
+      container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 2.5rem 1rem; font-size: 0.85rem;">No outbound clicks recorded yet. Clicks on "Apply Now" buttons will be logged here in real-time.</div>`;
+      return;
+    }
+
+    container.innerHTML = logs.map(l => {
+      const timeStr = new Date(l.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const dateStr = new Date(l.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' });
+      return `
+        <div class="click-log-item">
+          <div>
+            <div style="font-weight: 700; color: var(--text-primary);">${l.name}</div>
+            <div style="font-size: 0.74rem; color: var(--text-muted);">${l.bank} • <span style="font-weight: 600; text-transform: uppercase; color: var(--brand-primary);">${l.network || 'network'}</span></div>
+          </div>
+          <div style="text-align: right;">
+            <div class="click-log-time">${dateStr}, ${timeStr}</div>
+            <a href="${l.destinationUrl}" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: var(--brand-primary); text-decoration: underline;">Verify URL ↗</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  downloadClicksCSV() {
+    const logs = affiliateManager.getClickLogs();
+    if (logs.length === 0) {
+      this.showToast('No click activity logs to export.', 'info');
+      return;
+    }
+
+    let csv = 'Timestamp,Offer Name,Bank / Lender,Affiliate Network,Destination URL\n';
+    logs.forEach(l => {
+      csv += `"${l.timestamp}","${(l.name || '').replace(/"/g, '""')}","${(l.bank || '').replace(/"/g, '""')}","${l.network || ''}","${(l.destinationUrl || '').replace(/"/g, '""')}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `instantcred-clicks-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    this.showToast('Clicks log downloaded as CSV.', 'success');
+  }
+
+  renderAffiliateCodeAndBackup() {
+    const codeEl = document.getElementById('codeConfigPreview');
+    if (codeEl) {
+      codeEl.textContent = affiliateManager.generateConfigCode();
     }
   }
 
@@ -1043,14 +1584,6 @@ class App {
     document.querySelectorAll('.btn-launch-quiz').forEach(btn => {
       btn.addEventListener('click', () => this.openQuizModal());
     });
-
-    const btnAffConfig = document.getElementById('btnOpenAffiliateModal');
-    if (btnAffConfig) {
-      btnAffConfig.addEventListener('click', () => {
-        const modal = document.getElementById('affiliateModal');
-        if (modal) modal.classList.add('open');
-      });
-    }
 
     document.addEventListener('click', (e) => {
       if (e.target.id === 'btnResetAllFilters') {

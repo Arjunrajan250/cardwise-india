@@ -261,17 +261,198 @@
 }
 
 /* --------------------------------------------------------------------------
-   Affiliate Link Settings Modal
+   Affiliate & Monetization Control Center Modal
    -------------------------------------------------------------------------- */
+.affiliate-control-modal {
+  width: 95%;
+  max-width: 860px;
+}
+
+.affiliate-modal-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.affiliate-modal-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1.5rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-subtle);
+  overflow-x: auto;
+}
+
+.aff-tab-btn {
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.aff-tab-btn:hover {
+  color: var(--brand-primary);
+}
+
+.aff-tab-btn.active {
+  color: var(--brand-primary);
+  border-bottom-color: var(--brand-primary);
+  background: transparent;
+}
+
+.aff-tab-pane {
+  display: none;
+}
+
+.aff-tab-pane.active {
+  display: block;
+}
+
+.aff-section-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  line-height: 1.55;
+}
+
+/* Network Selector Grid */
+.network-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.network-card {
+  position: relative;
+  background: #ffffff;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.network-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.network-card.active {
+  border-color: var(--brand-primary);
+  background: var(--brand-primary-light);
+  box-shadow: 0 0 0 1px var(--brand-primary);
+}
+
+.network-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.network-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.network-logo-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+}
+
+.network-logo-badge.vcomm { background: #dbeafe; color: #1e40af; }
+.network-logo-badge.cuelinks { background: #fef3c7; color: #92400e; }
+.network-logo-badge.earnkaro { background: #dcfce7; color: #166534; }
+.network-logo-badge.impact { background: #ede9fe; color: #5b21b6; }
+.network-logo-badge.direct { background: #f1f5f9; color: #334155; }
+
+.network-type-badge {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.network-card-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.network-card-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Network Config Panels */
+.network-config-panels {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.network-panel-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aff-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.aff-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .aff-grid-2,
+  .aff-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
 .affiliate-form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1.15rem;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
 }
 
 .affiliate-form-label {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -280,20 +461,318 @@
   background-color: #ffffff;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  padding: 0.65rem 0.85rem;
-  font-size: 0.88rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.86rem;
   color: var(--text-primary);
   outline: none;
+  transition: border-color var(--transition-fast);
+  width: 100%;
 }
 
 .affiliate-form-input:focus {
   border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px var(--brand-primary-light);
 }
 
 .affiliate-helper-text {
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
-  line-height: 1.4;
+  line-height: 1.35;
+}
+
+/* Switch Toggle Component */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #cbd5e1;
+  transition: 0.25s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.25s;
+}
+
+input:checked + .slider {
+  background-color: var(--brand-primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Live URL Preview Card */
+.url-preview-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+}
+
+.url-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.url-preview-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--brand-success);
+  background: #dcfce7;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-pill);
+}
+
+.url-preview-card-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.url-preview-text {
+  font-family: monospace;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  word-break: break-all;
+  background: var(--bg-subtle);
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-xs);
+  border: 1px dashed var(--border-subtle);
+}
+
+/* Tab 2: Card Links Table */
+.aff-links-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.aff-filter-pills {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.aff-filter-pill {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.aff-filter-pill.active {
+  background: var(--brand-primary);
+  color: #ffffff;
+  border-color: var(--brand-primary);
+}
+
+.aff-table-wrapper {
+  max-height: 44vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.aff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.aff-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-subtle);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 2;
+}
+
+.aff-table td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+.aff-table tr:hover {
+  background: #f8fafc;
+}
+
+.aff-card-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.aff-card-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.aff-card-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.aff-route-select {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-strong);
+  background: #ffffff;
+  width: 100%;
+}
+
+.aff-override-input {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-strong);
+  width: 100%;
+}
+
+.aff-test-btn {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--brand-primary);
+  display: inline-block;
+  text-align: center;
+}
+
+.aff-test-btn:hover {
+  background: var(--brand-primary);
+  color: #ffffff;
+  border-color: var(--brand-primary);
+}
+
+/* Tab 3: Analytics */
+.analytics-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.analytics-stat-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  text-align: center;
+}
+
+.analytics-stat-card .stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.analytics-stat-card .stat-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+.clicks-log-container {
+  max-height: 38vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.click-log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+  gap: 0.75rem;
+}
+
+.click-log-item:last-child {
+  border-bottom: none;
+}
+
+.click-log-time {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Tab 4: Backup Actions */
+.backup-actions-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.backup-action-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.code-preview-box {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+  font-size: 0.78rem;
+  max-height: 28vh;
+  overflow: auto;
+  white-space: pre;
 }
 
 /* --------------------------------------------------------------------------
@@ -337,3 +816,4 @@
   justify-content: center;
   gap: 0.35rem;
 }
+

@@ -15,6 +15,7 @@ export const CREDIT_SCORE_OFFERS = [
       "Instant WhatsApp & SMS credit alert notifications"
     ],
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=paisabazaar_cibil&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.paisabazaar.com/cibil-credit-report/",
     ctaText: "Check Free CIBIL Score ↗"
   },
   {
@@ -33,6 +34,7 @@ export const CREDIT_SCORE_OFFERS = [
       "Personalized tips to boost your score above 750+"
     ],
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=onescore_app&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.onescore.app/",
     ctaText: "Get OneScore Free ↗"
   },
   {
@@ -51,6 +53,7 @@ export const CREDIT_SCORE_OFFERS = [
       "Safe and encrypted with bank-grade 256-bit security"
     ],
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=wishfin_whatsapp_cibil&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.wishfin.com/cibil-score/",
     ctaText: "Check on WhatsApp ↗"
   }
 ];
@@ -81,7 +84,8 @@ export const PERSONAL_LOANS = [
       "Exclusively for salaried professionals with ₹20k+ bank credit across 5,000+ pin codes"
     ],
     eligibility: "Age 21-55 yrs • Salaried (₹20k+ bank credit) • CIBIL 682+ preferred",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=fibe_in_cair_cpl&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=13628&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.fibe.in/instant-personal-loan/",
     campaignName: "Fibe.in CAIR CPL - India"
   },
   {
@@ -110,6 +114,7 @@ export const PERSONAL_LOANS = [
     ],
     eligibility: "Age 21-57 yrs • Min salary ₹13,500 (in-hand) • Valid PAN & Aadhaar",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=moneyview_personal_loan&aff_id=YOUR_AFF_ID",
+    directUrl: "https://moneyview.in/personal-loans",
     campaignName: "Moneyview Personal Loans"
   },
   {
@@ -138,6 +143,7 @@ export const PERSONAL_LOANS = [
     ],
     eligibility: "Age 21-58 yrs • Min income ₹10,000 • Salaried or Self-Employed",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kreditbee_instant_loan&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.kreditbee.in/personal-loan",
     campaignName: "KreditBee Personal Loans"
   },
   {
@@ -166,6 +172,7 @@ export const PERSONAL_LOANS = [
     ],
     eligibility: "Age 21-58 yrs • Salaried with ₹25k+ monthly income • Min CIBIL 730+",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=tata_capital_loan&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.tatacapital.com/personal-loan.html",
     campaignName: "Tata Capital Loans"
   },
   {
@@ -194,6 +201,7 @@ export const PERSONAL_LOANS = [
     ],
     eligibility: "Age 21-55 yrs • Salaried employees with min salary ₹15,000",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=cashe_personal_loan&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.cashe.co.in/personal-loan/",
     campaignName: "CASHe Instant Loans"
   },
   {
@@ -222,6 +230,7 @@ export const PERSONAL_LOANS = [
     ],
     eligibility: "Age 22-55 yrs • Salaried employees earning ₹18,000+ monthly",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=prefr_personal_loan&aff_id=YOUR_AFF_ID",
+    directUrl: "https://prefr.com/personal-loan",
     campaignName: "Prefr Personal Loans"
   },
   {
@@ -250,6 +259,7 @@ export const PERSONAL_LOANS = [
     ],
     eligibility: "Age 21-60 yrs • Salaried or Self-Employed with min income ₹12,000/mo",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=paysense_instant_loan&aff_id=YOUR_AFF_ID",
+    directUrl: "https://www.paysense.com/instant-personal-loan/",
     campaignName: "PaySense Instant Loans"
   }
 ];

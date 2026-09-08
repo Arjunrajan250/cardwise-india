@@ -8,6 +8,9 @@
   <meta name="keywords" content="InstantCred, Instant Cred India, Credit Cards India, Best Cashback Credit Cards, Lifetime Free Cards, Airport Lounge Cards, Free CIBIL Score, Personal Loans India, SBI Cashback, HDFC Millennia" />
   <link rel="canonical" href="https://www.instantcred.in/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <!-- Cuelinks Verification -->
+  <meta name="cuelinks-verification" content="VERIFY-CL-6Q3GPAEG">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4146NJ4DZR"></script>
   <script>
@@ -569,34 +572,338 @@
     </div>
   </div>
 
-  <!-- 5. Affiliate Config Modal -->
+  <!-- 5. Affiliate & Monetization Control Center Modal -->
   <div class="modal-backdrop" id="affiliateModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 540px;">
+    <div class="modal-container affiliate-control-modal" style="max-width: 860px;">
       <div class="modal-header">
-        <h3 class="modal-title">Affiliate Campaign Settings</h3>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="affiliate-modal-icon">⚙️</div>
+          <div>
+            <h3 class="modal-title" style="margin: 0; font-size: 1.15rem;">Affiliate & Monetization Control Center</h3>
+            <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.15rem;">
+              Configure vCommission, Cuelinks.com, EarnKaro, Impact, and Custom Tracking Links
+            </div>
+          </div>
+        </div>
         <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
       </div>
-      <div class="modal-body">
-        <p class="text-secondary" style="font-size: 0.88rem; margin-bottom: 1.25rem; line-height: 1.5;">
-          Configure your <strong>vCommission</strong> or network affiliate publisher credentials below. All application buttons will use your tracking link and campaign sub-IDs.
-        </p>
 
-        <div class="affiliate-form-group">
-          <label class="affiliate-form-label" for="inputAffiliateId">vCommission / Network Affiliate ID</label>
-          <input type="text" id="inputAffiliateId" class="affiliate-form-input" placeholder="e.g. 104829 or YOUR_AFF_ID" />
-          <span class="affiliate-helper-text">Replaces 'YOUR_AFF_ID' in all tracking URLs.</span>
+      <!-- Tab Navigation -->
+      <div class="affiliate-modal-tabs">
+        <button type="button" class="aff-tab-btn active" data-tab="aff-tab-networks">
+          <span>🔌 Networks & Keys</span>
+        </button>
+        <button type="button" class="aff-tab-btn" data-tab="aff-tab-links">
+          <span>💳 Card & Loan Links (42)</span>
+        </button>
+        <button type="button" class="aff-tab-btn" data-tab="aff-tab-analytics">
+          <span>📊 Click Analytics</span>
+        </button>
+        <button type="button" class="aff-tab-btn" data-tab="aff-tab-code">
+          <span>💾 Code & Backup</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem 1.5rem; max-height: 68vh; overflow-y: auto;">
+        
+        <!-- Tab 1: Networks & Credentials -->
+        <div class="aff-tab-pane active" id="aff-tab-networks">
+          <div class="aff-section-desc">
+            Select your <strong>Primary Affiliate Network</strong>. All credit card and loan apply buttons will dynamically generate tracking links with your publisher credentials.
+          </div>
+
+          <!-- Network Selector Radio Cards -->
+          <div class="network-cards-grid">
+            <label class="network-card active" data-network="vcommission">
+              <input type="radio" name="affPrimaryNetwork" value="vcommission" checked />
+              <div class="network-card-header">
+                <span class="network-logo-badge vcomm">vCommission</span>
+                <span class="network-type-badge">CPA / CPL</span>
+              </div>
+              <div class="network-card-name">vCommission India</div>
+              <div class="network-card-desc">Direct bank campaigns for SBI, HDFC, Axis, IDFC, Paisabazaar.</div>
+            </label>
+
+            <label class="network-card" data-network="cuelinks">
+              <input type="radio" name="affPrimaryNetwork" value="cuelinks" />
+              <div class="network-card-header">
+                <span class="network-logo-badge cuelinks">Cuelinks.com</span>
+                <span class="network-type-badge">2-Tier / Auto-JS</span>
+              </div>
+              <div class="network-card-name">Cuelinks Monetization</div>
+              <div class="network-card-desc">Auto-Tagging JS script or 2-tier rewritten redirect links.</div>
+            </label>
+
+            <label class="network-card" data-network="earnkaro">
+              <input type="radio" name="affPrimaryNetwork" value="earnkaro" />
+              <div class="network-card-header">
+                <span class="network-logo-badge earnkaro">EarnKaro</span>
+                <span class="network-type-badge">Cashback / Deals</span>
+              </div>
+              <div class="network-card-name">EarnKaro / CashKaro</div>
+              <div class="network-card-desc">Affiliate deal links and user referral profit tracking.</div>
+            </label>
+
+            <label class="network-card" data-network="impact">
+              <input type="radio" name="affPrimaryNetwork" value="impact" />
+              <div class="network-card-header">
+                <span class="network-logo-badge impact">Impact.com</span>
+                <span class="network-type-badge">Global SaaS</span>
+              </div>
+              <div class="network-card-name">Impact / sjv.io</div>
+              <div class="network-card-desc">Enterprise partnership tracking with Media Partner IDs.</div>
+            </label>
+
+            <label class="network-card" data-network="direct">
+              <input type="radio" name="affPrimaryNetwork" value="direct" />
+              <div class="network-card-header">
+                <span class="network-logo-badge direct">Direct Bank</span>
+                <span class="network-type-badge">UTM Tracking</span>
+              </div>
+              <div class="network-card-name">Direct Official Portal</div>
+              <div class="network-card-desc">Official RBI bank URLs with custom Google Analytics UTM parameters.</div>
+            </label>
+          </div>
+
+          <!-- Network Credentials Forms -->
+          <div class="network-config-panels">
+            
+            <!-- vCommission Config Panel -->
+            <div class="network-panel" id="panel-vcommission">
+              <h4 class="network-panel-title">vCommission Publisher Credentials</h4>
+              <div class="aff-grid-2">
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputVcommAffId">Publisher Affiliate ID (<code>aff_id</code>)</label>
+                  <input type="text" id="inputVcommAffId" class="affiliate-form-input" placeholder="e.g. 131993" />
+                  <span class="affiliate-helper-text">Your numeric affiliate publisher ID from vCommission.</span>
+                </div>
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputVcommSubId">Sub-ID / Source (<code>aff_sub</code>)</label>
+                  <input type="text" id="inputVcommSubId" class="affiliate-form-input" placeholder="e.g. instantcred_web" />
+                  <span class="affiliate-helper-text">Track conversion channel in vCommission reports.</span>
+                </div>
+              </div>
+              <div class="affiliate-form-group">
+                <label class="affiliate-form-label" for="inputVcommSubId2">Secondary Sub-ID 2 (<code>aff_sub2</code>) (Optional)</label>
+                <input type="text" id="inputVcommSubId2" class="affiliate-form-input" placeholder="e.g. hero_banner or card_table" />
+              </div>
+            </div>
+
+            <!-- Cuelinks Config Panel -->
+            <div class="network-panel" id="panel-cuelinks" style="display: none;">
+              <h4 class="network-panel-title">Cuelinks.com Publisher Settings</h4>
+              <div class="aff-grid-2">
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputCuelinksPubId">Cuelinks Publisher ID (<code>pub_id</code> / <code>cid</code>)</label>
+                  <input type="text" id="inputCuelinksPubId" class="affiliate-form-input" placeholder="e.g. 154890" />
+                  <span class="affiliate-helper-text">Find in your Cuelinks Account Dashboard.</span>
+                </div>
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputCuelinksSubId">Cuelinks Sub-ID</label>
+                  <input type="text" id="inputCuelinksSubId" class="affiliate-form-input" placeholder="e.g. instantcred_web" />
+                </div>
+              </div>
+
+              <div class="aff-grid-2">
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="selectCuelinksFormat">Redirection URL Mode</label>
+                  <select id="selectCuelinksFormat" class="affiliate-form-input">
+                    <option value="cprewritten">CP Rewritten (cprewritten.cuelinks.com)</option>
+                    <option value="linksredirect">Links Redirect (linksredirect.com)</option>
+                  </select>
+                </div>
+
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label">Cuelinks Auto-Tagging JS Script</label>
+                  <div class="toggle-container" style="display: flex; align-items: center; gap: 0.75rem; margin-top: 0.25rem;">
+                    <label class="switch">
+                      <input type="checkbox" id="toggleCuelinksScript">
+                      <span class="slider round"></span>
+                    </label>
+                    <span id="cuelinksScriptStatusText" style="font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);">
+                      Disabled (Using Redirection Links)
+                    </span>
+                  </div>
+                  <span class="affiliate-helper-text">When ON, automatically monetizes direct merchant clicks via official JS script.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- EarnKaro Config Panel -->
+            <div class="network-panel" id="panel-earnkaro" style="display: none;">
+              <h4 class="network-panel-title">EarnKaro / CashKaro Partner Settings</h4>
+              <div class="aff-grid-2">
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputEarnkaroUserId">EarnKaro User / Referral ID (<code>r</code>)</label>
+                  <input type="text" id="inputEarnkaroUserId" class="affiliate-form-input" placeholder="e.g. 849204" />
+                  <span class="affiliate-helper-text">Your EarnKaro user identifier for affiliate commission.</span>
+                </div>
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputEarnkaroSubId">Campaign Sub-ID</label>
+                  <input type="text" id="inputEarnkaroSubId" class="affiliate-form-input" placeholder="e.g. instantcred_web" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Impact.com Config Panel -->
+            <div class="network-panel" id="panel-impact" style="display: none;">
+              <h4 class="network-panel-title">Impact.com Partnership Settings</h4>
+              <div class="aff-grid-2">
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputImpactMpId">Impact Media Partner ID (<code>mpid</code>)</label>
+                  <input type="text" id="inputImpactMpId" class="affiliate-form-input" placeholder="e.g. 29384" />
+                </div>
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputImpactSubId">Sub-ID / Click ID (<code>irclickid</code>)</label>
+                  <input type="text" id="inputImpactSubId" class="affiliate-form-input" placeholder="e.g. instantcred_web" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Bank UTM Config Panel -->
+            <div class="network-panel" id="panel-direct" style="display: none;">
+              <h4 class="network-panel-title">Direct Official Bank Link & UTM Parameters</h4>
+              <div class="aff-grid-3">
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputUtmSource">UTM Source</label>
+                  <input type="text" id="inputUtmSource" class="affiliate-form-input" placeholder="e.g. instantcred" />
+                </div>
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputUtmMedium">UTM Medium</label>
+                  <input type="text" id="inputUtmMedium" class="affiliate-form-input" placeholder="e.g. affiliate" />
+                </div>
+                <div class="affiliate-form-group">
+                  <label class="affiliate-form-label" for="inputUtmCampaign">UTM Campaign</label>
+                  <input type="text" id="inputUtmCampaign" class="affiliate-form-input" placeholder="e.g. cards_2026" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Real-time URL Sample Resolution Box -->
+          <div class="url-preview-card">
+            <div class="url-preview-header">
+              <span class="url-preview-badge">Live Outbound URL Preview</span>
+              <span class="url-preview-card-name" id="previewCardName">IDFC FIRST WOW Credit Card</span>
+            </div>
+            <div class="url-preview-text" id="previewResolvedUrl">https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=131993&aff_sub=instantcred_web</div>
+          </div>
         </div>
 
-        <div class="affiliate-form-group">
-          <label class="affiliate-form-label" for="inputAffiliateSubId">Tracking Sub-ID (Campaign Source)</label>
-          <input type="text" id="inputAffiliateSubId" class="affiliate-form-input" placeholder="e.g. instantcred_web" />
-          <span class="affiliate-helper-text">Appended as <code>&aff_sub=...</code> to monitor conversion sources.</span>
+        <!-- Tab 2: Card & Loan Offer Manager -->
+        <div class="aff-tab-pane" id="aff-tab-links">
+          <div class="aff-links-header">
+            <div class="aff-search-box">
+              <input type="text" id="inputAffSearch" class="affiliate-form-input" placeholder="🔍 Search by card, bank or loan (e.g. SBI, HDFC, Paisabazaar)..." />
+            </div>
+            <div class="aff-filter-pills" id="affFilterPills">
+              <button type="button" class="aff-filter-pill active" data-type="all">All (42)</button>
+              <button type="button" class="aff-filter-pill" data-type="cards">Credit Cards (32)</button>
+              <button type="button" class="aff-filter-pill" data-type="loans">Personal Loans (7)</button>
+              <button type="button" class="aff-filter-pill" data-type="cibil">Credit Score (3)</button>
+            </div>
+          </div>
+
+          <div class="aff-table-wrapper">
+            <table class="aff-table">
+              <thead>
+                <tr>
+                  <th style="width: 28%;">Offer & Bank</th>
+                  <th style="width: 22%;">Network Route</th>
+                  <th style="width: 38%;">Custom Affiliate URL Override</th>
+                  <th style="width: 12%; text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="affCardTableBody">
+                <!-- Dynamically rendered via app.js -->
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <div class="modal-footer-actions">
-          <button type="button" class="btn btn-secondary btn-cancel-modal">Cancel</button>
-          <button type="button" class="btn btn-primary" id="btnSaveAffiliateSettings">Save Settings</button>
+        <!-- Tab 3: Click Analytics -->
+        <div class="aff-tab-pane" id="aff-tab-analytics">
+          <div class="analytics-metrics-grid">
+            <div class="analytics-stat-card">
+              <div class="stat-label">Total Outbound Clicks</div>
+              <div class="stat-val" id="statTotalClicks">0</div>
+            </div>
+            <div class="analytics-stat-card">
+              <div class="stat-label">Primary Active Network</div>
+              <div class="stat-val text-brand" id="statActiveNetwork">vCommission</div>
+            </div>
+            <div class="analytics-stat-card">
+              <div class="stat-label">Top Clicked Offer</div>
+              <div class="stat-val" id="statTopCard">—</div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.25rem 0 0.75rem;">
+            <h4 style="font-size: 0.95rem; margin: 0;">Recent Click Activity Log</h4>
+            <div style="display: flex; gap: 0.5rem;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnDownloadClicksCSV">⬇ Download CSV</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnClearClicksLog">Clear Log</button>
+            </div>
+          </div>
+
+          <div class="clicks-log-container" id="clicksLogContainer">
+            <!-- Dynamically populated via app.js -->
+          </div>
         </div>
+
+        <!-- Tab 4: Code & Backup -->
+        <div class="aff-tab-pane" id="aff-tab-code">
+          <div class="aff-section-desc">
+            Export your affiliate configuration to hardcode in <code>src/affiliate.config.js</code> before git commit, or backup/restore JSON settings across browsers.
+          </div>
+
+          <div class="backup-actions-box">
+            <div class="backup-action-item">
+              <div>
+                <strong>Export Settings to JSON</strong>
+                <div class="text-secondary" style="font-size: 0.8rem;">Save your active network and custom card links to a JSON file.</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnExportJSON">Download JSON</button>
+            </div>
+
+            <div class="backup-action-item">
+              <div>
+                <strong>Import Settings from JSON</strong>
+                <div class="text-secondary" style="font-size: 0.8rem;">Upload a previously saved affiliate settings file.</div>
+              </div>
+              <label class="btn btn-secondary btn-sm" style="cursor: pointer; margin: 0;">
+                Choose File
+                <input type="file" id="inputImportJSON" accept=".json" style="display: none;" />
+              </label>
+            </div>
+
+            <div class="backup-action-item">
+              <div>
+                <strong>Factory Defaults</strong>
+                <div class="text-secondary" style="font-size: 0.8rem;">Reset all custom settings and overrides back to default.</div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm text-danger" id="btnResetDefaults">Reset Defaults</button>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <strong style="font-size: 0.85rem;">Generated Code for <code>src/affiliate.config.js</code>:</strong>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnCopyConfigCode">📋 Copy Code</button>
+            </div>
+            <pre class="code-preview-box" id="codeConfigPreview"><code>// Code will appear here</code></pre>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer-actions" style="padding: 1rem 1.5rem; margin-top: 0; background: var(--bg-subtle);">
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-right: auto;" id="affSaveStatus">
+          Changes will apply immediately across all application links.
+        </div>
+        <button type="button" class="btn btn-secondary btn-cancel-modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnSaveAffiliateSettings">Save & Apply Changes</button>
       </div>
     </div>
   </div>
