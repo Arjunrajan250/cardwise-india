@@ -168,6 +168,7 @@ export class AffiliateManager {
       case 'cuelinks': {
         const cuelinks = this.settings.networks?.cuelinks || {};
         const pubId = cuelinks.pubId || 'YOUR_CUELINKS_PUB_ID';
+        const channelId = cuelinks.channelId || cuelinks.pubId || 'YOUR_CUELINKS_PUB_ID';
         const subId = cuelinks.subId || 'instantcred_web';
         
         // If AutoTagging script is active, return direct URL because script dynamically intercepts it
@@ -177,7 +178,7 @@ export class AffiliateManager {
 
         // Otherwise generate redirection link
         if (cuelinks.redirectFormat === 'linksredirect') {
-          return `https://linksredirect.com/?cid=${encodeURIComponent(pubId)}&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
+          return `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
         }
         // Default Cuelinks CP Rewritten format
         return `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(pubId)}&sub_id=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;

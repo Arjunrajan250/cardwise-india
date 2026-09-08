@@ -22,12 +22,13 @@ export const DEFAULT_AFFILIATE_CONFIG = {
     // 2. Cuelinks.com (Automated monetization & 2-tier affiliate redirection)
     cuelinks: {
       name: 'Cuelinks',
-      pubId: 'YOUR_CUELINKS_PUB_ID', // Replace with your Cuelinks Publisher ID (e.g. 12345)
+      pubId: '271664', // Account Publisher ID
+      channelId: '317055', // Verified Channel ID for InstantCred India
       subId: 'instantcred_web',
       // If true, automatically loads the Cuelinks JS auto-tagging script on page load
       enableAutoTaggingScript: false,
-      // Redirection format: 'cprewritten' or 'linksredirect'
-      redirectFormat: 'cprewritten'
+      // Redirection format: 'linksredirect' (uses Channel ID) or 'cprewritten'
+      redirectFormat: 'linksredirect'
     },
 
     // 3. EarnKaro (Deal-sharing & cashback affiliate network)

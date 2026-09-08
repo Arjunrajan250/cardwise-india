@@ -54,6 +54,7 @@ console.log('\n[Test 3] Cuelinks LinksRedirect Mode:');
 mgr.saveSettings({
   networks: {
     cuelinks: {
+      channelId: '317055',
       redirectFormat: 'linksredirect'
     }
   }
@@ -61,7 +62,7 @@ mgr.saveSettings({
 const sbiCashback = CREDIT_CARDS.find(c => c.id === 'sbi-cashback');
 const sbiUrl = mgr.resolveUrl(sbiCashback);
 console.log('SBI Cashback LinksRedirect URL:', sbiUrl);
-if (!sbiUrl.startsWith('https://linksredirect.com/?cid=154890&subid=test_sub&url=')) {
+if (!sbiUrl.startsWith('https://linksredirect.com/?cid=317055&subid=test_sub&url=')) {
   throw new Error('Cuelinks LinksRedirect resolution failed!');
 }
 console.log('✓ Cuelinks LinksRedirect passed.');
