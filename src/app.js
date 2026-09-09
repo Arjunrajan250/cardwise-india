@@ -930,7 +930,6 @@ class App {
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
     const sections = [
       { id: 'card-directory', el: document.getElementById('card-directory') },
-      { id: 'credit-score-section', el: document.getElementById('credit-score-section') },
       { id: 'loans-section', el: document.getElementById('loans-section') },
       { id: 'calculator-section', el: document.getElementById('calculator-section') },
       { id: 'faq-section', el: document.getElementById('faq-section') }
