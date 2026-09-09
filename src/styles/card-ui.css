@@ -158,6 +158,8 @@
 .theme-hsbc-platinum { background: linear-gradient(135deg, #b91c1c 0%, #450a0a 100%); }
 .theme-stanc-rewards { background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%); }
 .theme-yes-pop { background: linear-gradient(135deg, #0891b2 0%, #164e63 100%); }
+.theme-kiwi-card { background: linear-gradient(135deg, #10b981 0%, #047857 50%, #064e3b 100%); }
+.theme-novio-card { background: linear-gradient(135deg, #6366f1 0%, #4338ca 60%, #312e81 100%); }
 
 /* Approval Odds Indicator Badges */
 .badge-approval {

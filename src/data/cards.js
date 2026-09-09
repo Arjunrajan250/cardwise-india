@@ -52,10 +52,12 @@ export const CREDIT_CARDS = [
       "Credit limit equals 100% of the deposited FD amount",
       "Does not include airport lounge access"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "IDFC First Bank Credit Card",
+    cuelinksPayout: "₹975.00 / Lead",
     directUrl: "https://www.idfcfirstbank.com/credit-card/wow",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=YOUR_AFF_ID",
-    campaignName: "IDFC FIRST Bank Cards"
+    campaignName: "IDFC First Bank Credit Card"
   },
   {
     id: "onecard-metal",
@@ -162,10 +164,12 @@ export const CREDIT_CARDS = [
       "Requires minimum ₹10,000 fixed deposit lock-in",
       "Basic reward rate on offline retail spends"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "Kotak 811 CPL",
+    cuelinksPayout: "₹210.00 / Lead",
     directUrl: "https://www.kotak.com/en/personal-banking/cards/credit-cards/811-dream-different-credit-card.html",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kotak_811_card&aff_id=YOUR_AFF_ID",
-    campaignName: "Kotak Mahindra Bank Cards"
+    campaignName: "Kotak 811 CPL"
   },
 
   // --------------------------------------------------------------------------
@@ -333,10 +337,12 @@ export const CREDIT_CARDS = [
       "Base weekday reward rate of 1% is moderate",
       "Points redemption catalogue has minor processing fee"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "Indusind Credit Card CPL",
+    cuelinksPayout: "₹900.00 / Lead",
     directUrl: "https://www.indusind.com/in/en/personal/cards/credit-cards/legend-credit-card.html",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_legend&aff_id=YOUR_AFF_ID",
-    campaignName: "IndusInd Bank Partner Program"
+    campaignName: "Indusind Credit Card CPL"
   },
   {
     id: "sbi-simplyclick",
@@ -669,10 +675,12 @@ export const CREDIT_CARDS = [
       "Does not include airport lounge access",
       "Points outside your chosen category earn a standard 1% rate"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "Indusind Credit Card CPL",
+    cuelinksPayout: "₹900.00 / Lead",
     directUrl: "https://www.indusind.com/in/en/personal/cards/credit-cards/aura-edge-credit-card.html",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_aura_edge&aff_id=YOUR_AFF_ID",
-    campaignName: "IndusInd Bank Partner Program"
+    campaignName: "Indusind Credit Card CPL"
   },
   {
     id: "bob-easy",
@@ -781,10 +789,12 @@ export const CREDIT_CARDS = [
       "Per-transaction cashback cap on category spends",
       "No domestic airport lounge access (railway lounge included)"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "AU Bank Credit Card CPL",
+    cuelinksPayout: "₹1,950.00 / Lead",
     directUrl: "https://www.aubank.in/personal-banking/credit-cards/altura-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=au_altura&aff_id=YOUR_AFF_ID",
-    campaignName: "AU Small Finance Bank Cards"
+    campaignName: "AU Bank Credit Card CPL"
   },
   {
     id: "hsbc-platinum",
@@ -1406,10 +1416,12 @@ export const CREDIT_CARDS = [
       "Feature packs require manual renewal in the app after expiration",
       "Requires active management through mobile banking"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "AU Bank Credit Card CPL",
+    cuelinksPayout: "₹1,950.00 / Lead",
     directUrl: "https://www.aubank.in/personal-banking/credit-cards/lit-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=au_lit_card&aff_id=YOUR_AFF_ID",
-    campaignName: "AU Small Finance Bank Cards"
+    campaignName: "AU Bank Credit Card CPL"
   },
   {
     id: "sbi-bpcl-octane",
@@ -1746,10 +1758,12 @@ export const CREDIT_CARDS = [
       "Requires ₹20,000 spend in previous month to unlock quarterly lounge and spa access",
       "High qualification requirements for the Wealth tier"
     ],
-    hasAffiliate: false,
+    hasAffiliate: true,
+    cuelinksCampaign: "IDFC First Bank Credit Card",
+    cuelinksPayout: "₹975.00 / Lead",
     directUrl: "https://www.idfcfirstbank.com/credit-card/wealth",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wealth&aff_id=YOUR_AFF_ID",
-    campaignName: "IDFC FIRST Bank Cards"
+    campaignName: "IDFC First Bank Credit Card"
   },
   {
     id: "hdfc-infinia-metal",
@@ -1807,6 +1821,180 @@ export const CREDIT_CARDS = [
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/infinia-credit-card",
     affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_infinia&aff_id=YOUR_AFF_ID",
     campaignName: "HDFC Super Premium Cards"
+  },
+  // --------------------------------------------------------------------------
+  // TOP 3 HIGH-PAYOUT NEW ADDITIONS (KIWI, YES BANK POP, NOVIO SECURED)
+  // --------------------------------------------------------------------------
+  {
+    id: "kiwi-axis-rupay",
+    name: "Kiwi Axis Bank RuPay Credit Card",
+    bank: "Axis Bank",
+    network: "RuPay",
+    cardTheme: "kiwi-card",
+    joiningFee: 0,
+    annualFee: 0,
+    feeWaiverSpend: 0,
+    isLifetimeFree: true,
+    rating: 4.8,
+    reviewsCount: 2840,
+    approvalTier: "high",
+    approvalLabel: "Instant Virtual Card",
+    approvalOddsScore: 95,
+    primaryCategory: "UPI & RuPay",
+    categories: ["UPI & RuPay", "Cashback", "Lifetime Free"],
+    tag: "Flat Up to 2% UPI Scan & Pay Cashback",
+    cashbackSummary: "Flat 1.5% to 2.0% cashback on all merchant Scan & Pay UPI transactions with instant virtual issuance",
+    rewardStructure: {
+      online: 2.0,
+      dining: 2.0,
+      grocery: 2.0,
+      fuel: 1.0,
+      travel: 1.5,
+      bills: 1.5,
+      others: 1.0
+    },
+    keyPerks: [
+      "Instant virtual credit card issued directly inside Kiwi mobile app within 3 minutes",
+      "Earn up to 2% flat cashback on all merchant Scan & Pay UPI QR code transactions",
+      "100% Lifetime Free credit card with zero joining and zero annual maintenance fee forever",
+      "Link seamlessly to BHIM UPI, PhonePe, Google Pay, and Kiwi App for everyday store payments",
+      "Direct bank credit of cashback rewards without complex reward points conversion"
+    ],
+    welcomeBonus: "Flat ₹250 cashback voucher on your first Scan & Pay transaction.",
+    loungeAccess: { domestic: 0, international: 0, details: "No airport lounge access." },
+    milestoneRewards: "Bonus Kiwi points multiplier on reaching ₹50,000 annual spend.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver on transactions across India.",
+    forexMarkup: "3.5% + GST",
+    eligibility: { minIncome: 20000, minAge: 21, minCibil: 700, employment: "Salaried or Self-Employed (Instant Mobile Approval)" },
+    pros: [
+      "Highest everyday cashback on Scan & Pay UPI transactions across neighborhood stores and merchants",
+      "100% Lifetime Free with zero annual or renewal fees",
+      "Instant digital issuance directly on your smartphone within minutes"
+    ],
+    cons: [
+      "Virtual-first card (no physical card mailed by default)",
+      "Does not include airport lounge access"
+    ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Kiwi Credit Cards CPL",
+    cuelinksPayout: "₹1,650.00 / Lead",
+    directUrl: "https://gokiwi.in/",
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kiwi_credit_cards&aff_id=YOUR_AFF_ID",
+    campaignName: "Kiwi Credit Cards CPL"
+  },
+  {
+    id: "yes-bank-pop-club",
+    name: "Yes Bank POP-Club RuPay Credit Card",
+    bank: "Yes Bank",
+    network: "RuPay",
+    cardTheme: "yes-pop",
+    joiningFee: 399,
+    annualFee: 399,
+    feeWaiverSpend: 150000,
+    isLifetimeFree: false,
+    rating: 4.7,
+    reviewsCount: 1950,
+    approvalTier: "high",
+    approvalLabel: "High Approval (₹25k Salary)",
+    approvalOddsScore: 92,
+    primaryCategory: "Shopping",
+    categories: ["Shopping", "UPI & RuPay", "Dining & Food"],
+    tag: "10% POPcoins on 500+ D2C Brands",
+    cashbackSummary: "Earn 10% value back in POPcoins on over 500+ top D2C brands + RuPay UPI scanning cashback",
+    rewardStructure: {
+      online: 5.0,
+      dining: 4.0,
+      grocery: 3.0,
+      fuel: 1.0,
+      travel: 2.0,
+      bills: 2.0,
+      others: 1.5
+    },
+    keyPerks: [
+      "Earn 10% value back in POPcoins on over 500+ top D2C brands (Zomato, Blinkit, Cult.fit, Noise, mCaffeine)",
+      "Link card to UPI for 1% cashback on offline & online QR merchant payments",
+      "₹500 welcome voucher pack on first transaction within 30 days of issuance",
+      "Annual fee waiver on spending ₹1,50,000 in previous anniversary year",
+      "1% fuel surcharge waiver across petrol stations in India"
+    ],
+    welcomeBonus: "₹500 welcome voucher pack for top partner D2C shopping brands.",
+    loungeAccess: { domestic: 2, international: 0, details: "1 complimentary domestic airport lounge visit per quarter on qualifying spends." },
+    milestoneRewards: "Additional 5,000 bonus POPcoins on quarterly spend of ₹50,000.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver for transactions between ₹400 and ₹5,000.",
+    forexMarkup: "3.5% + GST",
+    eligibility: { minIncome: 25000, minAge: 21, minCibil: 710, employment: "Salaried or Self-Employed" },
+    pros: [
+      "Exceptional 10% rewards for users frequently shopping on modern Indian D2C apps",
+      "Seamless UPI QR payment support on the RuPay network",
+      "Low annual fee easily recovered through welcome vouchers and POPcoins"
+    ],
+    cons: [
+      "POPcoins have maximum redemption value within partner merchant brands",
+      "Annual fee requires ₹1.5L spends for automatic waiver"
+    ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Yes Bank Pop Club Credit Card",
+    cuelinksPayout: "₹1,575.00 / Lead",
+    directUrl: "https://www.yesbank.in/personal-banking/cards/credit-cards/pop-club-credit-card",
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=yes_bank_pop_club&aff_id=YOUR_AFF_ID",
+    campaignName: "Yes Bank Pop Club Credit Card"
+  },
+  {
+    id: "novio-secured-card",
+    name: "Novio Secured Credit Card (FD-Backed)",
+    bank: "Federal / SBM / South Indian Bank",
+    network: "RuPay",
+    cardTheme: "novio-card",
+    joiningFee: 0,
+    annualFee: 0,
+    feeWaiverSpend: 0,
+    isLifetimeFree: true,
+    rating: 4.8,
+    reviewsCount: 1680,
+    approvalTier: "guaranteed",
+    approvalLabel: "100% Guaranteed Approval",
+    approvalOddsScore: 100,
+    primaryCategory: "Guaranteed Approval",
+    categories: ["Guaranteed Approval", "Lifetime Free", "UPI & RuPay"],
+    tag: "100% Approval Against ₹2,000 FD (No CIBIL)",
+    cashbackSummary: "Zero rejection risk FD-backed RuPay credit card with up to 7% p.a. interest and 100% bureau reporting",
+    rewardStructure: {
+      online: 2.0,
+      dining: 2.0,
+      grocery: 2.0,
+      fuel: 1.0,
+      travel: 2.0,
+      bills: 1.0,
+      others: 1.0
+    },
+    keyPerks: [
+      "100% Guaranteed Approval: Zero CIBIL score required and zero income proof requested",
+      "Fixed Deposit starts from as low as ₹2,000 with up to 7.0% p.a. assured interest returns",
+      "RuPay credit card enabled for seamless Scan & Pay on UPI apps (GPay, PhonePe, Paytm)",
+      "100% Lifetime Free credit card with zero joining and zero renewal maintenance fees",
+      "Monthly credit bureau reporting to TransUnion CIBIL, Experian, and CRIF to fast-track credit building"
+    ],
+    welcomeBonus: "₹100 cashback on first UPI transaction completed via Novio app.",
+    loungeAccess: { domestic: 0, international: 0, details: "No airport lounge access." },
+    milestoneRewards: "Bonus FD interest rate booster of +0.25% on disciplined on-time bill repayments.",
+    fuelSurchargeWaiver: "1% fuel surcharge waiver across petrol stations in India.",
+    forexMarkup: "3.5% + GST",
+    eligibility: { minIncome: 0, minAge: 18, minCibil: 0, employment: "Anyone (Students, Freelancers, Low CIBIL, Homemakers)" },
+    pros: [
+      "Guaranteed 100% approval rate with zero rejection risk for people starting or fixing credit",
+      "Ultra-low entry requirement of just ₹2,000 fixed deposit",
+      "RuPay UPI enabled for neighborhood grocery and merchant scan-and-pay"
+    ],
+    cons: [
+      "Credit limit equals 100% of underlying fixed deposit amount",
+      "No complimentary airport lounge access"
+    ],
+    hasAffiliate: true,
+    cuelinksCampaign: "Novio Secured Credit card",
+    cuelinksPayout: "₹1,500.00 / Lead",
+    directUrl: "https://novio.in/",
+    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=novio_secured_card&aff_id=YOUR_AFF_ID",
+    campaignName: "Novio Secured Credit card"
   }
 ];
 
@@ -1835,6 +2023,7 @@ export const BANKS = [
   "Bank of Baroda",
   "AU Small Finance Bank",
   "Kotak Mahindra Bank",
+  "Yes Bank",
   "RBL Bank",
   "HSBC Bank",
   "Federal / SBM / South Indian Bank",

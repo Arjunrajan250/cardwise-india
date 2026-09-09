@@ -147,13 +147,16 @@ console.log('✓ Network routing override passed.');
 
 // Test 8: Loans & Credit Score Resolution
 console.log('\n[Test 8] Personal Loan & Credit Score Resolution:');
-const fibeLoan = PERSONAL_LOANS.find(l => l.id === 'fibe-loan');
-const fibeUrl = mgr.resolveUrl(fibeLoan);
-console.log('Fibe Loan URL:', fibeUrl);
+const kreditpeLoan = PERSONAL_LOANS.find(l => l.id === 'kreditpe-loan');
+const kreditpeUrl = mgr.resolveUrl(kreditpeLoan);
+console.log('Kreditpe Loan URL:', kreditpeUrl);
+const loanhub = PERSONAL_LOANS.find(l => l.id === 'loanhub-loan');
+const loanhubUrl = mgr.resolveUrl(loanhub);
+console.log('Loan Hub URL:', loanhubUrl);
 const paisaOffer = CREDIT_SCORE_OFFERS.find(o => o.id === 'paisabazaar-cibil');
 const paisaUrl = mgr.resolveUrl(paisaOffer);
 console.log('Paisabazaar CIBIL URL:', paisaUrl);
-if (!fibeUrl || !paisaUrl) {
+if (!kreditpeUrl || !loanhubUrl || !paisaUrl) {
   throw new Error('Loans/CIBIL resolution failed!');
 }
 console.log('✓ Loans & CIBIL resolution passed.');
