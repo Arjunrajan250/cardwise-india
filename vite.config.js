@@ -13,7 +13,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('/src/data/cards.js') || id.includes('/src/data/loans.js')) {
+          if (id.includes('/src/data/') || id.includes('/src/blog.js')) {
             return 'data-catalog';
           }
         }

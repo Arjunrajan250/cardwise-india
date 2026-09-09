@@ -4,6 +4,7 @@ import { CardComparator } from './comparator.js';
 import { RewardsCalculator } from './calculator.js';
 import { CardQuiz } from './quiz.js';
 import { affiliateManager } from './affiliate.js';
+import { BlogManager } from './blog.js';
 
 class App {
   constructor() {
@@ -23,6 +24,7 @@ class App {
     this.comparator = new CardComparator(this.cards, () => this.updateComparatorUI());
     this.calculator = new RewardsCalculator(this.cards);
     this.quiz = new CardQuiz(this.cards);
+    this.blog = new BlogManager(affiliateManager);
 
     this.init();
   }
@@ -986,8 +988,90 @@ class App {
      -------------------------------------------------------------------------- */
   initAffiliateControlCenter() {
     const affiliateModal = document.getElementById('affiliateModal');
+    const gateScreen = document.getElementById('affiliateGateScreen');
+    const realScreen = document.getElementById('affiliateRealScreen');
+    const adminForm = document.getElementById('formAffiliateAdminUnlock');
+    const adminPwInput = document.getElementById('inputAffiliateAdminPassword');
+    const adminError = document.getElementById('affiliateAdminError');
+    const adminErrorText = document.getElementById('affiliateAdminErrorText');
+    const btnToggleEye = document.getElementById('btnToggleAdminPw');
+    const btnUnlock = document.getElementById('btnUnlockAffiliateConsole');
+    const btnLockConsole = document.getElementById('btnLockAffiliateConsole');
     const saveBtn = document.getElementById('btnSaveAffiliateSettings');
     const btnAffConfig = document.getElementById('btnOpenAffiliateModal');
+
+    const ADMIN_AUTH_KEY = "Dominar@9008!@#$%";
+    const isAuthed = () => sessionStorage.getItem('instantcred_aff_admin_authed') === 'true';
+
+    const showGate = () => {
+      if (gateScreen) gateScreen.style.display = 'block';
+      if (realScreen) realScreen.style.display = 'none';
+      if (adminPwInput) adminPwInput.value = '';
+      if (adminError) adminError.style.display = 'none';
+    };
+
+    const showReal = () => {
+      if (gateScreen) gateScreen.style.display = 'none';
+      if (realScreen) realScreen.style.display = 'block';
+      populateNetworkInputs();
+      this.renderAffiliateOffersTable();
+      this.renderAffiliateAnalytics();
+      this.renderAffiliateCodeAndBackup();
+    };
+
+    const handleUnlock = () => {
+      const enteredPw = adminPwInput ? adminPwInput.value.trim() : '';
+      if (enteredPw === ADMIN_AUTH_KEY) {
+        sessionStorage.setItem('instantcred_aff_admin_authed', 'true');
+        showReal();
+        this.showToast('Administrator Access Granted', 'success');
+      } else {
+        if (adminError) {
+          adminError.style.display = 'flex';
+          if (adminErrorText) adminErrorText.textContent = 'Invalid authorization key. Access restricted. Please wait for latest public updates.';
+          adminError.classList.remove('aff-shake');
+          void adminError.offsetWidth;
+          adminError.classList.add('aff-shake');
+        }
+        if (adminPwInput) {
+          adminPwInput.classList.remove('aff-shake');
+          void adminPwInput.offsetWidth;
+          adminPwInput.classList.add('aff-shake');
+          adminPwInput.value = '';
+          adminPwInput.focus();
+        }
+      }
+    };
+
+    if (adminForm) {
+      adminForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleUnlock();
+      });
+    }
+
+    if (btnUnlock) {
+      btnUnlock.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleUnlock();
+      });
+    }
+
+    if (btnToggleEye && adminPwInput) {
+      btnToggleEye.addEventListener('click', () => {
+        const isPw = adminPwInput.type === 'password';
+        adminPwInput.type = isPw ? 'text' : 'password';
+        btnToggleEye.textContent = isPw ? '🙈' : '👁️';
+      });
+    }
+
+    if (btnLockConsole) {
+      btnLockConsole.addEventListener('click', () => {
+        sessionStorage.removeItem('instantcred_aff_admin_authed');
+        showGate();
+        this.showToast('Affiliate Control Center Locked', 'info');
+      });
+    }
 
     // Tab Navigation
     const tabButtons = document.querySelectorAll('.aff-tab-btn');
@@ -1259,15 +1343,27 @@ class App {
       });
     }
 
-    // Modal Open Refresh
+    // Modal Open Refresh with Auth Check
     if (btnAffConfig) {
       btnAffConfig.addEventListener('click', () => {
-        populateNetworkInputs();
-        this.renderAffiliateOffersTable();
-        this.renderAffiliateAnalytics();
-        this.renderAffiliateCodeAndBackup();
+        if (isAuthed()) {
+          showReal();
+        } else {
+          showGate();
+        }
         if (affiliateModal) affiliateModal.classList.add('open');
       });
+
+      // Also listen for hash navigation
+      const checkDiagnosticsHash = () => {
+        if (window.location.hash === '#system-diagnostics' || window.location.hash === '#affiliate-admin') {
+          btnAffConfig.click();
+        }
+      };
+      window.addEventListener('hashchange', checkDiagnosticsHash);
+      if (window.location.hash === '#system-diagnostics' || window.location.hash === '#affiliate-admin') {
+        setTimeout(checkDiagnosticsHash, 250);
+      }
     }
 
     const btnSave = document.getElementById('btnSaveAffiliateSettings');
