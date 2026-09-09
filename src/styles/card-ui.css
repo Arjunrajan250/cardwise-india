@@ -16,6 +16,8 @@
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 450px;
 }
 
 @media (max-width: 640px) {

@@ -308,6 +308,8 @@
   flex-direction: column;
   box-shadow: var(--shadow-xs);
   transition: all var(--transition-fast);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
 }
 
 .loan-card:hover {
