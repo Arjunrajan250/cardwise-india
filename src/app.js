@@ -1740,6 +1740,14 @@ class App {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.app = new App();
-});
+function initInstantCredApp() {
+  if (!window.app) {
+    window.app = new App();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initInstantCredApp);
+} else {
+  initInstantCredApp();
+}
