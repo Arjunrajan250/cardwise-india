@@ -2129,8 +2129,8 @@ class App {
     if (btnShareSite) {
       btnShareSite.addEventListener('click', async () => {
         const shareData = {
-          title: 'InstantCred India',
-          text: 'Compare top credit cards & instant loans in India, calculate annual rewards & EMI savings on InstantCred.in!',
+          title: 'InstantCred | Credit Card Comparisons & Financial Analytics',
+          text: 'Compare top credit cards and instant personal loans in India with transparent rewards analytics on InstantCred.in',
           url: 'https://www.instantcred.in/'
         };
         try {
