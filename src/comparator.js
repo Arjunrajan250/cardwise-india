@@ -373,14 +373,48 @@ export class CardComparator {
         <table class="comparison-table">
           <thead>
             <tr>
-              <th class="sticky-col-th">Features & Specs</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.cards}</span>
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">Features & Specs</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500;">Comparing ${cards.length} Cards</div>
+                  </div>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
                   <div class="comp-card-header">
-                    <span class="bank-name">${card.bank}</span>
+                    <div class="comp-card-header-top">
+                      <span class="bank-name">${card.bank}</span>
+                      <button type="button" class="comp-remove-card-btn" data-remove-id="${card.id}" title="Remove ${card.name} from comparison">
+                        ${ICONS.close}
+                      </button>
+                    </div>
+
+                    <!-- Miniature Authentic Credit Card Visual -->
+                    <div class="comp-card-mini-art theme-${card.cardTheme}">
+                      <div class="card-top-row">
+                        <span class="bank-name-label">${card.bank}</span>
+                        <span class="contactless-icon">${ICONS.contactless}</span>
+                      </div>
+                      <div class="card-middle-row">
+                        <div class="emv-chip"></div>
+                      </div>
+                      <div class="card-bottom-row">
+                        <span class="card-title-preview">${card.name}</span>
+                        <span class="network-badge">${card.network}</span>
+                      </div>
+                    </div>
+
                     <h3 class="card-title">${card.name}</h3>
-                    <span class="badge-tag">${card.tag}</span>
-                    <button type="button" class="btn btn-apply btn-sm btn-outbound-apply" data-card-id="${card.id}">
+
+                    <div class="comp-card-badges-row">
+                      <span class="badge-tag ${card.annualFee === 0 ? 'tag-free' : ''}">${card.tag}</span>
+                      <span class="rating-badge">${ICONS.star} ${card.rating}</span>
+                    </div>
+
+                    <button type="button" class="btn btn-apply btn-sm btn-outbound-apply comp-header-apply-btn" data-card-id="${card.id}">
                       Apply Now ↗
                     </button>
                   </div>
@@ -390,82 +424,167 @@ export class CardComparator {
           </thead>
           <tbody>
             <tr>
-              <th class="sticky-col-th">Joining Fee</th>
-              ${cards.map(card => `
-                <td>${card.joiningFee === 0 ? '<strong class="comp-highlight">FREE</strong>' : `₹${card.joiningFee.toLocaleString('en-IN')}`}</td>
-              `).join('')}
-            </tr>
-            <tr>
-              <th class="sticky-col-th">Annual / Renewal Fee</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.gift}</span>
+                  <span>Joining Fee</span>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
-                  ${card.annualFee === 0 ? '<strong class="comp-highlight">Lifetime Free (₹0)</strong>' : `₹${card.annualFee.toLocaleString('en-IN')}`}
-                  ${card.feeWaiverSpend > 0 ? `<div class="metric-sub">Waived on ₹${(card.feeWaiverSpend / 100000).toFixed(1)}L annual spend</div>` : ''}
+                  ${card.joiningFee === 0 
+                    ? '<span class="comp-highlight-free">FREE (₹0)</span><div class="metric-sub">Zero joining charge</div>' 
+                    : `<strong>₹${card.joiningFee.toLocaleString('en-IN')}</strong><div class="metric-sub">+ 18% GST</div>`}
                 </td>
               `).join('')}
             </tr>
             <tr>
-              <th class="sticky-col-th">Cashback / Reward Summary</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.catLifetimeFree}</span>
+                  <span>Annual Fee & Waiver</span>
+                </div>
+              </th>
               ${cards.map(card => `
-                <td class="comp-highlight">${card.cashbackSummary}</td>
+                <td>
+                  ${card.annualFee === 0 
+                    ? '<span class="comp-highlight-free">Lifetime Free (₹0)</span>' 
+                    : `<strong>₹${card.annualFee.toLocaleString('en-IN')}</strong>`}
+                  ${card.feeWaiverSpend > 0 
+                    ? `<div class="metric-sub" style="margin-top: 0.25rem;">Waived on ₹${(card.feeWaiverSpend / 100000).toFixed(1)}L annual spend</div>` 
+                    : '<div class="metric-sub" style="margin-top: 0.25rem;">No annual spend waiver</div>'}
+                </td>
               `).join('')}
             </tr>
             <tr>
-              <th class="sticky-col-th">Airport Lounge Access</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.catCashback}</span>
+                  <span>Cashback & Rewards</span>
+                </div>
+              </th>
+              ${cards.map(card => `
+                <td>
+                  <div class="comp-reward-text">${card.cashbackSummary}</div>
+                </td>
+              `).join('')}
+            </tr>
+            <tr>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.catLounge}</span>
+                  <span>Airport Lounge Access</span>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
                   <strong>${card.loungeAccess.domestic} Domestic / ${card.loungeAccess.international} Int'l</strong>
-                  <div class="metric-sub">${card.loungeAccess.details}</div>
+                  <div class="metric-sub" style="margin-top: 0.25rem;">${card.loungeAccess.details}</div>
                 </td>
               `).join('')}
             </tr>
             <tr>
-              <th class="sticky-col-th">Card Network</th>
-              ${cards.map(card => `<td><strong>${card.network}</strong></td>`).join('')}
-            </tr>
-            <tr>
-              <th class="sticky-col-th">Forex Markup Fee</th>
-              ${cards.map(card => `<td>${card.forexMarkup}</td>`).join('')}
-            </tr>
-            <tr>
-              <th class="sticky-col-th">Fuel Surcharge Waiver</th>
-              ${cards.map(card => `<td>${card.fuelSurchargeWaiver}</td>`).join('')}
-            </tr>
-            <tr>
-              <th class="sticky-col-th">Eligibility</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.shieldCheck}</span>
+                  <span>Card Network</span>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
-                  <div>Min Monthly Income: <strong>₹${card.eligibility.minIncome.toLocaleString('en-IN')}</strong></div>
-                  <div>Min CIBIL Score: <strong>${card.eligibility.minCibil}+</strong></div>
+                  <span class="comp-network-pill">${card.network}</span>
                 </td>
               `).join('')}
             </tr>
             <tr>
-              <th class="sticky-col-th">Top Pros</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.calculator}</span>
+                  <span>Forex Markup Fee</span>
+                </div>
+              </th>
+              ${cards.map(card => `
+                <td>
+                  <strong>${card.forexMarkup}</strong>
+                  <div class="metric-sub" style="margin-top: 0.25rem;">Standard international fee</div>
+                </td>
+              `).join('')}
+            </tr>
+            <tr>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.catFuel}</span>
+                  <span>Fuel Surcharge Waiver</span>
+                </div>
+              </th>
+              ${cards.map(card => `
+                <td>
+                  <span>${card.fuelSurchargeWaiver}</span>
+                </td>
+              `).join('')}
+            </tr>
+            <tr>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.lock}</span>
+                  <span>Eligibility & Odds</span>
+                </div>
+              </th>
+              ${cards.map(card => `
+                <td>
+                  <div class="comp-eligibility-box">
+                    <div>Min Monthly Income: <strong>₹${card.eligibility.minIncome.toLocaleString('en-IN')}</strong></div>
+                    <div>Min CIBIL Score: <strong>${card.eligibility.minCibil}+</strong></div>
+                    <div style="margin-top: 0.35rem;">
+                      <span class="badge-approval ${card.approvalTier || 'high'}">
+                        ${card.approvalLabel || 'High Approval'}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+              `).join('')}
+            </tr>
+            <tr>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon" style="color:var(--brand-success);">${ICONS.thumbUp}</span>
+                  <span>Key Advantages (Pros)</span>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
                   <ul class="comp-pros-list">
-                    ${card.pros.map(pro => `<li><span style="display:inline-flex;align-items:center;margin-right:5px;color:var(--brand-success);">${ICONS.check}</span> <span>${pro}</span></li>`).join('')}
+                    ${card.pros.map(pro => `<li><span style="display:inline-flex;align-items:center;margin-right:6px;color:var(--brand-success);">${ICONS.check}</span> <span>${pro}</span></li>`).join('')}
                   </ul>
                 </td>
               `).join('')}
             </tr>
             <tr>
-              <th class="sticky-col-th">Key Cons / Exclusions</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon" style="color:var(--brand-danger);">${ICONS.close}</span>
+                  <span>Exclusions & Cons</span>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
                   <ul class="comp-cons-list">
-                    ${card.cons.map(con => `<li><span style="display:inline-flex;align-items:center;margin-right:5px;color:var(--brand-danger);">${ICONS.close}</span> <span>${con}</span></li>`).join('')}
+                    ${card.cons.map(con => `<li><span style="display:inline-flex;align-items:center;margin-right:6px;color:var(--brand-danger);">${ICONS.close}</span> <span>${con}</span></li>`).join('')}
                   </ul>
                 </td>
               `).join('')}
             </tr>
             <tr>
-              <th class="sticky-col-th">Action</th>
+              <th class="sticky-col-th">
+                <div class="comp-th-content">
+                  <span class="comp-th-icon">${ICONS.externalLink}</span>
+                  <span>Direct Application</span>
+                </div>
+              </th>
               ${cards.map(card => `
                 <td>
-                  <button type="button" class="btn btn-apply btn-outbound-apply" style="width: 100%;" data-card-id="${card.id}">
-                    Apply on Bank Site ↗
+                  <button type="button" class="btn btn-apply btn-outbound-apply" style="width: 100%; min-height: 42px; font-weight: 700;" data-card-id="${card.id}">
+                    Apply on ${card.bank} Site ↗
                   </button>
                 </td>
               `).join('')}

@@ -370,6 +370,14 @@ class App {
     }
     trayContainer.innerHTML = this.comparator.renderTrayHTML();
     this.renderCards();
+
+    const compareModal = document.getElementById('compareModal');
+    if (compareModal && compareModal.classList.contains('open')) {
+      const content = document.getElementById('compareModalContent');
+      if (content) {
+        content.innerHTML = this.comparator.renderComparisonMatrixHTML(affiliateManager);
+      }
+    }
   }
 
   openComparatorModal() {
@@ -2191,7 +2199,7 @@ class App {
         return;
       }
 
-      const removePillBtn = e.target.closest('.btn-remove-pill');
+      const removePillBtn = e.target.closest('.btn-remove-pill, .comp-remove-card-btn');
       if (removePillBtn) {
         const cardId = removePillBtn.dataset.removeId;
         this.comparator.removeCard(cardId);

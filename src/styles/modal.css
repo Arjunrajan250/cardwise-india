@@ -36,6 +36,12 @@
   flex-direction: column;
 }
 
+.modal-container.comparator-modal-dialog {
+  max-width: min(94vw, 1200px);
+  width: 95%;
+  max-height: 92vh;
+}
+
 .smart-match-modal-container {
   max-width: 680px;
 }
