@@ -218,6 +218,131 @@
   line-height: 1.5;
 }
 
+/* --------------------------------------------------------------------------
+   Collapsible Accordion State & Teaser Highlights
+   -------------------------------------------------------------------------- */
+.loans-highlight-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.1rem auto 1.35rem;
+}
+
+.loans-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.loan-calc-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn-toggle-loan-calc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  background: #0d9488;
+  color: #ffffff;
+  border: 1.5px solid #0f766e;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-toggle-loan-calc:hover {
+  background: #0f766e;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35);
+}
+
+.btn-toggle-loan-calc.is-open {
+  background: #0f172a;
+  border-color: #334155;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+.btn-toggle-loan-calc .calc-toggle-chevron {
+  font-size: 0.85rem;
+  transition: transform 0.25s ease;
+}
+
+.btn-toggle-loan-calc.is-open .calc-toggle-chevron {
+  transform: rotate(180deg);
+}
+
+/* Collapsible Loan Calculator Body (Hidden by default) */
+.loan-calc-collapsible {
+  display: none;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.loan-calc-collapsible.is-expanded {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeInLoanCalc 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInLoanCalc {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loan-calc-close-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.25rem;
+  margin-top: 1rem;
+}
+
+.btn-close-loan-calc {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  background: var(--bg-subtle, #f1f5f9);
+  color: var(--text-secondary, #475569);
+  border: 1px solid var(--border-subtle, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-close-loan-calc:hover {
+  background: #e2e8f0;
+  color: var(--text-primary, #0f172a);
+}
+
 /* Loan EMI Calculator Card */
 .loan-calc-box {
   background-color: #ffffff;
@@ -431,13 +556,84 @@
   }
 }
 
+@media (max-width: 640px) {
+  .loans-section {
+    padding: 2rem 0 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .loans-section-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .loans-section-header h2 {
+    font-size: clamp(1.4rem, 5vw, 1.85rem);
+  }
+
+  .loans-highlight-pills {
+    gap: 0.35rem;
+    margin: 0.85rem auto 1.15rem;
+  }
+
+  .loans-pill {
+    font-size: 0.76rem;
+    padding: 0.28rem 0.6rem;
+  }
+
+  .btn-toggle-loans {
+    width: 100%;
+    max-width: 380px;
+    font-size: 0.86rem;
+    padding: 0.75rem 0.9rem;
+    min-height: 46px;
+  }
+
+  .loan-calc-box {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+    gap: 1.25rem;
+  }
+
+  .emi-output-panel {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .emi-amount-val {
+    font-size: 1.85rem;
+  }
+
+  .loan-card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .loan-card .btn {
+    min-height: 44px;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+}
+
 @media (max-width: 540px) {
   .loans-grid,
   .cibil-cards-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
   .cibil-hero-banner {
-    padding: 1.25rem;
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .emi-breakdown-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.4rem;
+  }
+
+  .emi-metric-mini span:last-child {
+    font-size: 0.82rem;
   }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>InstantCred India | Credit Card Comparison, Loans & Rewards Calculator</title>
   <meta name="description" content="Compare 16+ top credit cards in India, calculate your annual reward savings, check instant personal loan eligibility, and read expert credit guides on InstantCred." />
   <meta name="keywords" content="InstantCred, Instant Cred India, Credit Cards India, Best Cashback Credit Cards, Lifetime Free Cards, Airport Lounge Cards, Personal Loans India, SBI Cashback, HDFC Millennia" />
@@ -23,15 +23,22 @@
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-  <!-- OpenGraph Meta -->
+  <!-- OpenGraph Meta for Social Sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.instantcred.in/" />
   <meta property="og:site_name" content="InstantCred India" />
   <meta property="og:title" content="InstantCred India | Best Credit Card Reviews, Comparisons & Rewards Calculator" />
   <meta property="og:description" content="Compare leading credit cards in India. Calculate your annual cashback savings and find the best card for your monthly spending habits." />
   <meta property="og:image" content="https://www.instantcred.in/og-image.png" />
+  <meta property="og:image:secure_url" content="https://www.instantcred.in/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="InstantCred India - Luxury Credit Card & Personal Loan Comparison" />
   <meta property="og:locale" content="en_IN" />
 
   <!-- Twitter Card -->
@@ -40,6 +47,7 @@
   <meta name="twitter:title" content="InstantCred India | Credit Card Comparison & Rewards Calculator" />
   <meta name="twitter:description" content="Compare leading credit cards in India, calculate annual cashback, and check loan eligibility." />
   <meta name="twitter:image" content="https://www.instantcred.in/og-image.png" />
+  <meta name="twitter:image:alt" content="InstantCred India - Compare Credit Cards & Instant Loans" />
 
   <!-- JSON-LD Structured Data for Google Rich Snippets -->
   <script type="application/ld+json">
@@ -63,7 +71,8 @@
         "@id": "https://www.instantcred.in/#organization",
         "name": "InstantCred India",
         "url": "https://www.instantcred.in/",
-        "logo": "https://www.instantcred.in/favicon.svg",
+        "logo": "https://www.instantcred.in/logo.png",
+        "image": "https://www.instantcred.in/og-image.png",
         "areaServed": "IN",
         "description": "Independent credit card comparison and financial analytics platform for Indian consumers."
       },
@@ -125,8 +134,8 @@
   <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-container">
-      <a href="#" class="brand-logo">
-        <div class="brand-icon">💳</div>
+      <a href="#" class="brand-logo" aria-label="InstantCred Home">
+        <img src="/logo.png" alt="InstantCred Logo" class="brand-logo-img" width="36" height="36" />
         <span>InstantCred<span class="brand-domain">.in</span></span>
         <span class="brand-badge">2026 Edition</span>
       </a>
@@ -139,32 +148,25 @@
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="btn btn-secondary btn-launch-quiz">
-          <span>Card Finder Quiz</span>
+        <button type="button" class="btn btn-secondary btn-launch-quiz" style="gap: 0.45rem; font-weight: 600;">
+          <svg class="ui-icon ui-icon-sparkle" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
+          <span>Smart Match</span>
+        </button>
+        <button type="button" class="btn-icon-only" id="btnShareSite" title="Share InstantCred.in" aria-label="Share InstantCred">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
         </button>
         <button type="button" class="btn-icon-only" id="btnOpenAffiliateModal" title="System & Partner Diagnostics">
-          ⚙️
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Swipeable Section Navigation Bar -->
-    <div class="mobile-nav-bar" id="mobileNavBar">
-      <div class="mobile-nav-scroll">
-        <a href="#card-directory" class="mobile-nav-link active" data-section="card-directory">
-          <span>💳 Credit Cards</span>
-        </a>
-        <a href="#loans-section" class="mobile-nav-link" data-section="loans-section">
-          <span>💰 Personal Loans</span>
-        </a>
-        <a href="#calculator-section" class="mobile-nav-link" data-section="calculator-section">
-          <span>🧮 Spend Calculator</span>
-        </a>
-        <a href="#faq-section" class="mobile-nav-link" data-section="faq-section">
-          <span>📖 Guides</span>
-        </a>
-      </div>
-    </div>
   </header>
 
   <!-- Hero Section -->
@@ -183,7 +185,12 @@
       <!-- Search Input -->
       <div class="search-box-wrapper">
         <div class="search-input-group">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
           <input 
             type="text" 
             id="searchInput" 
@@ -210,13 +217,13 @@
     <div class="promo-grid">
       <div class="promo-card promo-card-quiz">
         <div>
-          <span class="promo-badge promo-badge-quiz">Pre-Qualification Quiz</span>
-          <h3>Looking for a personalized recommendation?</h3>
-          <p>Answer 3 quick questions about your monthly income and primary spending habits to see the cards with the highest approval odds.</p>
+          <span class="promo-badge promo-badge-quiz">✨ 30-Sec Smart Match</span>
+          <h3>Find Your Perfect Credit Card Match</h3>
+          <p>Answer 3 quick questions about your monthly income and primary spending habits to see the cards with the highest approval odds and net reward value.</p>
         </div>
         <div>
           <button type="button" class="btn btn-primary btn-launch-quiz">
-            Start Card Finder
+            Start Smart Match
           </button>
         </div>
       </div>
@@ -275,81 +282,96 @@
       <!-- Injected dynamically via app.js -->
     </section>
 
-    <!-- Interactive Rewards & Spend Calculator Section -->
+    <!-- Interactive Rewards & Spend Calculator Section (Collapsible by Default) -->
     <section class="calculator-section" id="calculator-section">
       <div class="calc-container">
         <div class="calc-header">
           <span class="promo-badge promo-badge-calc">Rewards & Cashback Calculator</span>
           <h2>Calculate Your Net Annual Value</h2>
-          <p>Adjust your estimated monthly spending below to see which card provides the highest return after accounting for annual renewal fees.</p>
+          <p>Adjust your estimated monthly spending to see which credit card yields the highest return after accounting for annual renewal fees.</p>
+          <div class="calc-toggle-wrap">
+            <button type="button" class="btn btn-primary btn-toggle-calc" id="btnToggleCalculator" aria-expanded="false" aria-controls="calcCollapsibleBody">
+              <span class="calc-toggle-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="3"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><circle cx="8" cy="10" r="1" fill="currentColor"></circle><circle cx="12" cy="10" r="1" fill="currentColor"></circle><circle cx="16" cy="10" r="1" fill="currentColor"></circle><circle cx="8" cy="14" r="1" fill="currentColor"></circle><circle cx="12" cy="14" r="1" fill="currentColor"></circle><circle cx="8" cy="18" r="1" fill="currentColor"></circle><circle cx="12" cy="18" r="1" fill="currentColor"></circle></svg></span>
+              <span class="calc-toggle-text">Open Spend Calculator (6 Spends)</span>
+              <span class="calc-toggle-chevron">▾</span>
+            </button>
+          </div>
         </div>
 
-        <div class="calc-grid">
-          <!-- Sliders Side -->
-          <div class="sliders-wrapper">
-            <!-- Online Shopping -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label class="slider-label">Online Shopping (Amazon, Flipkart, Myntra)</label>
-                <span class="slider-value-display" id="display-online">₹15,000</span>
+        <div class="calc-collapsible-body" id="calcCollapsibleBody">
+          <div class="calc-grid">
+            <!-- Sliders Side -->
+            <div class="sliders-wrapper">
+              <!-- Online Shopping -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label">Online Shopping (Amazon, Flipkart, Myntra)</label>
+                  <span class="slider-value-display" id="display-online">₹15,000</span>
+                </div>
+                <input type="range" class="range-slider" data-calc-category="online" min="0" max="100000" step="1000" value="15000" />
               </div>
-              <input type="range" class="range-slider" data-calc-category="online" min="0" max="100000" step="1000" value="15000" />
+
+              <!-- Dining & Food Delivery -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label">Food & Dining (Swiggy, Zomato, Restaurants)</label>
+                  <span class="slider-value-display" id="display-dining">₹6,000</span>
+                </div>
+                <input type="range" class="range-slider" data-calc-category="dining" min="0" max="50000" step="500" value="6000" />
+              </div>
+
+              <!-- Groceries -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label">Groceries (Blinkit, Zepto, DMart, Supermarkets)</label>
+                  <span class="slider-value-display" id="display-grocery">₹8,000</span>
+                </div>
+                <input type="range" class="range-slider" data-calc-category="grocery" min="0" max="50000" step="500" value="8000" />
+              </div>
+
+              <!-- Fuel -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label">Fuel (Petrol / Diesel / EV Charging)</label>
+                  <span class="slider-value-display" id="display-fuel">₹4,000</span>
+                </div>
+                <input type="range" class="range-slider" data-calc-category="fuel" min="0" max="30000" step="500" value="4000" />
+              </div>
+
+              <!-- Travel & Flights -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label">Flights & Hotel Bookings</label>
+                  <span class="slider-value-display" id="display-travel">₹5,000</span>
+                </div>
+                <input type="range" class="range-slider" data-calc-category="travel" min="0" max="100000" step="1000" value="5000" />
+              </div>
+
+              <!-- Utility Bills -->
+              <div class="slider-group">
+                <div class="slider-label-row">
+                  <label class="slider-label">Utility Bills & Mobile Recharges</label>
+                  <span class="slider-value-display" id="display-bills">₹4,000</span>
+                </div>
+                <input type="range" class="range-slider" data-calc-category="bills" min="0" max="30000" step="500" value="4000" />
+              </div>
+
+              <div class="total-spend-pill">
+                <span class="total-spend-label">Total Estimated Monthly Spend:</span>
+                <span class="total-spend-amount" id="calcTotalSpendDisplay">₹42,000/mo</span>
+              </div>
             </div>
 
-            <!-- Dining & Food Delivery -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label class="slider-label">Food & Dining (Swiggy, Zomato, Restaurants)</label>
-                <span class="slider-value-display" id="display-dining">₹6,000</span>
-              </div>
-              <input type="range" class="range-slider" data-calc-category="dining" min="0" max="50000" step="500" value="6000" />
-            </div>
-
-            <!-- Groceries -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label class="slider-label">Groceries (Blinkit, Zepto, DMart, Supermarkets)</label>
-                <span class="slider-value-display" id="display-grocery">₹8,000</span>
-              </div>
-              <input type="range" class="range-slider" data-calc-category="grocery" min="0" max="50000" step="500" value="8000" />
-            </div>
-
-            <!-- Fuel -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label class="slider-label">Fuel (Petrol / Diesel / EV Charging)</label>
-                <span class="slider-value-display" id="display-fuel">₹4,000</span>
-              </div>
-              <input type="range" class="range-slider" data-calc-category="fuel" min="0" max="30000" step="500" value="4000" />
-            </div>
-
-            <!-- Travel & Flights -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label class="slider-label">Flights & Hotel Bookings</label>
-                <span class="slider-value-display" id="display-travel">₹5,000</span>
-              </div>
-              <input type="range" class="range-slider" data-calc-category="travel" min="0" max="100000" step="1000" value="5000" />
-            </div>
-
-            <!-- Utility Bills -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label class="slider-label">Utility Bills & Mobile Recharges</label>
-                <span class="slider-value-display" id="display-bills">₹4,000</span>
-              </div>
-              <input type="range" class="range-slider" data-calc-category="bills" min="0" max="30000" step="500" value="4000" />
-            </div>
-
-            <div class="total-spend-pill">
-              <span class="total-spend-label">Total Estimated Monthly Spend:</span>
-              <span class="total-spend-amount" id="calcTotalSpendDisplay">₹42,000/mo</span>
+            <!-- Dynamic Output Side -->
+            <div class="calc-results-wrapper" id="calcWinnerContainer">
+              <!-- Rendered dynamically by app.js / calculator.js -->
             </div>
           </div>
 
-          <!-- Dynamic Output Side -->
-          <div class="calc-results-wrapper" id="calcWinnerContainer">
-            <!-- Rendered dynamically by app.js / calculator.js -->
+          <div class="calc-close-bar">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnCloseCalculator">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.35rem;" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Hide Calculator
+            </button>
           </div>
         </div>
       </div>
@@ -365,60 +387,86 @@
           <span class="promo-badge promo-badge-calc">Instant Disbursal • Paperless KYC</span>
           <h2>Compare Instant Personal Loans in India</h2>
           <p>Get instant cash loans from ₹10,000 up to ₹35 Lakh with flexible tenures and minimum documentation. Disbursal directly into your bank account in under 2 hours.</p>
+
+          <!-- Value Highlight Pills -->
+          <div class="loans-highlight-pills">
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> 2-Hour Disbursal</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> Paperless KYC</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> Rates from 10.49%</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 6v2m0 8v2"></path></svg> Up to ₹35 Lakh</span>
+          </div>
+
+          <!-- Collapsible Trigger Button for Loan Calculator -->
+          <div class="loan-calc-toggle-wrap">
+            <button class="btn btn-toggle-loan-calc" id="btnToggleLoanCalc" type="button" aria-expanded="false" aria-controls="loanCalcCollapsible">
+              <span class="calc-toggle-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="3"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><circle cx="8" cy="10" r="1" fill="currentColor"></circle><circle cx="12" cy="10" r="1" fill="currentColor"></circle><circle cx="16" cy="10" r="1" fill="currentColor"></circle><circle cx="8" cy="14" r="1" fill="currentColor"></circle><circle cx="12" cy="14" r="1" fill="currentColor"></circle><circle cx="8" cy="18" r="1" fill="currentColor"></circle><circle cx="12" cy="18" r="1" fill="currentColor"></circle></svg></span>
+              <span class="calc-toggle-text">Calculate Loan EMI & Repayment Schedule</span>
+              <span class="calc-toggle-chevron">▾</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Interactive Loan EMI & Eligibility Estimator -->
-        <div class="loan-calc-box">
-          <div>
-            <h3 style="font-size: 1.2rem; margin-bottom: 0.4rem;">Loan EMI & Repayment Calculator</h3>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Adjust your desired loan amount and repayment period to estimate your monthly EMI.</p>
+        <!-- Collapsible Loan EMI Calculator (Hidden by default) -->
+        <div class="loan-calc-collapsible" id="loanCalcCollapsible">
+          <div class="loan-calc-box">
+            <div>
+              <h3 style="font-size: 1.2rem; margin-bottom: 0.4rem;">Loan EMI & Repayment Calculator</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Adjust your desired loan amount and repayment period to estimate your monthly EMI.</p>
 
-            <div class="sliders-wrapper" style="background: transparent; padding: 0; border: none;">
-              <!-- Amount Slider -->
-              <div class="slider-group">
-                <div class="slider-label-row">
-                  <label class="slider-label" for="loanAmountSlider">Required Loan Amount</label>
-                  <span class="slider-value-display" id="loanAmountDisplay">₹2,00,000</span>
+              <div class="sliders-wrapper" style="background: transparent; padding: 0; border: none;">
+                <!-- Amount Slider -->
+                <div class="slider-group">
+                  <div class="slider-label-row">
+                    <label class="slider-label" for="loanAmountSlider">Required Loan Amount</label>
+                    <span class="slider-value-display" id="loanAmountDisplay">₹2,00,000</span>
+                  </div>
+                  <input type="range" id="loanAmountSlider" class="range-slider" min="20000" max="1000000" step="10000" value="200000" />
                 </div>
-                <input type="range" id="loanAmountSlider" class="range-slider" min="20000" max="1000000" step="10000" value="200000" />
+
+                <!-- Tenure Slider -->
+                <div class="slider-group" style="margin-top: 1rem;">
+                  <div class="slider-label-row">
+                    <label class="slider-label" for="loanTenureSlider">Repayment Period</label>
+                    <span class="slider-value-display" id="loanTenureDisplay">24 Months (2 Yrs)</span>
+                  </div>
+                  <input type="range" id="loanTenureSlider" class="range-slider" min="6" max="60" step="6" value="24" />
+                </div>
               </div>
+            </div>
 
-              <!-- Tenure Slider -->
-              <div class="slider-group" style="margin-top: 1rem;">
-                <div class="slider-label-row">
-                  <label class="slider-label" for="loanTenureSlider">Repayment Period</label>
-                  <span class="slider-value-display" id="loanTenureDisplay">24 Months (2 Yrs)</span>
+            <!-- EMI Output Panel -->
+            <div class="emi-output-panel">
+              <span class="emi-amount-label">Estimated Monthly EMI</span>
+              <span class="emi-amount-val" id="estimatedEmiDisplay">₹9,780</span>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">(Calculated at 15.99% avg annual rate)</span>
+
+              <div class="emi-breakdown-metrics">
+                <div class="emi-metric-mini">
+                  <span>Principal</span>
+                  <span id="loanPrincipalDisplay">₹2,00,000</span>
                 </div>
-                <input type="range" id="loanTenureSlider" class="range-slider" min="6" max="60" step="6" value="24" />
+                <div class="emi-metric-mini">
+                  <span>Total Interest</span>
+                  <span id="loanTotalInterestDisplay">₹34,720</span>
+                </div>
+                <div class="emi-metric-mini">
+                  <span>Total Payable</span>
+                  <span id="loanTotalPayableDisplay">₹2,34,720</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- EMI Output Panel -->
-          <div class="emi-output-panel">
-            <span class="emi-amount-label">Estimated Monthly EMI</span>
-            <span class="emi-amount-val" id="estimatedEmiDisplay">₹9,780</span>
-            <span style="font-size: 0.78rem; color: var(--text-muted);">(Calculated at 15.99% avg annual rate)</span>
-
-            <div class="emi-breakdown-metrics">
-              <div class="emi-metric-mini">
-                <span>Principal</span>
-                <span id="loanPrincipalDisplay">₹2,00,000</span>
-              </div>
-              <div class="emi-metric-mini">
-                <span>Total Interest</span>
-                <span id="loanTotalInterestDisplay">₹34,720</span>
-              </div>
-              <div class="emi-metric-mini">
-                <span>Total Payable</span>
-                <span id="loanTotalPayableDisplay">₹2,34,720</span>
-              </div>
-            </div>
+          <!-- Bottom Close Bar for Loan Calculator -->
+          <div class="loan-calc-close-bar">
+            <button class="btn btn-close-loan-calc" id="btnCloseLoanCalc" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.35rem;" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Hide EMI Calculator
+            </button>
           </div>
         </div>
 
-        <!-- Leading Personal Loan Providers Grid -->
-        <div style="text-align: center; margin-bottom: 1.75rem;">
+        <!-- Leading Personal Loan Providers Grid (Shown by default) -->
+        <div class="loans-providers-header" style="text-align: center; margin-bottom: 1.75rem;">
           <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Top Approved Instant Loan Providers (2026)</h3>
           <p class="text-secondary" style="font-size: 0.88rem;">100% digital KYC with rapid disbursal for salaried and self-employed applicants.</p>
         </div>
@@ -427,6 +475,7 @@
           <!-- Rendered dynamically via loans.js / app.js -->
         </div>
       </div>
+    </section>
     <!-- Credit Guides & In-Depth Comparison Articles Section -->
     <section class="blog-section" id="credit-guides-section">
       <div id="creditGuidesSection">
@@ -497,22 +546,25 @@
     </div>
   </div>
 
-  <!-- 3. Pre-Qualification Quiz Modal -->
+  <!-- 3. Smart Card Matchmaker Modal -->
   <div class="modal-backdrop" id="quizModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 600px;">
+    <div class="modal-container smart-match-modal-container">
       <div class="modal-header">
-        <h3 class="modal-title">Card Finder Assistant</h3>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.25rem;">✨</span>
+          <h3 class="modal-title">Smart Card Match</h3>
+        </div>
         <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body" id="quizModalBody">
-        <!-- Injected via quiz.js -->
+        <!-- Injected via app.js -->
       </div>
     </div>
   </div>
 
   <!-- 4. Outbound Redirect Modal -->
   <div class="modal-backdrop" id="redirectModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 480px;">
+    <div class="modal-container redirect-modal-container">
       <div class="modal-body" id="redirectModalBody">
         <!-- Injected via app.js -->
       </div>
@@ -521,7 +573,7 @@
 
   <!-- 5. Affiliate & Monetization Control Center Modal (Password Protected with Fake Maintenance State) -->
   <div class="modal-backdrop" id="affiliateModal" role="dialog" aria-modal="true">
-    <div class="modal-container affiliate-control-modal" style="max-width: 860px;">
+    <div class="modal-container affiliate-control-modal">
 
       <!-- A. Fake Maintenance & Password Gate Screen -->
       <div id="affiliateGateScreen" class="affiliate-gate-screen">
@@ -978,7 +1030,7 @@
 
   <!-- 6. Privacy Policy Modal -->
   <div class="modal-backdrop" id="privacyModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 680px;">
+    <div class="modal-container legal-modal-container">
       <div class="modal-header">
         <h3 class="modal-title">Privacy Policy</h3>
         <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
@@ -1006,7 +1058,7 @@
 
   <!-- 7. Terms of Service Modal -->
   <div class="modal-backdrop" id="termsModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 680px;">
+    <div class="modal-container legal-modal-container">
       <div class="modal-header">
         <h3 class="modal-title">Terms & Conditions of Use</h3>
         <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
@@ -1029,7 +1081,7 @@
 
   <!-- 8. Affiliate & Advertising Disclosure Modal -->
   <div class="modal-backdrop" id="disclosureModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 680px;">
+    <div class="modal-container legal-modal-container">
       <div class="modal-header">
         <h3 class="modal-title">Affiliate & Advertising Disclosure</h3>
         <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
@@ -1053,7 +1105,7 @@
 
   <!-- 9. Editorial Standards Modal -->
   <div class="modal-backdrop" id="editorialModal" role="dialog" aria-modal="true">
-    <div class="modal-container" style="max-width: 680px;">
+    <div class="modal-container legal-modal-container">
       <div class="modal-header">
         <h3 class="modal-title">Editorial Standards & Rating Methodology</h3>
         <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
@@ -1079,7 +1131,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="brand-logo">
-            <div class="brand-icon">💳</div>
+            <img src="/logo.png" alt="InstantCred Logo" class="brand-logo-img" width="36" height="36" />
             <span>InstantCred<span class="brand-domain">.in</span></span>
           </div>
           <p>Independent credit card comparison and financial analytics platform for Indian consumers.</p>
@@ -1134,6 +1186,44 @@
 
   <!-- Blog Reader Modal Container -->
   <div id="blogReaderModal" class="blog-modal hidden"></div>
+
+  <!-- 10. Mobile Category Picker Bottom Sheet Modal -->
+  <div class="modal-backdrop" id="categoryPickerModal" role="dialog" aria-modal="true">
+    <div class="modal-container category-picker-sheet">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Select Card Category</h3>
+          <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.15rem;">
+            Explore curated cards by rewards, perks & eligibility
+          </div>
+        </div>
+        <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="categoryPickerModalBody">
+        <!-- Injected dynamically via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Fixed Bottom App Navigation Bar -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Bottom Navigation">
+    <a href="#card-directory" class="bottom-nav-item active" data-section="card-directory">
+      <span class="bottom-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="3"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></span>
+      <span class="bottom-nav-label">Cards</span>
+    </a>
+    <a href="#loans-section" class="bottom-nav-item" data-section="loans-section">
+      <span class="bottom-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 6v2m0 8v2"></path></svg></span>
+      <span class="bottom-nav-label">Loans</span>
+    </a>
+    <a href="#calculator-section" class="bottom-nav-item" data-section="calculator-section">
+      <span class="bottom-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="3"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><circle cx="8" cy="10" r="1" fill="currentColor"></circle><circle cx="12" cy="10" r="1" fill="currentColor"></circle><circle cx="16" cy="10" r="1" fill="currentColor"></circle><circle cx="8" cy="14" r="1" fill="currentColor"></circle><circle cx="12" cy="14" r="1" fill="currentColor"></circle><circle cx="8" cy="18" r="1" fill="currentColor"></circle><circle cx="12" cy="18" r="1" fill="currentColor"></circle></svg></span>
+      <span class="bottom-nav-label">Calculator</span>
+    </a>
+    <a href="#credit-guides-section" class="bottom-nav-item" data-section="credit-guides-section">
+      <span class="bottom-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="9" y1="7" x2="15" y2="7"></line><line x1="9" y1="11" x2="13" y2="11"></line></svg></span>
+      <span class="bottom-nav-label">Guides</span>
+    </a>
+  </nav>
 
   <!-- App Bootstrap JS -->
   <script type="module" src="/src/app.js"></script>

@@ -324,6 +324,7 @@
 .metric-box {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .metric-label {
@@ -332,12 +333,17 @@
   text-transform: uppercase;
   font-weight: 700;
   margin-bottom: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .metric-value {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-primary);
+  line-height: 1.25;
+  word-break: break-word;
 }
 
 .metric-value.free {
@@ -348,6 +354,7 @@
   font-size: 0.7rem;
   color: var(--text-muted);
   margin-top: 0.1rem;
+  line-height: 1.2;
 }
 
 /* Key Perks List */
@@ -425,23 +432,46 @@
   .card-actions-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.45rem;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
   }
 
   .btn-apply {
     grid-column: 1 / -1;
     order: -1;
     width: 100%;
-    padding: 0.65rem 0.75rem;
-    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+    font-size: 0.92rem;
     font-weight: 700;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-compare,
   .btn-details {
     width: 100%;
+    min-height: 40px;
     text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.5rem 0.5rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .card-title-preview {
+    max-width: 65%;
+    font-size: 0.78rem;
+  }
+
+  .bank-name-label {
     font-size: 0.76rem;
-    padding: 0.45rem 0.4rem;
   }
 }

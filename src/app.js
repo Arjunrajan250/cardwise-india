@@ -5,6 +5,7 @@ import { RewardsCalculator } from './calculator.js';
 import { CardQuiz } from './quiz.js';
 import { affiliateManager } from './affiliate.js';
 import { BlogManager } from './blog.js';
+import { ICONS } from './icons.js';
 
 class App {
   constructor() {
@@ -70,11 +71,97 @@ class App {
       this.activeCategory = 'all';
     }
 
-    container.innerHTML = availableCategories.map(cat => `
-      <button type="button" class="category-chip ${cat.id === this.activeCategory ? 'active' : ''}" data-category-id="${cat.id}">
-        <span>${cat.label}</span>
-      </button>
-    `).join('');
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Curated quick access on mobile: "all", "Cashback", "Lifetime Free"
+      const curatedIds = ['all', 'Cashback', 'Lifetime Free'];
+      const topChips = availableCategories.filter(cat => curatedIds.includes(cat.id));
+      
+      // If current activeCategory is NOT in the topChips, show it dynamically as active chip
+      const activeCatObj = availableCategories.find(c => c.id === this.activeCategory);
+      const isCustomActive = activeCatObj && !topChips.some(c => c.id === activeCatObj.id);
+
+      const chipsHtml = topChips.map(cat => `
+        <button type="button" class="category-chip ${cat.id === this.activeCategory ? 'active' : ''}" data-category-id="${cat.id}">
+          <span>${cat.label}</span>
+        </button>
+      `).join('');
+
+      const customActiveChipHtml = isCustomActive ? `
+        <button type="button" class="category-chip active" data-category-id="${activeCatObj.id}">
+          <span style="display:inline-flex; align-items:center; gap:4px;">${ICONS.check} ${activeCatObj.label}</span>
+        </button>
+      ` : '';
+
+      const moreLabel = isCustomActive 
+        ? `More Categories ▾`
+        : `<span style="display:inline-flex; align-items:center; gap:5px;">${ICONS.tagFolder} All Categories (${availableCategories.length}) ▾</span>`;
+
+      container.innerHTML = `
+        ${chipsHtml}
+        ${customActiveChipHtml}
+        <button type="button" class="category-chip chip-more-trigger ${isCustomActive ? 'has-active' : ''}" id="btnOpenCategoryPicker" aria-label="View all categories" data-open-modal="categoryPickerModal">
+          <span>${moreLabel}</span>
+        </button>
+      `;
+    } else {
+      // Desktop: wrap all available chips
+      container.innerHTML = availableCategories.map(cat => `
+        <button type="button" class="category-chip ${cat.id === this.activeCategory ? 'active' : ''}" data-category-id="${cat.id}">
+          <span>${cat.label}</span>
+        </button>
+      `).join('');
+    }
+
+    this.renderCategoryPickerModal(availableCategories);
+  }
+
+  renderCategoryPickerModal(availableCategories) {
+    const modalBody = document.getElementById('categoryPickerModalBody');
+    if (!modalBody) return;
+
+    const iconMap = {
+      'all': ICONS.catAll,
+      'Guaranteed Approval': ICONS.catGuaranteed,
+      'High Approval': ICONS.catHighApproval,
+      'Cashback': ICONS.catCashback,
+      'Lifetime Free': ICONS.catLifetimeFree,
+      'Travel & Miles': ICONS.catTravel,
+      'Lounge': ICONS.catLounge,
+      'Dining & Food': ICONS.catDining,
+      'Shopping': ICONS.catShopping,
+      'UPI & RuPay': ICONS.catUpi,
+      'Fuel Savers': ICONS.catFuel,
+      'Super Premium': ICONS.catSuperPremium
+    };
+
+    const itemsHtml = availableCategories.map(cat => {
+      const icon = iconMap[cat.id] || ICONS.tagFolder;
+      const isActive = cat.id === this.activeCategory;
+      const cardCount = cat.id === 'all' 
+        ? this.cards.length 
+        : this.cards.filter(c => c.primaryCategory === cat.id || (c.categories && c.categories.includes(cat.id))).length;
+
+      return `
+        <button type="button" class="category-sheet-item ${isActive ? 'active' : ''}" data-sheet-category-id="${cat.id}">
+          <div class="category-sheet-item-left">
+            <span class="category-sheet-item-icon">${icon}</span>
+            <span class="category-sheet-item-name">${cat.label}</span>
+          </div>
+          <div class="category-sheet-item-right">
+            <span class="category-sheet-item-count">${cardCount} ${cardCount === 1 ? 'card' : 'cards'}</span>
+            ${isActive ? `<span class="category-sheet-item-check" aria-label="Selected">${ICONS.check}</span>` : ''}
+          </div>
+        </button>
+      `;
+    }).join('');
+
+    modalBody.innerHTML = `
+      <div class="category-sheet-list">
+        ${itemsHtml}
+      </div>
+    `;
   }
 
   populateFilterDropdowns() {
@@ -198,7 +285,7 @@ class App {
               <span class="badge-approval ${card.approvalTier || 'moderate'}">${card.approvalLabel || 'Standard'}</span>
             </div>
             <div class="rating-badge">
-              <span>★</span>
+              <span class="rating-star-svg">${ICONS.star}</span>
               <span>${card.rating.toFixed(1)}</span>
             </div>
           </div>
@@ -208,7 +295,7 @@ class App {
             <div class="credit-card-visual theme-${card.cardTheme}">
               <div class="card-top-row">
                 <span class="bank-name-label">${card.bank}</span>
-                <span class="contactless-icon">📶</span>
+                <span class="contactless-icon">${ICONS.contactless}</span>
               </div>
               <div class="card-middle-row">
                 <div class="emv-chip"></div>
@@ -247,7 +334,7 @@ class App {
             <ul class="perks-list">
               ${card.keyPerks.slice(0, 3).map(perk => `
                 <li class="perk-item">
-                  <span class="perk-icon">✓</span>
+                  <span class="perk-icon">${ICONS.check}</span>
                   <span>${perk}</span>
                 </li>
               `).join('')}
@@ -256,7 +343,7 @@ class App {
             <!-- Action Buttons -->
             <div class="card-actions-row">
               <button type="button" class="btn btn-secondary btn-compare ${isSelectedForCompare ? 'selected' : ''}" data-compare-id="${card.id}">
-                ${isSelectedForCompare ? '✓ Selected' : '+ Compare'}
+                ${isSelectedForCompare ? `${ICONS.check} Selected` : '+ Compare'}
               </button>
               <button type="button" class="btn btn-secondary btn-details" data-open-card-id="${card.id}" title="View Details">
                 Specs
@@ -325,7 +412,7 @@ class App {
           </div>
           <div class="detail-stat-card">
             <div class="label">Rating</div>
-            <div class="value">★ ${card.rating} / 5 (${card.reviewsCount} reviews)</div>
+            <div class="value" style="display: inline-flex; align-items: center; gap: 4px;"><span class="star-svg">${ICONS.star}</span> ${card.rating} / 5 (${card.reviewsCount} reviews)</div>
           </div>
           <div class="detail-stat-card">
             <div class="label">Network</div>
@@ -342,7 +429,7 @@ class App {
           <ul class="perks-list">
             ${card.keyPerks.map(p => `
               <li class="perk-item">
-                <span class="perk-icon">✓</span>
+                <span class="perk-icon">${ICONS.check}</span>
                 <span>${p}</span>
               </li>
             `).join('')}
@@ -371,8 +458,8 @@ class App {
             <div class="value">${card.feeWaiverSpend > 0 ? `₹${card.feeWaiverSpend.toLocaleString('en-IN')}` : 'None'}</div>
           </div>
           <div class="detail-stat-card">
-            <div class="label">Fuel Surcharge</div>
-            <div class="value">${card.fuelSurchargeWaiver}</div>
+            <div class="label">Reward Redemption Fee</div>
+            <div class="value">${card.rewardRedemptionFee || '₹0'}</div>
           </div>
         </div>
         <div class="detail-section">
@@ -386,15 +473,15 @@ class App {
         <div class="detail-box-grid">
           <div class="detail-stat-card">
             <div class="label">Domestic Lounge</div>
-            <div class="value">${card.loungeAccess.domestic} Visits / Year</div>
+            <div class="value">${card.loungeAccess.domestic} / Year</div>
           </div>
           <div class="detail-stat-card">
             <div class="label">International Lounge</div>
-            <div class="value">${card.loungeAccess.international} Visits / Year</div>
+            <div class="value">${card.loungeAccess.international} / Year</div>
           </div>
         </div>
-        <div class="detail-section">
-          <h4>Lounge Access Guidelines</h4>
+        <div class="detail-section" style="margin-top: 1rem;">
+          <h4>Lounge Access Terms</h4>
           <p class="text-secondary">${card.loungeAccess.details}</p>
         </div>
       </div>
@@ -426,11 +513,11 @@ class App {
         <div class="detail-section">
           <h4 style="color: var(--brand-success)">What We Like (Pros)</h4>
           <ul class="comp-pros-list" style="margin-bottom: 1.25rem;">
-            ${card.pros.map(p => `<li>✓ ${p}</li>`).join('')}
+            ${card.pros.map(p => `<li><span class="comp-check-svg">${ICONS.check}</span> <span>${p}</span></li>`).join('')}
           </ul>
           <h4 style="color: var(--brand-danger)">Points to Consider (Cons)</h4>
           <ul class="comp-cons-list">
-            ${card.cons.map(c => `<li>✕ ${c}</li>`).join('')}
+            ${card.cons.map(c => `<li><span class="comp-cross-svg">${ICONS.close}</span> <span>${c}</span></li>`).join('')}
           </ul>
         </div>
       </div>
@@ -460,6 +547,52 @@ class App {
      5. Spend & Savings Calculator
      -------------------------------------------------------------------------- */
   initCalculator() {
+    const toggleBtn = document.getElementById('btnToggleCalculator');
+    const closeBtn = document.getElementById('btnCloseCalculator');
+    const collapsibleBody = document.getElementById('calcCollapsibleBody');
+
+    this.setCalculatorState = (isOpen) => {
+      if (!collapsibleBody || !toggleBtn) return;
+      if (isOpen) {
+        collapsibleBody.classList.add('is-expanded');
+        toggleBtn.classList.add('is-open');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        const textEl = toggleBtn.querySelector('.calc-toggle-text');
+        const iconEl = toggleBtn.querySelector('.calc-toggle-icon');
+        if (textEl) textEl.textContent = 'Hide Spend Calculator';
+        if (iconEl) iconEl.innerHTML = ICONS.close;
+      } else {
+        collapsibleBody.classList.remove('is-expanded');
+        toggleBtn.classList.remove('is-open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        const textEl = toggleBtn.querySelector('.calc-toggle-text');
+        const iconEl = toggleBtn.querySelector('.calc-toggle-icon');
+        if (textEl) textEl.textContent = 'Open Spend Calculator (6 Spends)';
+        if (iconEl) iconEl.innerHTML = ICONS.calculator;
+      }
+    };
+
+    if (toggleBtn && collapsibleBody) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = collapsibleBody.classList.contains('is-expanded');
+        this.setCalculatorState(!isOpen);
+      });
+    }
+
+    if (closeBtn && collapsibleBody) {
+      closeBtn.addEventListener('click', () => {
+        this.setCalculatorState(false);
+        const section = document.getElementById('calculator-section');
+        if (section) {
+          const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+          window.scrollTo({
+            top: section.offsetTop - headerHeight + 5,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
+
     const sliders = document.querySelectorAll('.range-slider');
     sliders.forEach(slider => {
       slider.addEventListener('input', (e) => {
@@ -554,117 +687,207 @@ class App {
     if (!container) return;
 
     const step = this.quiz.currentStep;
-    const progressPercent = (step / this.quiz.totalSteps) * 100;
 
-    let stepHTML = `
-      <div class="quiz-progress-bar-wrapper">
-        <div class="quiz-progress-fill" style="width: ${progressPercent}%;"></div>
+    const stepPillsHTML = `
+      <div class="smart-match-stepper">
+        <div class="smart-step-pill ${step === 1 ? 'active' : (step > 1 ? 'done' : '')}">
+          <span class="step-num">${step > 1 ? ICONS.check : '1'}</span>
+          <span class="step-label">Income</span>
+        </div>
+        <div class="smart-step-divider ${step > 1 ? 'done' : ''}"></div>
+        <div class="smart-step-pill ${step === 2 ? 'active' : (step > 2 ? 'done' : '')}">
+          <span class="step-num">${step > 2 ? ICONS.check : '2'}</span>
+          <span class="step-label">Spend</span>
+        </div>
+        <div class="smart-step-divider ${step > 2 ? 'done' : ''}"></div>
+        <div class="smart-step-pill ${step === 3 ? 'active' : ''}">
+          <span class="step-num">3</span>
+          <span class="step-label">Priority</span>
+        </div>
       </div>
     `;
 
+    let contentHTML = '';
+
     if (step === 1) {
-      stepHTML += `
-        <h3 class="quiz-step-title">Step 1 of 3: What is your monthly salary or income?</h3>
-        <p class="quiz-step-subtitle">This helps match you with cards you are eligible to be approved for.</p>
-        <div class="quiz-options-grid">
-          <div class="quiz-option-card ${this.quiz.answers.income === 'low' ? 'selected' : ''}" data-quiz-choice="income" data-val="low">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Below ₹30,000 / month</span>
-              <span class="quiz-option-desc">Entry-level and Lifetime Free cards</span>
+      contentHTML = `
+        <div class="smart-match-header">
+          <span class="smart-match-step-badge">STEP 1 OF 3 • FINANCIAL PROFILE</span>
+          <h3 class="smart-match-title">What is your monthly in-hand salary?</h3>
+          <p class="smart-match-subtitle">We calculate exact bank underwriting income requirements to maximize your instant approval odds.</p>
+        </div>
+        <div class="smart-match-grid">
+          <button type="button" class="smart-match-tile ${this.quiz.answers.income === 'low' ? 'selected' : ''}" data-quiz-choice="income" data-val="low">
+            <div class="tile-icon-box">${ICONS.briefcase}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Below ₹30,000 / mo</span>
+                <span class="tile-tag">Entry</span>
+              </div>
+              <span class="tile-desc">Zero annual fee & entry-level cashback cards</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.income === 'mid' ? 'selected' : ''}" data-quiz-choice="income" data-val="mid">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">₹30,000 – ₹75,000 / month</span>
-              <span class="quiz-option-desc">High cashback and everyday shopping cards</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.income === 'mid' ? 'selected' : ''}" data-quiz-choice="income" data-val="mid">
+            <div class="tile-icon-box">${ICONS.cards}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">₹30,000 – ₹75,000 / mo</span>
+                <span class="tile-tag">Growth</span>
+              </div>
+              <span class="tile-desc">High cashback on dining, food & shopping</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.income === 'high' ? 'selected' : ''}" data-quiz-choice="income" data-val="high">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">₹75,000 – ₹1.5 Lakh / month</span>
-              <span class="quiz-option-desc">Premium travel, airport lounge and rewards cards</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.income === 'high' ? 'selected' : ''}" data-quiz-choice="income" data-val="high">
+            <div class="tile-icon-box">${ICONS.diamond}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">₹75,000 – ₹1.5L / mo</span>
+                <span class="tile-tag">Premium</span>
+              </div>
+              <span class="tile-desc">Airport lounge access, rewards & air miles</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.income === 'ultra' ? 'selected' : ''}" data-quiz-choice="income" data-val="ultra">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Above ₹1.5 Lakh / month</span>
-              <span class="quiz-option-desc">Super premium and luxury travel tier cards</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.income === 'ultra' ? 'selected' : ''}" data-quiz-choice="income" data-val="ultra">
+            <div class="tile-icon-box">${ICONS.crown}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Above ₹1.5 Lakh / mo</span>
+                <span class="tile-tag">Executive</span>
+              </div>
+              <span class="tile-desc">Super-premium luxury & international travel</span>
             </div>
-          </div>
+            <div class="tile-radio-indicator"></div>
+          </button>
         </div>
       `;
     } else if (step === 2) {
-      stepHTML += `
-        <h3 class="quiz-step-title">Step 2 of 3: What is your main monthly expense?</h3>
-        <p class="quiz-step-subtitle">Select the category where you spend the most.</p>
-        <div class="quiz-options-grid">
-          <div class="quiz-option-card ${this.quiz.answers.primarySpend === 'shopping' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="shopping">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Online Shopping</span>
-              <span class="quiz-option-desc">Amazon, Flipkart, Myntra, electronics</span>
+      contentHTML = `
+        <div class="smart-match-header">
+          <span class="smart-match-step-badge">STEP 2 OF 3 • SPENDING HABITS</span>
+          <h3 class="smart-match-title">Where do you spend the most each month?</h3>
+          <p class="smart-match-subtitle">We prioritize cards offering the highest accelerator multipliers for your top spend category.</p>
+        </div>
+        <div class="smart-match-grid">
+          <button type="button" class="smart-match-tile ${this.quiz.answers.primarySpend === 'shopping' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="shopping">
+            <div class="tile-icon-box">${ICONS.catShopping}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Online Shopping</span>
+                <span class="tile-tag">5% Cashback</span>
+              </div>
+              <span class="tile-desc">Amazon, Flipkart, Myntra & quick commerce</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.primarySpend === 'dining' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="dining">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Dining & Food Delivery</span>
-              <span class="quiz-option-desc">Swiggy, Zomato, cafes and dining out</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.primarySpend === 'dining' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="dining">
+            <div class="tile-icon-box">${ICONS.catDining}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Dining & Food Delivery</span>
+                <span class="tile-tag">10% Off</span>
+              </div>
+              <span class="tile-desc">Swiggy, Zomato, cafes & gourmet dining</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.primarySpend === 'travel' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="travel">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Flights, Hotels & Travel</span>
-              <span class="quiz-option-desc">Airline bookings, hotel stays, air miles</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.primarySpend === 'travel' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="travel">
+            <div class="tile-icon-box">${ICONS.catTravel}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Flights, Hotels & Travel</span>
+                <span class="tile-tag">Air Miles</span>
+              </div>
+              <span class="tile-desc">Flight bookings, hotel stays & 0% forex</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.primarySpend === 'fuel' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="fuel">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Fuel & Commuting</span>
-              <span class="quiz-option-desc">Petrol, diesel and daily travel</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.primarySpend === 'fuel' ? 'selected' : ''}" data-quiz-choice="primarySpend" data-val="fuel">
+            <div class="tile-icon-box">${ICONS.catFuel}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Fuel & Commuting</span>
+                <span class="tile-tag">Fee Waiver</span>
+              </div>
+              <span class="tile-desc">Petrol, diesel, EV charging & toll gates</span>
             </div>
-          </div>
+            <div class="tile-radio-indicator"></div>
+          </button>
         </div>
       `;
     } else if (step === 3) {
-      stepHTML += `
-        <h3 class="quiz-step-title">Step 3 of 3: Which feature matters most to you?</h3>
-        <p class="quiz-step-subtitle">Select your main priority.</p>
-        <div class="quiz-options-grid">
-          <div class="quiz-option-card ${this.quiz.answers.topPriority === 'cashback' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="cashback">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Direct Statement Cashback</span>
-              <span class="quiz-option-desc">Direct credits against monthly card bills</span>
+      contentHTML = `
+        <div class="smart-match-header">
+          <span class="smart-match-step-badge">STEP 3 OF 3 • MUST-HAVE FEATURE</span>
+          <h3 class="smart-match-title">Which card benefit matters most to you?</h3>
+          <p class="smart-match-subtitle">Select the core feature you want unlocked on your new card.</p>
+        </div>
+        <div class="smart-match-grid">
+          <button type="button" class="smart-match-tile ${this.quiz.answers.topPriority === 'cashback' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="cashback">
+            <div class="tile-icon-box">${ICONS.catCashback}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Direct Statement Cashback</span>
+                <span class="tile-tag">High ROI</span>
+              </div>
+              <span class="tile-desc">Direct cash credits deducted from your bills</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.topPriority === 'ltf' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="ltf">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Zero Annual Fee (Lifetime Free)</span>
-              <span class="quiz-option-desc">No joining or renewal fee overhead</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.topPriority === 'ltf' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="ltf">
+            <div class="tile-icon-box">${ICONS.catLifetimeFree}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Zero Annual Fee Forever</span>
+                <span class="tile-tag">Lifetime Free</span>
+              </div>
+              <span class="tile-desc">No joining fee, no annual charges, zero stress</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.topPriority === 'lounge' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="lounge">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">Complimentary Airport Lounges</span>
-              <span class="quiz-option-desc">Free food and lounge access on flights</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.topPriority === 'lounge' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="lounge">
+            <div class="tile-icon-box">${ICONS.catLounge}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">Airport Lounge Access</span>
+                <span class="tile-tag">Luxury</span>
+              </div>
+              <span class="tile-desc">Free food, Wi-Fi & relaxation before flights</span>
             </div>
-          </div>
-          <div class="quiz-option-card ${this.quiz.answers.topPriority === 'upi' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="upi">
-            <div class="quiz-option-text">
-              <span class="quiz-option-title">RuPay UPI QR Payments</span>
-              <span class="quiz-option-desc">Earn points scanning merchant UPI QR codes</span>
+            <div class="tile-radio-indicator"></div>
+          </button>
+          <button type="button" class="smart-match-tile ${this.quiz.answers.topPriority === 'upi' ? 'selected' : ''}" data-quiz-choice="topPriority" data-val="upi">
+            <div class="tile-icon-box">${ICONS.catUpi}</div>
+            <div class="tile-content">
+              <div class="tile-top-row">
+                <span class="tile-title">RuPay UPI QR Payments</span>
+                <span class="tile-tag">Everyday UPI</span>
+              </div>
+              <span class="tile-desc">Scan any merchant UPI QR code & earn rewards</span>
             </div>
-          </div>
+            <div class="tile-radio-indicator"></div>
+          </button>
         </div>
       `;
     }
 
-    container.innerHTML = stepHTML;
+    const navHTML = `
+      <div class="smart-match-nav-bar">
+        ${step > 1 ? `<button type="button" class="btn-smart-back" id="btnQuizBack">← Previous</button>` : `<div></div>`}
+        <span class="smart-match-confidential" style="display:inline-flex;align-items:center;gap:5px;">${ICONS.lock} 100% Private • No phone number needed</span>
+      </div>
+    `;
 
-    container.querySelectorAll('.quiz-option-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const choice = card.dataset.quizChoice;
-        const val = card.dataset.val;
+    container.innerHTML = stepPillsHTML + contentHTML + navHTML;
+
+    container.querySelectorAll('.smart-match-tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        const choice = tile.dataset.quizChoice;
+        const val = tile.dataset.val;
         this.quiz.setAnswer(choice, val);
-        
+
         if (this.quiz.nextStep()) {
           this.renderQuizStep();
         } else {
@@ -672,6 +895,15 @@ class App {
         }
       });
     });
+
+    const backBtn = document.getElementById('btnQuizBack');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        if (this.quiz.prevStep()) {
+          this.renderQuizStep();
+        }
+      });
+    }
   }
 
   renderQuizResults() {
@@ -680,38 +912,90 @@ class App {
 
     const matched = this.quiz.getMatchedCards();
 
+    // Map top priority / spend to catalog category for the bridge button
+    const categoryBridgeMap = {
+      'shopping': 'Online Shopping',
+      'dining': 'Dining & Food',
+      'travel': 'Travel',
+      'fuel': 'Fuel Savers',
+      'cashback': 'Cashback',
+      'ltf': 'Lifetime Free',
+      'lounge': 'Airport Lounge',
+      'upi': 'UPI & RuPay'
+    };
+    const targetCategory = categoryBridgeMap[this.quiz.answers.topPriority] || categoryBridgeMap[this.quiz.answers.primarySpend] || 'Cashback';
+
     container.innerHTML = `
-      <div style="text-align: center; margin-bottom: 1.25rem;">
-        <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Recommended Card Matches</h3>
-        <p class="text-secondary" style="font-size: 0.88rem;">Based on your income and spending preferences, here are the top 2 recommended options.</p>
+      <div class="match-results-hero">
+        <div class="match-success-icon">${ICONS.target}</div>
+        <h3 class="match-results-title">Your Top Card Matches</h3>
+        <p class="match-results-sub">Matched based on your salary tier, primary spending, and must-have rewards.</p>
       </div>
 
-      <div class="quiz-matched-cards-grid">
-        ${matched.map(item => `
-          <div class="card-item" style="padding: 1.25rem;">
-            <span class="badge-tag" style="align-self: flex-start; margin-bottom: 0.6rem;">${item.card.tag}</span>
-            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">${item.card.name}</h4>
-            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">${item.card.bank}</span>
-            
-            <div class="card-cashback-summary" style="margin: 0.75rem 0;">
-              ${item.card.cashbackSummary}
+      <div class="match-cards-grid">
+        ${matched.map((item, idx) => {
+          const isFirst = idx === 0;
+          const badgeClass = isFirst ? 'best-match' : 'alt-match';
+          const badgeText = isFirst ? '98% BEST MATCH' : '94% GREAT ALTERNATIVE';
+          const finalUrl = affiliateManager.resolveUrl(item.card);
+
+          return `
+            <div class="match-card-item">
+              <div class="match-card-badge-row">
+                <span class="match-badge-tag ${badgeClass}"><span style="display:inline-flex;align-items:center;margin-right:4px;">${ICONS.sparkles}</span> ${badgeText}</span>
+                <span class="match-card-rating" style="display:inline-flex;align-items:center;gap:3px;"><span class="star-svg">${ICONS.star}</span> ${item.card.rating || '4.8'}</span>
+              </div>
+              <h4 class="match-card-name">${item.card.name}</h4>
+              <span class="match-card-bank">${item.card.bank}</span>
+              
+              <div class="match-cashback-box">
+                <strong>Top Benefit:</strong> ${item.card.cashbackSummary}
+              </div>
+
+              <div class="match-reason-box">
+                <span style="display:inline-flex;align-items:center;margin-right:4px;color:var(--brand-primary);">${ICONS.bulb}</span> <strong>Why it matches you:</strong> ${item.reasonText}
+              </div>
+
+              <div class="match-fee-pill">
+                ${item.card.isLifetimeFree ? 'Lifetime Free (₹0 Joining • ₹0 Annual)' : `Joining: ₹${(item.card.joiningFee || 0).toLocaleString('en-IN')} | Renewal: ₹${(item.card.annualFee || 0).toLocaleString('en-IN')}${item.card.feeWaiverSpend > 0 ? ` (Waived on ₹${item.card.feeWaiverSpend.toLocaleString('en-IN')})` : ''}`}
+              </div>
+
+              <a href="${finalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-outbound-apply" data-card-id="${item.card.id}" style="width: 100%; text-align: center; margin-top: auto;">
+                Apply on Bank Site ↗
+              </a>
             </div>
-
-            <p style="font-size: 0.8rem; color: var(--brand-primary); background-color: var(--brand-primary-light); padding: 0.4rem 0.6rem; border-radius: 4px; margin-bottom: 1rem;">
-              <strong>Match Reason:</strong> ${item.reasonText}
-            </p>
-
-            <button type="button" class="btn btn-apply btn-outbound-apply" style="width: 100%;" data-card-id="${item.card.id}">
-              Apply on Bank Site ↗
-            </button>
-          </div>
-        `).join('')}
+          `;
+        }).join('')}
       </div>
 
-      <div style="text-align: center; margin-top: 1.25rem;">
-        <button type="button" class="btn btn-secondary btn-sm" id="btnRestartQuiz">Start Over</button>
+      <div class="match-bridge-bar">
+        <button type="button" class="btn-filter-match" id="btnFilterMatchCards">
+          <span style="display:inline-flex;align-items:center;margin-right:6px;">${ICONS.target}</span> View All "${targetCategory}" Cards in Catalog →
+        </button>
+        <button type="button" class="btn-retake-match" id="btnRestartQuiz">
+          <span style="display:inline-flex;align-items:center;margin-right:5px;">${ICONS.reload}</span> Retake Smart Match
+        </button>
       </div>
     `;
+
+    const bridgeBtn = document.getElementById('btnFilterMatchCards');
+    if (bridgeBtn) {
+      bridgeBtn.addEventListener('click', () => {
+        const modal = document.getElementById('quizModal');
+        if (modal) modal.classList.remove('open');
+        this.activeCategory = targetCategory;
+        this.renderCategoryChips();
+        this.applyFilters();
+        const target = document.getElementById('card-directory');
+        if (target) {
+          const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+          window.scrollTo({
+            top: target.offsetTop - headerHeight + 5,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
 
     const restartBtn = document.getElementById('btnRestartQuiz');
     if (restartBtn) {
@@ -749,7 +1033,7 @@ class App {
           </div>
 
           <div class="redirect-security-note">
-            <span>🔒 Secure Official Bank Redirection</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.shieldCheck} Secure Official Bank Redirection</span>
           </div>
 
           <div style="margin-top: 1.25rem;">
@@ -785,7 +1069,7 @@ class App {
           <div>
             <div class="provider-card-header">
               <span class="provider-badge">${offer.badge}</span>
-              <div class="rating-badge">★ ${offer.rating}</div>
+              <div class="rating-badge" style="display: inline-flex; align-items: center; gap: 3px;"><span class="star-svg">${ICONS.star}</span> ${offer.rating}</div>
             </div>
             <h4 class="provider-title">${offer.name}</h4>
             <div class="provider-sub">${offer.provider}</div>
@@ -796,7 +1080,7 @@ class App {
             <ul class="perks-list" style="margin-bottom: 1.25rem;">
               ${offer.keyBenefits.map(b => `
                 <li class="perk-item">
-                  <span class="perk-icon">✓</span>
+                  <span class="perk-icon">${ICONS.check}</span>
                   <span>${b}</span>
                 </li>
               `).join('')}
@@ -831,7 +1115,7 @@ class App {
         <div class="loan-card">
           <div class="loan-card-header">
             <span class="loan-badge">${loan.badge}</span>
-            <div class="rating-badge">★ ${loan.rating}</div>
+            <div class="rating-badge" style="display: inline-flex; align-items: center; gap: 3px;"><span class="star-svg">${ICONS.star}</span> ${loan.rating}</div>
           </div>
 
           <h4 class="loan-title">${loan.name}</h4>
@@ -859,7 +1143,7 @@ class App {
           <ul class="loan-perks-list">
             ${loan.keyPerks.slice(0, 3).map(perk => `
               <li class="loan-perk-item">
-                <span>✓</span>
+                <span class="perk-icon">${ICONS.check}</span>
                 <span>${perk}</span>
               </li>
             `).join('')}
@@ -885,6 +1169,52 @@ class App {
         }
       });
     });
+
+    const toggleBtn = document.getElementById('btnToggleLoanCalc');
+    const closeBtn = document.getElementById('btnCloseLoanCalc');
+    const collapsibleBody = document.getElementById('loanCalcCollapsible');
+
+    this.setLoanCalcState = (isOpen) => {
+      if (!collapsibleBody || !toggleBtn) return;
+      if (isOpen) {
+        collapsibleBody.classList.add('is-expanded');
+        toggleBtn.classList.add('is-open');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        const textEl = toggleBtn.querySelector('.calc-toggle-text');
+        const iconEl = toggleBtn.querySelector('.calc-toggle-icon');
+        if (textEl) textEl.textContent = 'Hide Loan EMI Calculator';
+        if (iconEl) iconEl.innerHTML = ICONS.close;
+      } else {
+        collapsibleBody.classList.remove('is-expanded');
+        toggleBtn.classList.remove('is-open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        const textEl = toggleBtn.querySelector('.calc-toggle-text');
+        const iconEl = toggleBtn.querySelector('.calc-toggle-icon');
+        if (textEl) textEl.textContent = 'Calculate Loan EMI & Repayment Schedule';
+        if (iconEl) iconEl.innerHTML = ICONS.calculator;
+      }
+    };
+
+    if (toggleBtn && collapsibleBody) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = collapsibleBody.classList.contains('is-expanded');
+        this.setLoanCalcState(!isOpen);
+      });
+    }
+
+    if (closeBtn && collapsibleBody) {
+      closeBtn.addEventListener('click', () => {
+        this.setLoanCalcState(false);
+        const section = document.getElementById('loans-section');
+        if (section) {
+          const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+          window.scrollTo({
+            top: section.offsetTop - headerHeight + 5,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
   }
 
   initLoanCalculator() {
@@ -927,41 +1257,45 @@ class App {
      8b. Mobile Section Nav & ScrollSpy
      -------------------------------------------------------------------------- */
   initScrollSpy() {
-    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const navLinks = document.querySelectorAll('.bottom-nav-item, .mobile-nav-link');
     const sections = [
       { id: 'card-directory', el: document.getElementById('card-directory') },
       { id: 'loans-section', el: document.getElementById('loans-section') },
       { id: 'calculator-section', el: document.getElementById('calculator-section') },
+      { id: 'credit-guides-section', el: document.getElementById('credit-guides-section') },
       { id: 'faq-section', el: document.getElementById('faq-section') }
     ].filter(s => s.el);
 
-    mobileLinks.forEach(link => {
+    navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           e.preventDefault();
+          if (href === '#calculator-section' && this.setCalculatorState) {
+            this.setCalculatorState(true);
+          }
           const target = document.querySelector(href);
           if (target) {
-            const headerHeight = document.querySelector('.site-header')?.offsetHeight || 90;
+            const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
             const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerHeight + 10;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight + 5;
 
             window.scrollTo({
               top: offsetPosition,
               behavior: 'smooth'
             });
 
-            mobileLinks.forEach(l => l.classList.remove('active'));
+            navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
           }
         }
       });
     });
 
-    // Highlight active chip on scroll
+    // Highlight active nav item on scroll
+    let lastActiveId = '';
     window.addEventListener('scroll', () => {
-      const scrollPos = window.scrollY + 140;
+      const scrollPos = window.scrollY + 180;
       let currentSectionId = '';
 
       for (const section of sections) {
@@ -970,8 +1304,9 @@ class App {
         }
       }
 
-      if (currentSectionId) {
-        mobileLinks.forEach(link => {
+      if (currentSectionId && currentSectionId !== lastActiveId) {
+        lastActiveId = currentSectionId;
+        navLinks.forEach(link => {
           if (link.dataset.section === currentSectionId) {
             link.classList.add('active');
           } else {
@@ -1682,7 +2017,8 @@ class App {
 
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
-    toast.innerHTML = `<span>${type === 'success' ? '✓' : 'ℹ'}</span><span>${message}</span>`;
+    const iconSvg = type === 'success' ? ICONS.check : `<span style="display:inline-flex;">${ICONS.shieldCheck}</span>`;
+    toast.innerHTML = `<span class="toast-icon" style="display:inline-flex;align-items:center;">${iconSvg}</span><span>${message}</span>`;
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -1708,6 +2044,12 @@ class App {
     const categoryContainer = document.getElementById('categoryChipsContainer');
     if (categoryContainer) {
       categoryContainer.addEventListener('click', (e) => {
+        const moreBtn = e.target.closest('.chip-more-trigger');
+        if (moreBtn) {
+          const modal = document.getElementById('categoryPickerModal');
+          if (modal) modal.classList.add('open');
+          return;
+        }
         const chip = e.target.closest('.category-chip');
         if (chip) {
           this.activeCategory = chip.dataset.categoryId;
@@ -1716,6 +2058,36 @@ class App {
         }
       });
     }
+
+    const categoryPickerModal = document.getElementById('categoryPickerModal');
+    if (categoryPickerModal) {
+      categoryPickerModal.addEventListener('click', (e) => {
+        const item = e.target.closest('[data-sheet-category-id]');
+        if (item) {
+          const categoryId = item.dataset.sheetCategoryId;
+          this.activeCategory = categoryId;
+          this.renderCategoryChips();
+          this.applyFilters();
+          categoryPickerModal.classList.remove('open');
+          
+          const target = document.getElementById('card-directory');
+          if (target) {
+            const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }
+      });
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.renderCategoryChips();
+      }, 150);
+    });
 
     const bankSelect = document.getElementById('bankFilterSelect');
     if (bankSelect) {
@@ -1752,6 +2124,37 @@ class App {
     document.querySelectorAll('.btn-launch-quiz').forEach(btn => {
       btn.addEventListener('click', () => this.openQuizModal());
     });
+
+    const btnShareSite = document.getElementById('btnShareSite');
+    if (btnShareSite) {
+      btnShareSite.addEventListener('click', async () => {
+        const shareData = {
+          title: 'InstantCred India',
+          text: 'Compare top credit cards & instant loans in India, calculate annual rewards & EMI savings on InstantCred.in!',
+          url: 'https://www.instantcred.in/'
+        };
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText('https://www.instantcred.in/');
+            this.showToast('Link copied to clipboard! Share it with your friends.', 'success');
+          } else {
+            const input = document.createElement('input');
+            input.value = 'https://www.instantcred.in/';
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            this.showToast('Link copied to clipboard!', 'success');
+          }
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.warn('Share error:', err);
+          }
+        }
+      });
+    }
 
     document.addEventListener('click', (e) => {
       if (e.target.id === 'btnResetAllFilters') {
@@ -1805,6 +2208,26 @@ class App {
         return;
       }
 
+      const compModeBtn = e.target.closest('[data-comp-mode]');
+      if (compModeBtn) {
+        this.comparator.mobileViewMode = compModeBtn.dataset.compMode;
+        const content = document.getElementById('compareModalContent');
+        if (content) {
+          content.innerHTML = this.comparator.renderComparisonMatrixHTML(affiliateManager);
+        }
+        return;
+      }
+
+      const compPairBtn = e.target.closest('[data-comp-pair]');
+      if (compPairBtn) {
+        this.comparator.activePairIndex = parseInt(compPairBtn.dataset.compPair, 10);
+        const content = document.getElementById('compareModalContent');
+        if (content) {
+          content.innerHTML = this.comparator.renderComparisonMatrixHTML(affiliateManager);
+        }
+        return;
+      }
+
       const openDetailTrigger = e.target.closest('[data-open-card-id]');
       if (openDetailTrigger) {
         const cardId = openDetailTrigger.dataset.openCardId;
@@ -1818,6 +2241,39 @@ class App {
         const modalId = openModalTrigger.dataset.openModal;
         const modal = document.getElementById(modalId);
         if (modal) modal.classList.add('open');
+        return;
+      }
+
+      const calcSectionLink = e.target.closest('a[href="#calculator-section"]');
+      if (calcSectionLink) {
+        e.preventDefault();
+        if (this.setCalculatorState) {
+          this.setCalculatorState(true);
+        }
+        const target = document.getElementById('calculator-section');
+        if (target) {
+          const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+          const offsetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight + 5;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+        return;
+      }
+
+      const loansSectionLink = e.target.closest('a[href="#loans-section"]');
+      if (loansSectionLink) {
+        e.preventDefault();
+        const target = document.getElementById('loans-section');
+        if (target) {
+          const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+          const offsetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight + 5;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
         return;
       }
 

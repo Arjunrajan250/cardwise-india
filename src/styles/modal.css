@@ -36,6 +36,22 @@
   flex-direction: column;
 }
 
+.smart-match-modal-container {
+  max-width: 680px;
+}
+
+.redirect-modal-container {
+  max-width: 480px;
+}
+
+.legal-modal-container {
+  max-width: 680px;
+}
+
+.category-picker-sheet {
+  max-width: 580px;
+}
+
 .modal-backdrop.open .modal-container {
   transform: translateY(0);
 }
@@ -90,7 +106,133 @@
 }
 
 .modal-body {
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 2.25rem;
+}
+
+/* Mobile Bottom Sheet Drawer Architecture (Fully responsive on all mobile/tablet screens <= 860px) */
+@media (max-width: 860px) {
+  .modal-backdrop {
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    transition: opacity 0.25s ease;
+  }
+
+  .modal-container,
+  .smart-match-modal-container,
+  .redirect-modal-container,
+  .affiliate-control-modal,
+  .legal-modal-container,
+  .category-picker-sheet {
+    border-radius: 22px 22px 0 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    max-height: 92dvh !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    margin: 0 !important;
+    transform: translateY(100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.28) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    padding-bottom: 0 !important;
+  }
+
+  .modal-backdrop.open .modal-container,
+  .modal-backdrop.open .smart-match-modal-container,
+  .modal-backdrop.open .redirect-modal-container,
+  .modal-backdrop.open .affiliate-control-modal,
+  .modal-backdrop.open .legal-modal-container,
+  .modal-backdrop.open .category-picker-sheet {
+    transform: translateY(0) !important;
+  }
+
+  .modal-header {
+    flex-shrink: 0 !important;
+    padding: 1.25rem 1.25rem 0.85rem !important;
+    position: relative !important;
+    border-radius: 22px 22px 0 0 !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    z-index: 10 !important;
+  }
+
+  /* Bottom sheet drag indicator */
+  .modal-header::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 4.5px;
+    border-radius: 9999px;
+    background-color: var(--border-strong, #cbd5e1);
+  }
+
+  .modal-title {
+    font-size: 1.05rem;
+  }
+
+  .btn-close-icon,
+  .btn-close-modal:not(.btn) {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+  }
+
+  .modal-body {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    padding: 1rem 1.15rem calc(2.75rem + env(safe-area-inset-bottom, 24px)) !important;
+  }
+
+  .modal-tabs-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.25rem;
+  }
+
+  .modal-tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 0.85rem;
+    min-height: 40px;
+    font-size: 0.82rem;
+  }
+
+  .detail-box-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-box-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-footer-actions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+
+  .modal-footer-actions .btn {
+    width: 100%;
+    min-height: 44px;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -172,91 +314,542 @@
 /* --------------------------------------------------------------------------
    30-Second Card Recommendation Wizard
    -------------------------------------------------------------------------- */
-.quiz-progress-bar-wrapper {
-  width: 100%;
-  height: 4px;
-  background-color: var(--bg-muted);
-  border-radius: var(--radius-pill);
+/* --------------------------------------------------------------------------
+   Smart Card Match Wizard (Redesigned)
+   -------------------------------------------------------------------------- */
+.smart-match-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-subtle, #f8fafc);
+  border: 1px solid var(--border-subtle, #e2e8f0);
+  border-radius: 9999px;
+}
+
+.smart-step-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted, #94a3b8);
+  transition: all 0.2s ease;
+}
+
+.smart-step-pill .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.smart-step-pill.active {
+  color: var(--brand-primary, #2563eb);
+}
+
+.smart-step-pill.active .step-num {
+  background: var(--brand-primary, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.smart-step-pill.done {
+  color: #059669;
+}
+
+.smart-step-pill.done .step-num {
+  background: #059669;
+  color: #ffffff;
+}
+
+.smart-step-divider {
+  flex: 1;
+  height: 2px;
+  background: #e2e8f0;
+  border-radius: 2px;
+}
+
+.smart-step-divider.done {
+  background: #059669;
+}
+
+.smart-match-header {
   margin-bottom: 1.25rem;
-  overflow: hidden;
+  text-align: left;
 }
 
-.quiz-progress-fill {
-  height: 100%;
-  background-color: var(--brand-primary);
-  width: 33.3%;
-  transition: width 0.2s ease;
-}
-
-.quiz-step-title {
-  font-size: 1.15rem;
+.smart-match-step-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand-primary, #2563eb);
   margin-bottom: 0.35rem;
 }
 
-.quiz-step-subtitle {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  margin-bottom: 1.25rem;
+.smart-match-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary, #0f172a);
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
 }
 
-.quiz-options-grid {
+.smart-match-subtitle {
+  color: var(--text-secondary, #64748b);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+/* Tactile Choice Tiles Grid */
+.smart-match-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
   margin-bottom: 1.25rem;
 }
 
-.quiz-option-card {
+@media (max-width: 640px) {
+  .smart-match-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+.smart-match-tile {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  background-color: #ffffff;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 1.1rem;
+  padding: 0.95rem 1rem;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
-.quiz-option-card:hover {
-  border-color: var(--brand-primary);
-  background-color: var(--brand-primary-light);
+.smart-match-tile:hover {
+  border-color: #3b82f6;
+  background: #f8faff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(37, 99, 235, 0.1);
 }
 
-.quiz-option-card.selected {
-  border-color: var(--brand-primary);
-  background-color: var(--brand-primary-light);
+.smart-match-tile.selected {
+  border-color: #2563eb;
+  background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15), 0 4px 12px rgba(37, 99, 235, 0.08);
 }
 
-.quiz-option-icon {
-  font-size: 1.25rem;
-}
-
-.quiz-option-text {
+.tile-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: #f1f5f9;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
 }
 
-.quiz-option-title {
-  font-size: 0.9rem;
+.smart-match-tile:hover .tile-icon-box,
+.smart-match-tile.selected .tile-icon-box {
+  background: #dbeafe;
+  transform: scale(1.05);
+}
+
+.tile-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.tile-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.2rem;
+}
+
+.tile-title {
+  font-size: 0.92rem;
   font-weight: 700;
+  color: #0f172a;
 }
 
-.quiz-option-desc {
+.tile-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.smart-match-tile.selected .tile-tag {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.tile-desc {
+  display: block;
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: #64748b;
+  line-height: 1.35;
 }
 
-.quiz-matched-cards-grid {
+.tile-radio-indicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.smart-match-tile.selected .tile-radio-indicator {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.smart-match-tile.selected .tile-radio-indicator::after {
+  content: '✓';
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* Nav Controls */
+.smart-match-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-smart-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-smart-back:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+
+.smart-match-confidential {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* --------------------------------------------------------------------------
+   Match Results Screen
+   -------------------------------------------------------------------------- */
+.match-results-hero {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.match-success-icon {
+  font-size: 2.25rem;
+  margin-bottom: 0.35rem;
+  animation: bounceIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.match-results-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.3rem;
+}
+
+.match-results-sub {
+  font-size: 0.86rem;
+  color: #64748b;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.match-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-@media (max-width: 600px) {
-  .quiz-matched-cards-grid {
+.match-card-item {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.match-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.match-card-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.match-card-rating {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 0.18rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+.match-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.3rem 0.65rem;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+
+.match-badge-tag.best-match {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+.match-badge-tag.alt-match {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.match-card-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.2rem;
+}
+
+.match-card-bank {
+  font-size: 0.74rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.match-cashback-box {
+  font-size: 0.85rem;
+  color: #334155;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.match-reason-box {
+  font-size: 0.8rem;
+  color: #065f46;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 1.15rem;
+  line-height: 1.4;
+}
+
+.match-fee-pill {
+  font-size: 0.78rem;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 0.85rem;
+  line-height: 1.35;
+}
+
+.match-bridge-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-filter-match {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 380px;
+  padding: 0.75rem 1.25rem;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.btn-filter-match:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+.btn-retake-match {
+  background: none;
+  border: none;
+  font-size: 0.84rem;
+  color: #64748b;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-retake-match:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+
+/* Mobile Specific Tweaks for Smart Match Modal */
+@media (max-width: 640px) {
+  .match-results-hero {
+    margin-bottom: 1rem;
+  }
+
+  .match-success-icon {
+    font-size: 1.85rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .match-results-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .match-results-sub {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .match-cards-grid {
     grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .match-card-item {
+    padding: 0.95rem 1rem;
+    border-radius: 12px;
+  }
+
+  .match-card-badge-row {
+    margin-bottom: 0.55rem;
+  }
+
+  .match-card-name {
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .match-card-bank {
+    font-size: 0.72rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .match-cashback-box {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.65rem;
+    margin-bottom: 0.45rem;
+    line-height: 1.35;
+  }
+
+  .match-reason-box {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.65rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+  }
+
+  .match-fee-pill {
+    font-size: 0.72rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .match-bridge-bar {
+    padding-top: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .btn-filter-match {
+    font-size: 0.84rem;
+    padding: 0.65rem 1rem;
+    min-height: 42px;
+  }
+
+  .btn-retake-match {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.65rem;
   }
 }
 

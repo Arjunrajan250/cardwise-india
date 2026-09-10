@@ -11,6 +11,7 @@
 import { BLOG_POSTS, BLOG_CATEGORIES, SEARCH_SUGGESTIONS } from './data/blogs.js';
 import { CREDIT_CARDS } from './data/cards.js';
 import { PERSONAL_LOANS } from './data/loans.js';
+import { ICONS } from './icons.js';
 
 export class BlogManager {
   constructor(affiliateManager) {
@@ -178,7 +179,7 @@ export class BlogManager {
     html += `
       <div class="suggestion-item" data-action="search" data-query="${this.escapeHtml(normalized)}">
         <div class="suggestion-left">
-          <span class="suggestion-icon">🔍</span>
+          <span class="suggestion-icon" style="display:inline-flex;align-items:center;color:var(--text-muted);">${ICONS.search}</span>
           <span class="suggestion-text"><strong>${this.escapeHtml(rawQuery)}</strong> <span style="color:#64748b; font-size:0.85rem;">— InstantCred Search</span></span>
         </div>
         <span class="suggestion-badge badge-query">Search</span>
@@ -194,7 +195,7 @@ export class BlogManager {
         html += `
           <div class="suggestion-item" data-action="suggestion" data-slug="${s.targetSlug || ''}" data-card-id="${s.cardId || ''}" data-query="${s.query}">
             <div class="suggestion-left">
-              <span class="suggestion-icon">🔍</span>
+              <span class="suggestion-icon" style="display:inline-flex;align-items:center;color:var(--text-muted);">${ICONS.search}</span>
               <span class="suggestion-text">${highlightedText}</span>
             </div>
             <span class="suggestion-badge ${badgeClass}">${s.badge || 'Search'}</span>
@@ -210,7 +211,7 @@ export class BlogManager {
         html += `
           <div class="suggestion-item" data-action="open-guide" data-slug="${blog.slug}">
             <div class="suggestion-left">
-              <span class="suggestion-icon">📖</span>
+              <span class="suggestion-icon" style="display:inline-flex;align-items:center;color:var(--brand-primary);">${ICONS.guides}</span>
               <span class="suggestion-text"><strong>Guide:</strong> ${this.escapeHtml(blog.title)}</span>
             </div>
             <span class="suggestion-badge badge-guide">${blog.readTime}</span>
@@ -226,7 +227,7 @@ export class BlogManager {
         html += `
           <div class="suggestion-item" data-action="card-filter" data-card-id="${card.id}" data-card-name="${card.name}">
             <div class="suggestion-left">
-              <span class="suggestion-icon">💳</span>
+              <span class="suggestion-icon" style="display:inline-flex;align-items:center;color:var(--brand-primary);">${ICONS.cards}</span>
               <span class="suggestion-text"><strong>${this.escapeHtml(card.name)}</strong> (${this.escapeHtml(card.bank)})</span>
             </div>
             <span class="suggestion-badge badge-card">₹0 / Waived</span>
@@ -303,7 +304,7 @@ export class BlogManager {
 
     section.innerHTML = `
       <div class="blog-section-header">
-        <span class="blog-section-tag">📚 Expert Insights & Reviews</span>
+        <span class="blog-section-tag"><span style="display:inline-flex;align-items:center;margin-right:5px;">${ICONS.guides}</span> Expert Insights & Reviews</span>
         <h2 class="blog-section-title">Credit Card Guides & Comparisons</h2>
         <p class="blog-section-subtitle">
           In-depth, numbers-backed guides to finding zero-fee cards, free airport lounge access, student approvals, and maximum UPI cashback.
@@ -329,9 +330,9 @@ export class BlogManager {
             </div>
             <div class="blog-card-body">
               <div class="blog-card-meta">
-                <span>🗓️ ${post.publishedAt}</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;">${ICONS.calendar} ${post.publishedAt}</span>
                 <span>•</span>
-                <span>⏱️ ${post.readTime}</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;">${ICONS.clock} ${post.readTime}</span>
               </div>
               <h3 class="blog-card-title">${this.escapeHtml(post.title)}</h3>
               <p class="blog-card-summary">${this.escapeHtml(post.summary)}</p>
@@ -409,7 +410,7 @@ export class BlogManager {
           
           <div class="blog-reader-topbar-actions">
             <button type="button" class="blog-share-btn" id="blogReaderShareBtn" title="Copy article link to share">
-              <span>🔗</span> <span class="share-btn-label">Share Guide</span>
+              <span style="display:inline-flex;align-items:center;margin-right:4px;">${ICONS.link}</span> <span class="share-btn-label">Share Guide</span>
             </button>
             <button type="button" class="blog-back-btn" id="blogReaderBackBtn">
               &larr; Back to Cards Directory
@@ -439,7 +440,7 @@ export class BlogManager {
               </div>
             </div>
             <div class="blog-affiliate-badge">
-              <span>🛡️ Verified Cuelinks Partner Links</span>
+              <span style="display:inline-flex;align-items:center;gap:5px;">${ICONS.shieldCheck} Verified Cuelinks Partner Links</span>
             </div>
           </div>
 
@@ -683,7 +684,7 @@ export class BlogManager {
                   <td><span style="color:#059669; font-weight:700;">${this.escapeHtml(row.annualFee)}</span></td>
                   <td>${this.escapeHtml(row.bestFor)}</td>
                   <td>${this.escapeHtml(row.topPerk)}</td>
-                  <td><span style="color:#eab308;">★</span> ${row.rating}</td>
+                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="star-svg">${ICONS.star}</span> ${row.rating}</span></td>
                   <td>
                     <a href="${applyUrl}" target="_blank" rel="noopener noreferrer" class="blog-table-btn">
                       Apply Now &rarr;
@@ -732,7 +733,7 @@ export class BlogManager {
                   <div class="blog-editorial-badges-row">
                     <span class="blog-editorial-badge badge-fee">${feeLabel}</span>
                     <span class="blog-editorial-badge badge-bank">${this.escapeHtml(card.bank)}</span>
-                    <span class="blog-editorial-badge badge-rating">★ ${card.rating || '4.8'} / 5</span>
+                    <span class="blog-editorial-badge badge-rating" style="display:inline-flex;align-items:center;gap:3px;"><span class="star-svg">${ICONS.star}</span> ${card.rating || '4.8'} / 5</span>
                   </div>
                 </div>
 
@@ -807,7 +808,7 @@ export class BlogManager {
             </div>
             <div class="promo-banner-action">
               <div class="promo-banner-card-preview">
-                <span class="promo-card-chip">💳</span>
+                <span class="promo-card-chip" style="display:inline-flex;align-items:center;">${ICONS.cards}</span>
                 <span class="promo-card-brand">RuPay UPI</span>
               </div>
               <a href="${applyUrl}" target="_blank" rel="noopener noreferrer" class="promo-banner-apply-btn">

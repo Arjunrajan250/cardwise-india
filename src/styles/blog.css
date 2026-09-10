@@ -627,6 +627,26 @@
   border: 1px solid #e2e8f0;
 }
 
+@media (max-width: 960px) {
+  .blog-toc {
+    position: static;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-toc-list {
+    max-height: 180px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    gap: 8px;
+  }
+
+  .blog-toc-list a {
+    font-size: 0.82rem;
+  }
+}
+
 .blog-toc-header {
   display: flex;
   align-items: center;
@@ -1138,17 +1158,105 @@
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
+  .search-autocomplete-dropdown {
+    border-radius: 14px;
+    max-height: min(50vh, 320px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  }
+
+  .suggestion-item {
+    padding: 11px 14px;
+    font-size: 0.9rem;
+  }
+
   .blog-section-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
-  .blog-article-title {
-    font-size: 1.6rem;
+
+  .blog-reader-topbar {
+    padding: 10px max(14px, var(--safe-area-left)) 10px max(14px, var(--safe-area-right));
+    height: 56px;
   }
+
+  .blog-brand-text {
+    font-size: 1.1rem;
+  }
+
+  .blog-reader-sep,
+  .blog-reader-tag {
+    display: none;
+  }
+
+  .blog-share-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+
+  .blog-close-btn {
+    width: 36px;
+    height: 36px;
+  }
+
   .blog-article-hero {
-    padding: 24px 20px 18px;
+    padding: 20px 16px 16px;
   }
+
+  .blog-article-title {
+    font-size: clamp(1.4rem, 5vw, 1.85rem);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .blog-article-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .blog-article-meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 12px;
+  }
+
   .blog-content-layout {
-    padding: 24px 20px;
+    padding: 20px 16px 60px;
+    gap: 20px;
+  }
+
+  .blog-prose {
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .blog-prose h2 {
+    font-size: 1.35rem;
+    margin: 28px 0 12px;
+    padding-bottom: 8px;
+  }
+
+  .blog-prose h3 {
+    font-size: 1.15rem;
+    margin: 20px 0 10px;
+  }
+
+  .blog-prose table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .blog-product-card {
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+
+  .blog-product-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
 
