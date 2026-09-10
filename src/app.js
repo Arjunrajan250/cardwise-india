@@ -27,6 +27,7 @@ class App {
     this.quiz = new CardQuiz(this.cards);
     this.blog = new BlogManager(affiliateManager);
 
+    this.affiliateManager = affiliateManager;
     this.init();
   }
 
@@ -1439,23 +1440,10 @@ class App {
       });
     });
 
-    // Populate Tab 1: Networks & Credentials
+    // Populate Tab 1: Cuelinks Configuration
     const populateNetworkInputs = () => {
       const settings = affiliateManager.settings;
-      const primaryNet = settings.primaryNetwork || 'vcommission';
-
-      // Set active network radio & card styling
-      document.querySelectorAll('.network-card').forEach(card => {
-        const net = card.dataset.network;
-        const radio = card.querySelector('input[type="radio"]');
-        if (net === primaryNet) {
-          card.classList.add('active');
-          if (radio) radio.checked = true;
-        } else {
-          card.classList.remove('active');
-          if (radio) radio.checked = false;
-        }
-      });
+      const cuelinks = settings.cuelinks || settings.networks?.cuelinks || {};
 
       // Monetization Filter toggle
       const toggleHideNonAffiliate = document.getElementById('toggleHideNonAffiliate');
@@ -1477,84 +1465,32 @@ class App {
         };
       }
 
-      // Show matching network panel
-      const panels = ['vcommission', 'cuelinks', 'earnkaro', 'impact', 'direct'];
-      panels.forEach(p => {
-        const el = document.getElementById(`panel-${p}`);
-        if (el) el.style.display = p === primaryNet ? 'block' : 'none';
-      });
-
-      // vCommission inputs
-      const inputVcommAffId = document.getElementById('inputVcommAffId');
-      const inputVcommSubId = document.getElementById('inputVcommSubId');
-      const inputVcommSubId2 = document.getElementById('inputVcommSubId2');
-      if (inputVcommAffId) inputVcommAffId.value = settings.networks?.vcommission?.affiliateId || '';
-      if (inputVcommSubId) inputVcommSubId.value = settings.networks?.vcommission?.subId || '';
-      if (inputVcommSubId2) inputVcommSubId2.value = settings.networks?.vcommission?.subId2 || '';
-
       // Cuelinks inputs
+      const inputCuelinksChannelId = document.getElementById('inputCuelinksChannelId');
       const inputCuelinksPubId = document.getElementById('inputCuelinksPubId');
       const inputCuelinksSubId = document.getElementById('inputCuelinksSubId');
       const selectCuelinksFormat = document.getElementById('selectCuelinksFormat');
       const toggleCuelinksScript = document.getElementById('toggleCuelinksScript');
       const cuelinksScriptStatusText = document.getElementById('cuelinksScriptStatusText');
 
-      if (inputCuelinksPubId) inputCuelinksPubId.value = settings.networks?.cuelinks?.pubId || '';
-      if (inputCuelinksSubId) inputCuelinksSubId.value = settings.networks?.cuelinks?.subId || '';
-      if (selectCuelinksFormat) selectCuelinksFormat.value = settings.networks?.cuelinks?.redirectFormat || 'cprewritten';
+      if (inputCuelinksChannelId) inputCuelinksChannelId.value = cuelinks.channelId || '317055';
+      if (inputCuelinksPubId) inputCuelinksPubId.value = cuelinks.pubId || '271664';
+      if (inputCuelinksSubId) inputCuelinksSubId.value = cuelinks.subId || 'instantcred_web';
+      if (selectCuelinksFormat) selectCuelinksFormat.value = cuelinks.redirectFormat || 'linksredirect';
       if (toggleCuelinksScript) {
-        toggleCuelinksScript.checked = !!settings.networks?.cuelinks?.enableAutoTaggingScript;
+        toggleCuelinksScript.checked = !!cuelinks.enableAutoTaggingScript;
         if (cuelinksScriptStatusText) {
           cuelinksScriptStatusText.textContent = toggleCuelinksScript.checked
             ? 'Active (Auto-tagging direct bank links via JS)'
-            : 'Disabled (Using Redirection Links)';
+            : 'Disabled (Using Ultra-Fast LinksRedirect Links)';
           cuelinksScriptStatusText.style.color = toggleCuelinksScript.checked ? 'var(--brand-success)' : 'var(--text-secondary)';
         }
       }
-
-      // EarnKaro inputs
-      const inputEarnkaroUserId = document.getElementById('inputEarnkaroUserId');
-      const inputEarnkaroSubId = document.getElementById('inputEarnkaroSubId');
-      if (inputEarnkaroUserId) inputEarnkaroUserId.value = settings.networks?.earnkaro?.userId || '';
-      if (inputEarnkaroSubId) inputEarnkaroSubId.value = settings.networks?.earnkaro?.subId || '';
-
-      // Impact inputs
-      const inputImpactMpId = document.getElementById('inputImpactMpId');
-      const inputImpactSubId = document.getElementById('inputImpactSubId');
-      if (inputImpactMpId) inputImpactMpId.value = settings.networks?.impact?.mediaPartnerId || '';
-      if (inputImpactSubId) inputImpactSubId.value = settings.networks?.impact?.campaignSubId || '';
-
-      // Direct UTM inputs
-      const inputUtmSource = document.getElementById('inputUtmSource');
-      const inputUtmMedium = document.getElementById('inputUtmMedium');
-      const inputUtmCampaign = document.getElementById('inputUtmCampaign');
-      if (inputUtmSource) inputUtmSource.value = settings.networks?.direct?.utmSource || '';
-      if (inputUtmMedium) inputUtmMedium.value = settings.networks?.direct?.utmMedium || '';
-      if (inputUtmCampaign) inputUtmCampaign.value = settings.networks?.direct?.utmCampaign || '';
 
       this.updateAffiliateLivePreview();
     };
 
     populateNetworkInputs();
-
-    // Network Card Selection
-    document.querySelectorAll('.network-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const net = card.dataset.network;
-        document.querySelectorAll('.network-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        const radio = card.querySelector('input[type="radio"]');
-        if (radio) radio.checked = true;
-
-        const panels = ['vcommission', 'cuelinks', 'earnkaro', 'impact', 'direct'];
-        panels.forEach(p => {
-          const el = document.getElementById(`panel-${p}`);
-          if (el) el.style.display = p === net ? 'block' : 'none';
-        });
-
-        this.updateAffiliateLivePreview();
-      });
-    });
 
     // Cuelinks script toggle listener
     const toggleCuelinksScript = document.getElementById('toggleCuelinksScript');
@@ -1711,27 +1647,11 @@ class App {
     const btnSave = document.getElementById('btnSaveAffiliateSettings');
     if (btnSave) {
       btnSave.addEventListener('click', () => {
-        const selectedRadio = document.querySelector('input[name="affPrimaryNetwork"]:checked');
-        const selectedNetwork = selectedRadio ? selectedRadio.value : 'cuelinks';
-
-        const vcommAffId = document.getElementById('inputVcommAffId')?.value.trim() || '131993';
-        const vcommSubId = document.getElementById('inputVcommSubId')?.value.trim() || 'instantcred_web';
-        const vcommSubId2 = document.getElementById('inputVcommSubId2')?.value.trim() || '';
-
-        const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '271664';
-        const cuelinksSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
+        const inputChannelId = document.getElementById('inputCuelinksChannelId')?.value.trim() || '317055';
+        const inputPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '271664';
+        const inputSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
         const selectCuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'linksredirect';
         const isScriptEnabled = document.getElementById('toggleCuelinksScript')?.checked || false;
-
-        const earnkaroUserId = document.getElementById('inputEarnkaroUserId')?.value.trim() || '';
-        const earnkaroSubId = document.getElementById('inputEarnkaroSubId')?.value.trim() || 'instantcred_web';
-
-        const impactMpId = document.getElementById('inputImpactMpId')?.value.trim() || '';
-        const impactSubId = document.getElementById('inputImpactSubId')?.value.trim() || 'instantcred_web';
-
-        const utmSource = document.getElementById('inputUtmSource')?.value.trim() || 'instantcred';
-        const utmMedium = document.getElementById('inputUtmMedium')?.value.trim() || 'affiliate';
-        const utmCampaign = document.getElementById('inputUtmCampaign')?.value.trim() || 'credit_cards_2026';
 
         const hideNonAffiliate = document.getElementById('toggleHideNonAffiliate')
           ? document.getElementById('toggleHideNonAffiliate').checked
@@ -1739,7 +1659,6 @@ class App {
 
         // Collect custom link overrides
         const customLinks = { ...affiliateManager.settings.customLinks };
-        const networkOverrides = { ...affiliateManager.settings.networkOverrides };
 
         document.querySelectorAll('.aff-override-input').forEach(input => {
           const id = input.dataset.itemId;
@@ -1751,53 +1670,18 @@ class App {
           }
         });
 
-        document.querySelectorAll('.aff-route-select').forEach(select => {
-          const id = select.dataset.itemId;
-          const val = select.value;
-          if (val && val !== 'default') {
-            networkOverrides[id] = val;
-          } else {
-            delete networkOverrides[id];
-          }
-        });
-
         const newSettings = {
-          primaryNetwork: selectedNetwork,
+          primaryNetwork: 'cuelinks',
           hideNonAffiliateCards: hideNonAffiliate,
-          networks: {
-            vcommission: {
-              name: 'vCommission',
-              affiliateId: vcommAffId,
-              subId: vcommSubId,
-              subId2: vcommSubId2
-            },
-            cuelinks: {
-              name: 'Cuelinks',
-              pubId: cuelinksPubId,
-              channelId: affiliateManager.settings.networks?.cuelinks?.channelId || '317055',
-              subId: cuelinksSubId,
-              enableAutoTaggingScript: isScriptEnabled,
-              redirectFormat: selectCuelinksFormat
-            },
-            earnkaro: {
-              name: 'EarnKaro',
-              userId: earnkaroUserId,
-              subId: earnkaroSubId
-            },
-            impact: {
-              name: 'Impact.com',
-              mediaPartnerId: impactMpId,
-              campaignSubId: impactSubId
-            },
-            direct: {
-              name: 'Direct Official Bank Links',
-              utmSource: utmSource,
-              utmMedium: utmMedium,
-              utmCampaign: utmCampaign
-            }
+          cuelinks: {
+            name: 'Cuelinks India',
+            channelId: inputChannelId,
+            pubId: inputPubId,
+            subId: inputSubId,
+            enableAutoTaggingScript: isScriptEnabled,
+            redirectFormat: selectCuelinksFormat
           },
-          customLinks,
-          networkOverrides
+          customLinks
         };
 
         affiliateManager.saveSettings(newSettings);
@@ -1819,51 +1703,34 @@ class App {
           if (content) content.innerHTML = this.comparator.renderComparisonMatrixHTML(affiliateManager);
         }
 
-        this.showToast('Affiliate settings saved and active!', 'success');
+        this.showToast('Cuelinks settings saved and active!', 'success');
         if (affiliateModal) affiliateModal.classList.remove('open');
       });
     }
   }
 
   updateAffiliateLivePreview() {
-    const selectedRadio = document.querySelector('input[name="affPrimaryNetwork"]:checked');
-    const net = selectedRadio ? selectedRadio.value : 'cuelinks';
-    const sampleCard = this.cards.find(c => c.id === 'sbi-cashback') || this.cards[0] || { id: 'sbi-cashback', name: 'SBI Cashback Credit Card', directUrl: 'https://www.sbicard.com/en/personal/credit-cards/rewards/cashback-sbi-card.page', affiliateUrl: '' };
+    const sampleCard = this.cards.find(c => c.id === 'hdfc-moneyback') || this.cards[0] || { id: 'hdfc-moneyback', name: 'HDFC Bank MoneyBack+ Credit Card', directUrl: 'https://www.hdfcbank.com/personal/pay/cards/credit-cards/moneyback-plus' };
 
     const previewNameEl = document.getElementById('previewCardName');
     const previewUrlEl = document.getElementById('previewResolvedUrl');
     if (previewNameEl) previewNameEl.textContent = sampleCard.name;
 
-    const vcommAffId = document.getElementById('inputVcommAffId')?.value.trim() || '131993';
-    const vcommSubId = document.getElementById('inputVcommSubId')?.value.trim() || 'instantcred_web';
-    const cuelinksPubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '271664';
-    const cuelinksSubId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
-    const cuelinksFormat = document.getElementById('selectCuelinksFormat')?.value || 'linksredirect';
+    const channelId = document.getElementById('inputCuelinksChannelId')?.value.trim() || '317055';
+    const pubId = document.getElementById('inputCuelinksPubId')?.value.trim() || '271664';
+    const subId = document.getElementById('inputCuelinksSubId')?.value.trim() || 'instantcred_web';
+    const format = document.getElementById('selectCuelinksFormat')?.value || 'linksredirect';
     const isScript = document.getElementById('toggleCuelinksScript')?.checked || false;
-    const earnkaroId = document.getElementById('inputEarnkaroUserId')?.value.trim() || 'YOUR_EARNKARO_ID';
-    const impactMpId = document.getElementById('inputImpactMpId')?.value.trim() || 'YOUR_IMPACT_MP_ID';
-    const utmSrc = document.getElementById('inputUtmSource')?.value.trim() || 'instantcred';
 
     let previewUrl = '';
     const directUrl = sampleCard.directUrl;
 
-    if (net === 'cuelinks') {
-      const channelId = affiliateManager.settings.networks?.cuelinks?.channelId || '317055';
-      if (isScript && cuelinksPubId !== 'YOUR_CUELINKS_PUB_ID') {
-        previewUrl = `${directUrl} (Auto-monetized via Cuelinks JS Widget)`;
-      } else if (cuelinksFormat === 'linksredirect') {
-        previewUrl = `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
-      } else {
-        previewUrl = `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(cuelinksPubId)}&sub_id=${encodeURIComponent(cuelinksSubId)}&url=${encodeURIComponent(directUrl)}`;
-      }
-    } else if (net === 'earnkaro') {
-      previewUrl = `https://earnkaro.com/deal/redirect?deal_id=${encodeURIComponent(directUrl)}&r=${encodeURIComponent(earnkaroId)}&subid=${encodeURIComponent(vcommSubId)}`;
-    } else if (net === 'impact') {
-      previewUrl = `${directUrl}?irclickid=instantcred_web&mpid=${encodeURIComponent(impactMpId)}`;
-    } else if (net === 'direct') {
-      previewUrl = `${directUrl}?utm_source=${encodeURIComponent(utmSrc)}&utm_medium=affiliate&utm_campaign=credit_cards_2026`;
+    if (isScript && pubId) {
+      previewUrl = `${directUrl} (Auto-monetized via Cuelinks JS Widget)`;
+    } else if (format === 'cprewritten') {
+      previewUrl = `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(pubId)}&sub_id=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
     } else {
-      previewUrl = `https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=${encodeURIComponent(vcommAffId)}&aff_sub=${encodeURIComponent(vcommSubId)}`;
+      previewUrl = `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
     }
 
     if (previewUrlEl) previewUrlEl.textContent = previewUrl;
@@ -1900,14 +1767,13 @@ class App {
     }
 
     const settings = affiliateManager.settings;
-    const globalNet = settings.primaryNetwork || 'cuelinks';
 
     tbody.innerHTML = items.map(item => {
       const customUrl = settings.customLinks?.[item.id] || '';
-      const currentRoute = settings.networkOverrides?.[item.id] || 'default';
       const resolvedUrl = affiliateManager.resolveUrl(item);
-
       const typeBadge = item.itemType === 'card' ? '💳 Card' : item.itemType === 'loan' ? '💰 Loan' : '📊 Score';
+      const campaignBadge = item.cuelinksCampaign || 'Cuelinks Partner';
+      const payoutBadge = item.cuelinksPayout || item.commissionRate || item.payoutNote || 'Standard CPA';
 
       return `
         <tr>
@@ -1915,24 +1781,21 @@ class App {
             <div class="aff-card-meta">
               <span class="aff-card-name">${item.name}</span>
               <span class="aff-card-sub">${typeBadge} • ${item.bankLabel}</span>
-              ${item.cuelinksCampaign ? `<span style="display: inline-block; font-size: 0.72rem; color: #059669; font-weight: 600; margin-top: 0.2rem; background: rgba(16, 185, 129, 0.12); padding: 0.1rem 0.4rem; border-radius: 4px;">🎯 ${item.cuelinksCampaign} (${item.cuelinksPayout || ''})</span>` : ''}
             </div>
           </td>
           <td>
-            <select class="aff-route-select" data-item-id="${item.id}">
-              <option value="default" ${currentRoute === 'default' ? 'selected' : ''}>Global (${globalNet})</option>
-              <option value="vcommission" ${currentRoute === 'vcommission' ? 'selected' : ''}>vCommission</option>
-              <option value="cuelinks" ${currentRoute === 'cuelinks' ? 'selected' : ''}>Cuelinks</option>
-              <option value="earnkaro" ${currentRoute === 'earnkaro' ? 'selected' : ''}>EarnKaro</option>
-              <option value="impact" ${currentRoute === 'impact' ? 'selected' : ''}>Impact</option>
-              <option value="direct" ${currentRoute === 'direct' ? 'selected' : ''}>Direct Bank UTM</option>
-            </select>
+            <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; color: #065f46; font-weight: 700; background: #ecfdf5; padding: 0.25rem 0.6rem; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.25);">
+              🎯 ${campaignBadge}
+            </span>
+            <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600; margin-top: 0.2rem;">
+              ${payoutBadge}
+            </div>
           </td>
           <td>
-            <input type="text" class="aff-override-input" data-item-id="${item.id}" placeholder="Override URL (or leave blank to inherit route)" value="${customUrl}" />
+            <input type="text" class="aff-override-input" data-item-id="${item.id}" placeholder="Optional custom override URL (or inherits Cuelinks)" value="${customUrl}" />
           </td>
           <td style="text-align: right;">
-            <a href="${resolvedUrl}" target="_blank" rel="noopener noreferrer" class="aff-test-btn" title="Open resolved tracking URL in new tab">
+            <a href="${resolvedUrl}" target="_blank" rel="noopener noreferrer" class="aff-test-btn" title="Open resolved Cuelinks tracking URL in new tab">
               Test ↗
             </a>
           </td>
@@ -1949,7 +1812,10 @@ class App {
     const container = document.getElementById('clicksLogContainer');
 
     if (statTotalClicks) statTotalClicks.textContent = logs.length;
-    if (statActiveNetwork) statActiveNetwork.textContent = affiliateManager.settings.primaryNetwork?.toUpperCase() || 'VCOMMISSION';
+    if (statActiveNetwork) {
+      const channelId = affiliateManager.settings.cuelinks?.channelId || affiliateManager.settings.networks?.cuelinks?.channelId || '317055';
+      statActiveNetwork.textContent = `CUELINKS (CID: ${channelId})`;
+    }
 
     if (logs.length > 0) {
       const counts = {};

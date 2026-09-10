@@ -56,7 +56,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "IDFC First Bank Credit Card",
     cuelinksPayout: "₹975.00 / Lead",
     directUrl: "https://www.idfcfirstbank.com/credit-card/wow",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wow&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.idfcfirstbank.com%2Fcredit-card%2Fwow",
     campaignName: "IDFC First Bank Credit Card"
   },
   {
@@ -111,7 +111,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.getonecard.app/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=onecard_metal&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.getonecard.app%2F",
     campaignName: "OneCard Partner Network"
   },
   {
@@ -168,7 +168,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Kotak 811 CPL",
     cuelinksPayout: "₹210.00 / Lead",
     directUrl: "https://www.kotak.com/en/personal-banking/cards/credit-cards/811-dream-different-credit-card.html",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kotak_811_card&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.kotak.com%2Fen%2Fpersonal-banking%2Fcards%2Fcredit-cards%2F811-dream-different-credit-card.html",
     campaignName: "Kotak 811 CPL"
   },
 
@@ -227,7 +227,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.icicibank.com/personal-banking/cards/credit-cards/amazon-pay-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_amazon_pay&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.icicibank.com%2Fpersonal-banking%2Fcards%2Fcredit-cards%2Famazon-pay-credit-card",
     campaignName: "ICICI Bank Credit Cards"
   },
   {
@@ -284,7 +284,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Axis Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/my-zone-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_my_zone&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.axisbank.com%2Fretail%2Fcards%2Fcredit-card%2Fmy-zone-credit-card",
     campaignName: "Axis Bank Credit Cards"
   },
   {
@@ -341,7 +341,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Indusind Credit Card CPL",
     cuelinksPayout: "₹900.00 / Lead",
     directUrl: "https://www.indusind.com/in/en/personal/cards/credit-cards/legend-credit-card.html",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_legend&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.indusind.com%2Fin%2Fen%2Fpersonal%2Fcards%2Fcredit-cards%2Flegend-credit-card.html",
     campaignName: "Indusind Credit Card CPL"
   },
   {
@@ -398,7 +398,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "SBI Sprint Simply Click Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/simplyclick-sbi-card.page",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_simplyclick&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.sbicard.com%2Fen%2Fpersonal%2Fcredit-cards%2Frewards%2Fsimplyclick-sbi-card.page",
     campaignName: "SBI Card Affiliate Program"
   },
   {
@@ -455,7 +455,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "SBI Sprint Simply Save Credit Card - CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/simplysave-sbi-card.page",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_simplysave&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.sbicard.com%2Fen%2Fpersonal%2Fcredit-cards%2Frewards%2Fsimplysave-sbi-card.page",
     campaignName: "SBI Card Affiliate Program"
   },
   {
@@ -512,7 +512,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Axis Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/neo-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_neo&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.axisbank.com%2Fretail%2Fcards%2Fcredit-card%2Fneo-credit-card",
     campaignName: "Axis Bank Credit Cards"
   },
   {
@@ -567,7 +567,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.icicibank.com/personal-banking/cards/credit-cards/coral-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_coral&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.icicibank.com%2Fpersonal-banking%2Fcards%2Fcredit-cards%2Fcoral-credit-card",
     campaignName: "ICICI Bank Credit Cards"
   },
   {
@@ -622,7 +622,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.icicibank.com/personal-banking/cards/credit-cards/platinum-chip-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=icici_platinum_chip&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.icicibank.com%2Fpersonal-banking%2Fcards%2Fcredit-cards%2Fplatinum-chip-card",
     campaignName: "ICICI Bank Credit Cards"
   },
   {
@@ -679,7 +679,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Indusind Credit Card CPL",
     cuelinksPayout: "₹900.00 / Lead",
     directUrl: "https://www.indusind.com/in/en/personal/cards/credit-cards/aura-edge-credit-card.html",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=indusind_aura_edge&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.indusind.com%2Fin%2Fen%2Fpersonal%2Fcards%2Fcredit-cards%2Faura-edge-credit-card.html",
     campaignName: "Indusind Credit Card CPL"
   },
   {
@@ -736,7 +736,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "BOB Card CPL",
     cuelinksPayout: "₹1,350.00 / Sale",
     directUrl: "https://www.bobfinancial.com/easy.jsp",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=bob_easy_card&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.bobfinancial.com%2Feasy.jsp",
     campaignName: "Bank of Baroda Credit Cards"
   },
   {
@@ -793,7 +793,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "AU Bank Credit Card CPL",
     cuelinksPayout: "₹1,950.00 / Lead",
     directUrl: "https://www.aubank.in/personal-banking/credit-cards/altura-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=au_altura&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.aubank.in%2Fpersonal-banking%2Fcredit-cards%2Faltura-credit-card",
     campaignName: "AU Bank Credit Card CPL"
   },
   {
@@ -848,7 +848,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.hsbc.co.in/credit-cards/products/platinum/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hsbc_platinum&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hsbc.co.in%2Fcredit-cards%2Fproducts%2Fplatinum%2F",
     campaignName: "HSBC Bank Cards"
   },
   {
@@ -905,7 +905,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "HDFC Bank Credit Card CPL",
     cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/moneyback-plus",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_moneyback_plus&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hdfcbank.com%2Fpersonal%2Fpay%2Fcards%2Fcredit-cards%2Fmoneyback-plus",
     campaignName: "HDFC Bank Credit Cards"
   },
   {
@@ -960,7 +960,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.rblbank.com/product/credit-cards/shoprite-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=rbl_shoprite&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.rblbank.com%2Fproduct%2Fcredit-cards%2Fshoprite-credit-card",
     campaignName: "RBL Bank Partner Program"
   },
 
@@ -1021,7 +1021,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "SBI Sprint Cashback Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/cashback-sbi-card.page",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_cashback_card&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.sbicard.com%2Fen%2Fpersonal%2Fcredit-cards%2Frewards%2Fcashback-sbi-card.page",
     campaignName: "SBI Card Partner Network"
   },
   {
@@ -1078,7 +1078,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "HDFC Bank Credit Card CPL",
     cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/millennia-cards",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_millennia&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hdfcbank.com%2Fpersonal%2Fpay%2Fcards%2Fcredit-cards%2Fmillennia-cards",
     campaignName: "HDFC Bank Credit Cards"
   },
   {
@@ -1135,7 +1135,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Axis Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/airtel-axis-bank-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_airtel_card&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.axisbank.com%2Fretail%2Fcards%2Fcredit-card%2Fairtel-axis-bank-credit-card",
     campaignName: "Axis Bank Partner Cards"
   },
   {
@@ -1192,7 +1192,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Axis Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/flipkart-axis-bank-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_flipkart&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.axisbank.com%2Fretail%2Fcards%2Fcredit-card%2Fflipkart-axis-bank-credit-card",
     campaignName: "Axis Bank Credit Cards"
   },
   {
@@ -1249,7 +1249,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "HDFC Bank Swiggy Credit Card CPL",
     cuelinksPayout: "₹1,829.25 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/swiggy-hdfc-bank-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=swiggy_hdfc&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hdfcbank.com%2Fpersonal%2Fpay%2Fcards%2Fcredit-cards%2Fswiggy-hdfc-bank-credit-card",
     campaignName: "HDFC Co-brand Cards"
   },
   {
@@ -1306,7 +1306,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "HDFC Bank Credit Card CPL",
     cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.tataneu.com/financial-services/credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=tata_neu_infinity&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.tataneu.com%2Ffinancial-services%2Fcredit-card",
     campaignName: "HDFC Bank RuPay Cards"
   },
   {
@@ -1363,7 +1363,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Federal Scapia Credit Card CPL",
     cuelinksPayout: "₹1,200.00 / Lead",
     directUrl: "https://www.scapia.cards/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=scapia_federal&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.scapia.cards%2F",
     campaignName: "Scapia Travel Cards"
   },
   {
@@ -1420,7 +1420,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "AU Bank Credit Card CPL",
     cuelinksPayout: "₹1,950.00 / Lead",
     directUrl: "https://www.aubank.in/personal-banking/credit-cards/lit-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=au_lit_card&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.aubank.in%2Fpersonal-banking%2Fcredit-cards%2Flit-credit-card",
     campaignName: "AU Bank Credit Card CPL"
   },
   {
@@ -1477,7 +1477,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "SBI BPCL Octane Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.sbicard.com/en/personal/credit-cards/rewards/bpcl-sbi-card-octane.page",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=sbi_bpcl_octane&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.sbicard.com%2Fen%2Fpersonal%2Fcredit-cards%2Frewards%2Fbpcl-sbi-card-octane.page",
     campaignName: "SBI Card Affiliate Program"
   },
   {
@@ -1532,7 +1532,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.hsbc.co.in/credit-cards/products/cashback/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hsbc_live_plus&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hsbc.co.in%2Fcredit-cards%2Fproducts%2Fcashback%2F",
     campaignName: "HSBC Bank Cards"
   },
 
@@ -1593,7 +1593,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Axis Credit Card CPL",
     cuelinksPayout: "₹1,890.00 / Lead",
     directUrl: "https://www.axisbank.com/retail/cards/credit-card/atlas-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=axis_atlas&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.axisbank.com%2Fretail%2Fcards%2Fcredit-card%2Fatlas-credit-card",
     campaignName: "Axis Bank Premium Cards"
   },
   {
@@ -1650,7 +1650,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "HDFC Bank Credit Card CPL",
     cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/regalia-gold-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_regalia_gold&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hdfcbank.com%2Fpersonal%2Fpay%2Fcards%2Fcredit-cards%2Fregalia-gold-credit-card",
     campaignName: "HDFC Bank Credit Cards"
   },
   {
@@ -1705,7 +1705,7 @@ export const CREDIT_CARDS = [
     ],
     hasAffiliate: false,
     directUrl: "https://www.americanexpress.com/in/credit-cards/platinum-travel-credit-card/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=amex_platinum_travel&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.americanexpress.com%2Fin%2Fcredit-cards%2Fplatinum-travel-credit-card%2F",
     campaignName: "American Express India"
   },
   {
@@ -1762,7 +1762,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "IDFC First Bank Credit Card",
     cuelinksPayout: "₹975.00 / Lead",
     directUrl: "https://www.idfcfirstbank.com/credit-card/wealth",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=idfc_first_wealth&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.idfcfirstbank.com%2Fcredit-card%2Fwealth",
     campaignName: "IDFC First Bank Credit Card"
   },
   {
@@ -1819,7 +1819,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "HDFC Bank Credit Card CPL",
     cuelinksPayout: "₹1,050.00 / Lead",
     directUrl: "https://www.hdfcbank.com/personal/pay/cards/credit-cards/infinia-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=hdfc_infinia&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.hdfcbank.com%2Fpersonal%2Fpay%2Fcards%2Fcredit-cards%2Finfinia-credit-card",
     campaignName: "HDFC Super Premium Cards"
   },
   // --------------------------------------------------------------------------
@@ -1879,7 +1879,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Kiwi Credit Cards CPL",
     cuelinksPayout: "₹1,650.00 / Lead",
     directUrl: "https://gokiwi.in/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kiwi_credit_cards&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fgokiwi.in%2F",
     campaignName: "Kiwi Credit Cards CPL"
   },
   {
@@ -1936,7 +1936,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Yes Bank Pop Club Credit Card",
     cuelinksPayout: "₹1,575.00 / Lead",
     directUrl: "https://www.yesbank.in/personal-banking/cards/credit-cards/pop-club-credit-card",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=yes_bank_pop_club&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.yesbank.in%2Fpersonal-banking%2Fcards%2Fcredit-cards%2Fpop-club-credit-card",
     campaignName: "Yes Bank Pop Club Credit Card"
   },
   {
@@ -1993,7 +1993,7 @@ export const CREDIT_CARDS = [
     cuelinksCampaign: "Novio Secured Credit card",
     cuelinksPayout: "₹1,500.00 / Lead",
     directUrl: "https://novio.in/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=novio_secured_card&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fnovio.in%2F",
     campaignName: "Novio Secured Credit card"
   }
 ];

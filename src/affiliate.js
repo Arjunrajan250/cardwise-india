@@ -33,8 +33,7 @@ export class AffiliateManager {
           const parsed = JSON.parse(saved);
           if (!parsed.version || parsed.version < (DEFAULT_AFFILIATE_CONFIG.version || 1)) {
             const upgraded = this.deepMerge(DEFAULT_AFFILIATE_CONFIG, {
-              customLinks: parsed.customLinks || {},
-              networkOverrides: parsed.networkOverrides || {}
+              customLinks: parsed.customLinks || {}
             });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(upgraded));
             return upgraded;
@@ -102,9 +101,8 @@ export class AffiliateManager {
     if (typeof document === 'undefined') return;
 
     const existingScript = document.getElementById('cuelinks-autotag-script');
-    const cuelinksConfig = this.settings.networks?.cuelinks;
-    const isPrimaryCuelinks = this.settings.primaryNetwork === 'cuelinks';
-    const isScriptEnabled = cuelinksConfig?.enableAutoTaggingScript && cuelinksConfig?.pubId && cuelinksConfig.pubId !== 'YOUR_CUELINKS_PUB_ID';
+    const cuelinksConfig = this.settings.cuelinks || this.settings.networks?.cuelinks;
+    const isScriptEnabled = cuelinksConfig?.enableAutoTaggingScript && cuelinksConfig?.pubId;
 
     if (isScriptEnabled) {
       const scriptUrl = `https://admin.cuelinks.com/api/cuelinks.js?pub_id=${encodeURIComponent(cuelinksConfig.pubId)}`;
@@ -128,17 +126,10 @@ export class AffiliateManager {
   }
 
   /* --------------------------------------------------------------------------
-     3. Multi-Network URL Resolution Engine
+     3. Cuelinks Exclusive URL Resolution Engine
      -------------------------------------------------------------------------- */
   getNetworkForItem(item) {
-    if (!item) return this.settings.primaryNetwork || 'vcommission';
-    
-    // Check item-level network override
-    if (this.settings.networkOverrides && this.settings.networkOverrides[item.id]) {
-      return this.settings.networkOverrides[item.id];
-    }
-
-    return this.settings.primaryNetwork || 'vcommission';
+    return 'cuelinks';
   }
 
   resolveUrl(rawUrlOrItem, optionalId) {
@@ -158,86 +149,29 @@ export class AffiliateManager {
 
     // 1. Check for custom link override for this specific card/loan
     if (this.settings.customLinks && itemId && this.settings.customLinks[itemId]) {
-      let customUrl = this.settings.customLinks[itemId].trim();
-      if (customUrl) {
-        // Substitute common macros if present in custom link
-        const vcommAffId = this.settings.networks?.vcommission?.affiliateId || '131993';
-        const vcommSubId = this.settings.networks?.vcommission?.subId || 'instantcred_web';
-        customUrl = customUrl.replace(/YOUR_AFF_ID/g, vcommAffId).replace(/YOUR_SUB_ID/g, vcommSubId);
-        return customUrl;
-      }
+      const customUrl = this.settings.customLinks[itemId].trim();
+      if (customUrl) return customUrl;
     }
 
-    // 2. Identify active network for this item
-    const network = this.getNetworkForItem(item);
+    // 2. Resolve exclusively through Cuelinks
+    const cuelinks = this.settings.cuelinks || this.settings.networks?.cuelinks || {};
+    const channelId = cuelinks.channelId || '317055';
+    const pubId = cuelinks.pubId || '271664';
+    const subId = cuelinks.subId || 'instantcred_web';
     const directUrl = item.directUrl || rawUrl || 'https://www.instantcred.in';
 
-    switch (network) {
-      case 'cuelinks': {
-        const cuelinks = this.settings.networks?.cuelinks || {};
-        const pubId = cuelinks.pubId || 'YOUR_CUELINKS_PUB_ID';
-        const channelId = cuelinks.channelId || cuelinks.pubId || 'YOUR_CUELINKS_PUB_ID';
-        const subId = cuelinks.subId || 'instantcred_web';
-        
-        // If AutoTagging script is active, return direct URL because script dynamically intercepts it
-        if (cuelinks.enableAutoTaggingScript && pubId !== 'YOUR_CUELINKS_PUB_ID') {
-          return directUrl;
-        }
-
-        // Otherwise generate redirection link
-        if (cuelinks.redirectFormat === 'linksredirect') {
-          return `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
-        }
-        // Default Cuelinks CP Rewritten format
-        return `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(pubId)}&sub_id=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
-      }
-
-      case 'earnkaro': {
-        const earnkaro = this.settings.networks?.earnkaro || {};
-        const userId = earnkaro.userId || 'YOUR_EARNKARO_USER_ID';
-        const subId = earnkaro.subId || 'instantcred_web';
-        return `https://earnkaro.com/deal/redirect?deal_id=${encodeURIComponent(directUrl)}&r=${encodeURIComponent(userId)}&subid=${encodeURIComponent(subId)}`;
-      }
-
-      case 'impact': {
-        const impact = this.settings.networks?.impact || {};
-        const mpId = impact.mediaPartnerId || 'YOUR_IMPACT_MP_ID';
-        const subId = impact.campaignSubId || 'instantcred_web';
-        const separator = directUrl.includes('?') ? '&' : '?';
-        return `${directUrl}${separator}irclickid=${encodeURIComponent(subId)}&mpid=${encodeURIComponent(mpId)}`;
-      }
-
-      case 'direct': {
-        const direct = this.settings.networks?.direct || {};
-        const utmSource = direct.utmSource || 'instantcred';
-        const utmMedium = direct.utmMedium || 'affiliate';
-        const utmCampaign = direct.utmCampaign || 'credit_cards_2026';
-        const separator = directUrl.includes('?') ? '&' : '?';
-        return `${directUrl}${separator}utm_source=${encodeURIComponent(utmSource)}&utm_medium=${encodeURIComponent(utmMedium)}&utm_campaign=${encodeURIComponent(utmCampaign)}`;
-      }
-
-      case 'vcommission':
-      default: {
-        const vcomm = this.settings.networks?.vcommission || {};
-        const affId = vcomm.affiliateId || '131993';
-        const subId = vcomm.subId || 'instantcred_web';
-        const subId2 = vcomm.subId2 || '';
-
-        let url = rawUrl || `https://tracking.vcommission.com/aff_c?offer_id=${encodeURIComponent(itemId)}&aff_id=YOUR_AFF_ID`;
-        url = url.replace(/YOUR_AFF_ID/g, affId);
-
-        if (!url.includes('aff_sub=')) {
-          const separator = url.includes('?') ? '&' : '?';
-          url = `${url}${separator}aff_sub=${encodeURIComponent(subId)}`;
-        }
-
-        if (subId2 && !url.includes('aff_sub2=')) {
-          url = `${url}&aff_sub2=${encodeURIComponent(subId2)}`;
-        }
-
-        return url;
-      }
+    // If AutoTagging script is active, return direct URL because script dynamically intercepts it
+    if (cuelinks.enableAutoTaggingScript && pubId) {
+      return directUrl;
     }
+
+    // Cuelinks CP Rewritten format if explicitly chosen
+    if (cuelinks.redirectFormat === 'cprewritten') {
+      return `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(pubId)}&sub_id=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
+    }
+
+    // Primary & Verified Cuelinks Format: linksredirect with Channel ID
+    return `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
   }
 
   getAffiliateUrl(item) {
@@ -249,7 +183,9 @@ export class AffiliateManager {
      -------------------------------------------------------------------------- */
   triggerOutboundApply(item, onRedirectReady) {
     const finalUrl = this.getAffiliateUrl(item);
-    const network = this.getNetworkForItem(item);
+    const network = 'cuelinks';
+    const cuelinks = this.settings.cuelinks || this.settings.networks?.cuelinks || {};
+    const affiliateId = cuelinks.channelId || cuelinks.pubId || '317055';
     
     // Log click event locally
     this.logClick(item, finalUrl, network);
@@ -260,7 +196,7 @@ export class AffiliateManager {
         card: item,
         finalUrl,
         network,
-        affiliateId: this.settings.networks?.[network]?.affiliateId || this.settings.networks?.[network]?.pubId || network
+        affiliateId
       });
     }
 

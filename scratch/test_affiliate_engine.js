@@ -14,177 +14,128 @@ global.document = {
   head: { appendChild: () => {} }
 };
 
-console.log('--- Starting Affiliate Engine Unit & Integration Tests ---');
+console.log('--- Starting Cuelinks Exclusive Affiliate Engine Tests ---');
 
 const mgr = new AffiliateManager();
 
-// Test 1: Default Cuelinks resolution (Auto-configured for Channel ID 317055)
-console.log('\n[Test 1] Default Cuelinks Resolution:');
+// Test 1: Verified Default Cuelinks resolution (Channel ID 317055)
+console.log('\n[Test 1] Verified Cuelinks LinksRedirect Resolution:');
 const wowCard = CREDIT_CARDS.find(c => c.id === 'idfc-first-wow');
 const wowUrl = mgr.resolveUrl(wowCard);
-console.log('IDFC WOW URL:', wowUrl);
+console.log('IDFC FIRST WOW Cuelinks URL:', wowUrl);
 if (!wowUrl.startsWith('https://linksredirect.com/?cid=317055&subid=instantcred_web&url=')) {
   throw new Error('Default Cuelinks resolution failed!');
 }
-console.log('✓ Default Cuelinks resolution passed.');
+console.log('✓ Default Cuelinks LinksRedirect resolution passed.');
 
-// Test 1b: Switch to vCommission
-console.log('\n[Test 1b] vCommission Resolution:');
-mgr.saveSettings({ primaryNetwork: 'vcommission' });
-const vcommUrl = mgr.resolveUrl(wowCard);
-console.log('IDFC WOW vCommission URL:', vcommUrl);
-if (!vcommUrl.includes('aff_id=131993') || !vcommUrl.includes('aff_sub=instantcred_web')) {
-  throw new Error('vCommission resolution failed!');
+// Test 2: HDFC MoneyBack+ verification (User query case)
+console.log('\n[Test 2] HDFC MoneyBack+ Cuelinks Resolution:');
+const moneyback = CREDIT_CARDS.find(c => c.id === 'hdfc-moneyback');
+const moneybackUrl = mgr.resolveUrl(moneyback);
+console.log('HDFC MoneyBack+ Resolved URL:', moneybackUrl);
+if (!moneybackUrl.includes('cid=317055') || !moneybackUrl.includes('moneyback-plus')) {
+  throw new Error('HDFC MoneyBack+ Cuelinks resolution failed!');
 }
-console.log('✓ vCommission resolution passed.');
+console.log('✓ HDFC MoneyBack+ Cuelinks resolution passed.');
 
-// Test 2: Switch network to Cuelinks (CP Rewritten mode)
-console.log('\n[Test 2] Cuelinks CP Rewritten Resolution:');
+// Test 3: Every single Credit Card (35 cards) resolves via Cuelinks
+console.log('\n[Test 3] Batch Verification: All 35 Credit Cards resolve via Cuelinks:');
+let validCards = 0;
+for (const card of CREDIT_CARDS) {
+  const url = mgr.resolveUrl(card);
+  if (!url.startsWith('https://linksredirect.com/?cid=317055&subid=instantcred_web&url=http')) {
+    throw new Error(`Card ${card.id} failed Cuelinks resolution: ${url}`);
+  }
+  if (!card.affiliateUrl.startsWith('https://linksredirect.com/?cid=317055&subid=instantcred_web&url=http')) {
+    throw new Error(`Card ${card.id} affiliateUrl in data is not Cuelinks: ${card.affiliateUrl}`);
+  }
+  validCards++;
+}
+console.log(`✓ All ${validCards}/35 credit cards successfully verified for Cuelinks Channel 317055.`);
+
+// Test 4: All Personal Loans and Credit Score Offers resolve via Cuelinks
+console.log('\n[Test 4] Loans & Credit Score Cuelinks Verification:');
+for (const loan of PERSONAL_LOANS) {
+  const url = mgr.resolveUrl(loan);
+  if (!url.startsWith('https://linksredirect.com/?cid=317055&subid=instantcred_web&url=http')) {
+    throw new Error(`Loan ${loan.id} failed Cuelinks resolution: ${url}`);
+  }
+}
+for (const offer of CREDIT_SCORE_OFFERS) {
+  const url = mgr.resolveUrl(offer);
+  if (!url.startsWith('https://linksredirect.com/?cid=317055&subid=instantcred_web&url=http')) {
+    throw new Error(`Credit score offer ${offer.id} failed Cuelinks resolution: ${url}`);
+  }
+}
+console.log(`✓ All ${PERSONAL_LOANS.length} loans & ${CREDIT_SCORE_OFFERS.length} credit score offers successfully verified for Cuelinks.`);
+
+// Test 5: Optional CP Rewritten mode
+console.log('\n[Test 5] Cuelinks CP Rewritten mode:');
 mgr.saveSettings({
-  primaryNetwork: 'cuelinks',
-  networks: {
-    cuelinks: {
-      pubId: '154890',
-      subId: 'test_sub',
-      redirectFormat: 'cprewritten',
-      enableAutoTaggingScript: false
-    }
+  cuelinks: {
+    redirectFormat: 'cprewritten',
+    pubId: '271664',
+    subId: 'custom_sub'
   }
 });
-const millenniaCard = CREDIT_CARDS.find(c => c.id === 'hdfc-millennia');
-const millenniaUrl = mgr.resolveUrl(millenniaCard);
-console.log('HDFC Millennia Cuelinks URL:', millenniaUrl);
-if (!millenniaUrl.startsWith('https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=154890&sub_id=test_sub&url=')) {
-  throw new Error('Cuelinks CP Rewritten resolution failed!');
+const millennia = CREDIT_CARDS.find(c => c.id === 'hdfc-millennia');
+const millenniaUrl = mgr.resolveUrl(millennia);
+console.log('HDFC Millennia CP Rewritten URL:', millenniaUrl);
+if (!millenniaUrl.startsWith('https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=271664&sub_id=custom_sub&url=')) {
+  throw new Error('CP Rewritten resolution failed!');
 }
-console.log('✓ Cuelinks CP Rewritten passed.');
+console.log('✓ CP Rewritten mode passed.');
 
-// Test 3: Cuelinks (LinksRedirect mode)
-console.log('\n[Test 3] Cuelinks LinksRedirect Mode:');
+// Reset back to recommended LinksRedirect
 mgr.saveSettings({
-  networks: {
-    cuelinks: {
-      channelId: '317055',
-      redirectFormat: 'linksredirect'
-    }
+  cuelinks: {
+    redirectFormat: 'linksredirect',
+    channelId: '317055',
+    subId: 'instantcred_web'
   }
 });
-const sbiCashback = CREDIT_CARDS.find(c => c.id === 'sbi-cashback');
-const sbiUrl = mgr.resolveUrl(sbiCashback);
-console.log('SBI Cashback LinksRedirect URL:', sbiUrl);
-if (!sbiUrl.startsWith('https://linksredirect.com/?cid=317055&subid=test_sub&url=')) {
-  throw new Error('Cuelinks LinksRedirect resolution failed!');
-}
-console.log('✓ Cuelinks LinksRedirect passed.');
 
-// Test 4: Switch to EarnKaro
-console.log('\n[Test 4] EarnKaro Resolution:');
-mgr.saveSettings({
-  primaryNetwork: 'earnkaro',
-  networks: {
-    earnkaro: {
-      userId: '887766',
-      subId: 'earnkaro_promo'
-    }
-  }
-});
-const axisAirtel = CREDIT_CARDS.find(c => c.id === 'axis-airtel');
-const axisUrl = mgr.resolveUrl(axisAirtel);
-console.log('Axis Airtel EarnKaro URL:', axisUrl);
-if (!axisUrl.includes('r=887766') || !axisUrl.includes('earnkaro_promo')) {
-  throw new Error('EarnKaro resolution failed!');
-}
-console.log('✓ EarnKaro resolution passed.');
-
-// Test 5: Switch to Direct Bank UTM Links
-console.log('\n[Test 5] Direct Bank UTM Resolution:');
-mgr.saveSettings({
-  primaryNetwork: 'direct',
-  networks: {
-    direct: {
-      utmSource: 'instantcred_app',
-      utmMedium: 'cpc',
-      utmCampaign: 'cards_fest_2026'
-    }
-  }
-});
-const amazonCard = CREDIT_CARDS.find(c => c.id === 'icici-amazon-pay');
-const amazonUrl = mgr.resolveUrl(amazonCard);
-console.log('Amazon ICICI Direct UTM URL:', amazonUrl);
-if (!amazonUrl.includes('utm_source=instantcred_app') || !amazonUrl.includes('utm_campaign=cards_fest_2026')) {
-  throw new Error('Direct UTM resolution failed!');
-}
-console.log('✓ Direct UTM resolution passed.');
-
-// Test 6: Per-card Custom Link Override
-console.log('\n[Test 6] Per-Card Custom Link Override:');
+// Test 6: Custom Link Override
+console.log('\n[Test 6] Custom Link Override:');
 mgr.saveSettings({
   customLinks: {
-    'onecard-metal': 'https://custom-special-deal.com/onecard?myref=999'
+    'sbi-cashback': 'https://custom-partner-link.com/sbi?ref=special'
   }
 });
-const onecard = CREDIT_CARDS.find(c => c.id === 'onecard-metal');
-const onecardUrl = mgr.resolveUrl(onecard);
-console.log('OneCard custom URL:', onecardUrl);
-if (onecardUrl !== 'https://custom-special-deal.com/onecard?myref=999') {
+const sbi = CREDIT_CARDS.find(c => c.id === 'sbi-cashback');
+const sbiUrl = mgr.resolveUrl(sbi);
+console.log('SBI custom URL:', sbiUrl);
+if (sbiUrl !== 'https://custom-partner-link.com/sbi?ref=special') {
   throw new Error('Custom link override failed!');
 }
 console.log('✓ Custom link override passed.');
 
-// Test 7: Per-card Network Routing Override
-console.log('\n[Test 7] Per-Card Network Override (Axis Airtel routed to vCommission while global is Direct):');
-mgr.saveSettings({
-  networkOverrides: {
-    'axis-airtel': 'vcommission'
-  }
-});
-const axisOverriddenUrl = mgr.resolveUrl(axisAirtel);
-console.log('Axis Airtel Overridden URL:', axisOverriddenUrl);
-if (!axisOverriddenUrl.includes('tracking.vcommission.com')) {
-  throw new Error('Network routing override failed!');
-}
-console.log('✓ Network routing override passed.');
+// Clear custom override
+mgr.saveSettings({ customLinks: {} });
 
-// Test 8: Loans & Credit Score Resolution
-console.log('\n[Test 8] Personal Loan & Credit Score Resolution:');
-const kreditpeLoan = PERSONAL_LOANS.find(l => l.id === 'kreditpe-loan');
-const kreditpeUrl = mgr.resolveUrl(kreditpeLoan);
-console.log('Kreditpe Loan URL:', kreditpeUrl);
-const loanhub = PERSONAL_LOANS.find(l => l.id === 'loanhub-loan');
-const loanhubUrl = mgr.resolveUrl(loanhub);
-console.log('Loan Hub URL:', loanhubUrl);
-const paisaOffer = CREDIT_SCORE_OFFERS.find(o => o.id === 'paisabazaar-cibil');
-const paisaUrl = mgr.resolveUrl(paisaOffer);
-console.log('Paisabazaar CIBIL URL:', paisaUrl);
-if (!kreditpeUrl || !loanhubUrl || !paisaUrl) {
-  throw new Error('Loans/CIBIL resolution failed!');
-}
-console.log('✓ Loans & CIBIL resolution passed.');
-
-// Test 9: Click Tracking & Logging
-console.log('\n[Test 9] Click Tracking & Logs:');
-mgr.logClick(wowCard, wowUrl, 'vcommission');
-mgr.logClick(millenniaCard, millenniaUrl, 'cuelinks');
+// Test 7: Outbound Click Logging (Exclusively Cuelinks)
+console.log('\n[Test 7] Outbound Click Logging:');
+mgr.logClick(moneyback, moneybackUrl, 'cuelinks');
 const logs = mgr.getClickLogs();
-console.log(`Total logged clicks: ${logs.length}`);
-if (logs.length !== 2 || logs[0].network !== 'cuelinks') {
+console.log(`Logged clicks count: ${logs.length}`);
+if (logs.length !== 1 || logs[0].network !== 'cuelinks') {
   throw new Error('Click logging failed!');
 }
-console.log('✓ Click tracking passed.');
+console.log('✓ Click logging exclusively records cuelinks network.');
 
-// Test 10: JSON Export and Import
-console.log('\n[Test 10] JSON Export & Import:');
-const exported = mgr.exportConfigJSON();
-const parsed = JSON.parse(exported);
-if (!parsed.networks || parsed.primaryNetwork !== 'direct') {
-  throw new Error('JSON Export failed!');
+// Test 8: Configuration Export
+console.log('\n[Test 8] Configuration Export & Code Generator:');
+const configJson = mgr.exportConfigJSON();
+const parsed = JSON.parse(configJson);
+if (parsed.primaryNetwork !== 'cuelinks' || !parsed.cuelinks || parsed.cuelinks.channelId !== '317055') {
+  throw new Error('Export JSON failed!');
 }
-const codeOutput = mgr.generateConfigCode();
-if (!codeOutput.includes('export const DEFAULT_AFFILIATE_CONFIG')) {
-  throw new Error('Code Generator failed!');
+const configCode = mgr.generateConfigCode();
+if (!configCode.includes('DEFAULT_AFFILIATE_CONFIG') || !configCode.includes('317055')) {
+  throw new Error('Config code generator failed!');
 }
-console.log('✓ Export & Import passed.');
+console.log('✓ Configuration Export & Code generation passed.');
 
-console.log('\n=============================================');
-console.log('🎉 ALL 10 AFFILIATE ENGINE TESTS PASSED 100%!');
-console.log('=============================================\n');
+console.log('\n======================================================');
+console.log('🎉 ALL CUELINKS AFFILIATE INTEGRATION TESTS PASSED 100%!');
+console.log('======================================================\n');

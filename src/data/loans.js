@@ -14,8 +14,12 @@ export const CREDIT_SCORE_OFFERS = [
       "Detailed factor analysis: Payment history, credit utilization, and active inquiries",
       "Instant WhatsApp & SMS credit alert notifications"
     ],
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=paisabazaar_cibil&aff_id=YOUR_AFF_ID",
+    hasAffiliate: true,
+    cuelinksCampaign: "Paisabazaar CIBIL",
+    cuelinksPayout: "₹150.00 / Lead",
     directUrl: "https://www.paisabazaar.com/cibil-credit-report/",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.paisabazaar.com%2Fcibil-credit-report%2F",
+    campaignName: "Paisabazaar CIBIL",
     ctaText: "Check Free CIBIL Score ↗"
   },
   {
@@ -33,8 +37,12 @@ export const CREDIT_SCORE_OFFERS = [
       "Tracks all credit accounts, loan repayment schedules, and credit card limits in one app",
       "Personalized tips to boost your score above 750+"
     ],
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=onescore_app&aff_id=YOUR_AFF_ID",
+    hasAffiliate: true,
+    cuelinksCampaign: "OneScore App",
+    cuelinksPayout: "₹120.00 / Install",
     directUrl: "https://www.onescore.app/",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.onescore.app%2F",
+    campaignName: "OneScore App",
     ctaText: "Get OneScore Free ↗"
   },
   {
@@ -52,8 +60,12 @@ export const CREDIT_SCORE_OFFERS = [
       "Free monthly credit progress report sent to your WhatsApp inbox",
       "Safe and encrypted with bank-grade 256-bit security"
     ],
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=wishfin_whatsapp_cibil&aff_id=YOUR_AFF_ID",
+    hasAffiliate: true,
+    cuelinksCampaign: "Wishfin WhatsApp CIBIL",
+    cuelinksPayout: "₹110.00 / Report",
     directUrl: "https://www.wishfin.com/cibil-score/",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fwww.wishfin.com%2Fcibil-score%2F",
+    campaignName: "Wishfin WhatsApp CIBIL",
     ctaText: "Check on WhatsApp ↗"
   }
 ];
@@ -88,7 +100,7 @@ export const PERSONAL_LOANS = [
     cuelinksCampaign: "Kreditpe",
     cuelinksPayout: "₹1,350.00 / Acquisition",
     directUrl: "https://kreditpe.com/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=kreditpe&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Fkreditpe.com%2F",
     campaignName: "Kreditpe"
   },
   {
@@ -120,7 +132,7 @@ export const PERSONAL_LOANS = [
     cuelinksCampaign: "Loan Hub CPL",
     cuelinksPayout: "₹900.00 / Lead",
     directUrl: "https://loanhub.in/",
-    affiliateUrl: "https://tracking.vcommission.com/aff_c?offer_id=loanhub&aff_id=YOUR_AFF_ID",
+    affiliateUrl: "https://linksredirect.com/?cid=317055&subid=instantcred_web&url=https%3A%2F%2Floanhub.in%2F",
     campaignName: "Loan Hub CPL"
   }
 ];
