@@ -393,18 +393,41 @@ export class CardComparator {
                     </div>
 
                     <!-- Miniature Authentic Credit Card Visual -->
-                    <div class="comp-card-mini-art theme-${card.cardTheme}">
-                      <div class="card-top-row">
-                        <span class="bank-name-label">${card.bank}</span>
-                        <span class="contactless-icon">${ICONS.contactless}</span>
-                      </div>
-                      <div class="card-middle-row">
-                        <div class="emv-chip"></div>
-                      </div>
-                      <div class="card-bottom-row">
-                        <span class="card-title-preview">${card.name}</span>
-                        <span class="network-badge">${card.network}</span>
-                      </div>
+                    <div class="comp-card-mini-art theme-${card.cardTheme} ${card.imageUrl ? 'has-real-image' : ''} ${card.isVertical ? 'is-vertical' : ''}">
+                      ${card.imageUrl ? `
+                        <img 
+                          src="${card.imageUrl}" 
+                          alt="${card.name}" 
+                          class="comp-card-real-img" 
+                          loading="lazy" 
+                          onerror="this.style.display='none'; this.closest('.comp-card-mini-art').classList.remove('has-real-image', 'is-vertical'); const fallback = this.nextElementSibling; if (fallback) fallback.style.display='flex';"
+                        />
+                        <div class="comp-card-css-fallback" style="display: none;">
+                          <div class="card-top-row">
+                            <span class="bank-name-label">${card.bank}</span>
+                            <span class="contactless-icon">${ICONS.contactless}</span>
+                          </div>
+                          <div class="card-middle-row">
+                            <div class="emv-chip"></div>
+                          </div>
+                          <div class="card-bottom-row">
+                            <span class="card-title-preview">${card.name}</span>
+                            <span class="network-badge">${card.network}</span>
+                          </div>
+                        </div>
+                      ` : `
+                        <div class="card-top-row">
+                          <span class="bank-name-label">${card.bank}</span>
+                          <span class="contactless-icon">${ICONS.contactless}</span>
+                        </div>
+                        <div class="card-middle-row">
+                          <div class="emv-chip"></div>
+                        </div>
+                        <div class="card-bottom-row">
+                          <span class="card-title-preview">${card.name}</span>
+                          <span class="network-badge">${card.network}</span>
+                        </div>
+                      `}
                     </div>
 
                     <h3 class="card-title">${card.name}</h3>

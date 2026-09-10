@@ -293,18 +293,41 @@ class App {
 
           <!-- Authentic Card Artwork -->
           <div class="credit-card-render-wrapper" data-open-card-id="${card.id}" title="View card specifications">
-            <div class="credit-card-visual theme-${card.cardTheme}">
-              <div class="card-top-row">
-                <span class="bank-name-label">${card.bank}</span>
-                <span class="contactless-icon">${ICONS.contactless}</span>
-              </div>
-              <div class="card-middle-row">
-                <div class="emv-chip"></div>
-              </div>
-              <div class="card-bottom-row">
-                <span class="card-title-preview">${card.name}</span>
-                <span class="network-badge">${card.network}</span>
-              </div>
+            <div class="credit-card-visual theme-${card.cardTheme} ${card.imageUrl ? 'has-real-image' : ''} ${card.isVertical ? 'is-vertical' : ''}">
+              ${card.imageUrl ? `
+                <img 
+                  src="${card.imageUrl}" 
+                  alt="${card.name}" 
+                  class="credit-card-real-img" 
+                  loading="lazy" 
+                  onerror="this.style.display='none'; this.closest('.credit-card-visual').classList.remove('has-real-image', 'is-vertical'); const fallback = this.nextElementSibling; if (fallback) fallback.style.display='flex';"
+                />
+                <div class="card-css-fallback" style="display: none;">
+                  <div class="card-top-row">
+                    <span class="bank-name-label">${card.bank}</span>
+                    <span class="contactless-icon">${ICONS.contactless}</span>
+                  </div>
+                  <div class="card-middle-row">
+                    <div class="emv-chip"></div>
+                  </div>
+                  <div class="card-bottom-row">
+                    <span class="card-title-preview">${card.name}</span>
+                    <span class="network-badge">${card.network}</span>
+                  </div>
+                </div>
+              ` : `
+                <div class="card-top-row">
+                  <span class="bank-name-label">${card.bank}</span>
+                  <span class="contactless-icon">${ICONS.contactless}</span>
+                </div>
+                <div class="card-middle-row">
+                  <div class="emv-chip"></div>
+                </div>
+                <div class="card-bottom-row">
+                  <span class="card-title-preview">${card.name}</span>
+                  <span class="network-badge">${card.network}</span>
+                </div>
+              `}
             </div>
           </div>
 
@@ -414,6 +437,21 @@ class App {
 
       <!-- Tab: Overview -->
       <div class="tab-pane active" id="tab-overview">
+        ${card.imageUrl ? `
+          <div class="modal-card-showcase">
+            <div class="modal-card-img-wrap ${card.isVertical ? 'is-vertical' : ''}">
+              <img src="${card.imageUrl}" alt="${card.name}" class="modal-card-img" />
+            </div>
+            <div class="modal-card-info">
+              <div class="modal-card-badges">
+                <span class="badge-tag">${card.tag}</span>
+                <span class="badge-approval ${card.approvalTier || 'moderate'}">${card.approvalLabel || 'Standard'}</span>
+              </div>
+              <p class="modal-card-summary-text">${card.cashbackSummary}</p>
+            </div>
+          </div>
+        ` : ''}
+
         <div class="detail-box-grid">
           <div class="detail-stat-card">
             <div class="label">Bank</div>

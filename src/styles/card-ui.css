@@ -109,17 +109,103 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.credit-card-visual.has-real-image {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 12px;
+}
+
+.credit-card-visual.has-real-image::after {
+  display: none;
+}
+
+.credit-card-real-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: transparent;
+}
+
+/* Vertical Credit Card Showcase Presentation */
+.credit-card-visual.is-vertical {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(15, 23, 42, 0.04);
+  padding: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.credit-card-visual.is-vertical::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.credit-card-visual.is-vertical .credit-card-real-img {
+  height: 88%;
+  width: auto;
+  max-height: 88%;
+  max-width: 90%;
+  aspect-ratio: 320 / 508;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 22px -3px rgba(15, 23, 42, 0.22), 0 4px 8px -2px rgba(15, 23, 42, 0.12);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.card-item:hover .credit-card-visual.is-vertical .credit-card-real-img {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 16px 30px -4px rgba(15, 23, 42, 0.3), 0 6px 12px -2px rgba(15, 23, 42, 0.18);
+}
+
+.card-css-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
   .credit-card-visual {
     padding: 0.85rem 1rem;
   }
+  .card-css-fallback {
+    padding: 0.85rem 1rem;
+  }
 }
 
-.card-item:hover .credit-card-visual {
+.card-item:hover .credit-card-visual:not(.has-real-image) {
   transform: scale(1.01);
+}
+
+.card-item:hover .credit-card-real-img {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.22), 0 4px 8px -2px rgba(15, 23, 42, 0.1);
 }
 
 /* Theme Gradients */

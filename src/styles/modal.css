@@ -289,6 +289,77 @@
   color: var(--text-primary);
 }
 
+.modal-card-showcase {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.1rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+}
+
+.modal-card-img-wrap {
+  width: 150px;
+  flex-shrink: 0;
+  aspect-ratio: 1.586 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.16);
+  background: #ffffff;
+}
+
+.modal-card-img-wrap.is-vertical {
+  width: 90px;
+  aspect-ratio: 320 / 508;
+  background: transparent;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+}
+
+.modal-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.modal-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-card-badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.modal-card-summary-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+  font-weight: 500;
+}
+
+@media (max-width: 540px) {
+  .modal-card-showcase {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem 0.85rem;
+  }
+  .modal-card-img-wrap {
+    width: 160px;
+  }
+  .modal-card-badges {
+    justify-content: center;
+  }
+}
+
 .detail-box-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
