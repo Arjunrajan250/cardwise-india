@@ -146,9 +146,10 @@
 
       <nav class="nav-menu">
         <a href="#card-directory" class="nav-link active">Credit Cards</a>
-        <a href="#loans-section" class="nav-link">Personal Loans</a>
         <a href="#calculator-section" class="nav-link">Spend Calculator</a>
+        <a href="#loans-section" class="nav-link">Personal Loans</a>
         <a href="#credit-guides-section" class="nav-link">Guides</a>
+        <a href="#why-trust-us" class="nav-link">Why Trust Us</a>
       </nav>
 
       <div class="nav-actions">
@@ -165,9 +166,6 @@
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
           </svg>
         </button>
-        <button type="button" class="btn-icon-only" id="btnOpenAffiliateModal" title="System & Partner Diagnostics">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-        </button>
       </div>
     </div>
 
@@ -177,14 +175,25 @@
   <section class="hero-section">
     <div class="container">
       <div class="hero-pill">
-        <span>Independent Credit Card Advisory for India</span>
+        <span>✨ Independent Credit Card Decision Engine • Zero Bias, Pure Math</span>
       </div>
       <h1 class="hero-title">
-        Compare Top Indian Credit Cards
+        Which credit card is actually best for you?
       </h1>
       <p class="hero-subtitle">
-        Find the card that delivers the highest cashback and travel value based on your actual monthly spending habits.
+        Tell us your salary and monthly spending. We compare 35+ top Indian credit cards based on calculated net cashback, rewards, annual fees, and true benefits — not bank advertising hype.
       </p>
+
+      <!-- Hero Call-to-Actions -->
+      <div class="hero-cta-actions">
+        <button type="button" class="btn btn-primary btn-launch-quiz hero-primary-cta">
+          <svg class="ui-icon ui-icon-sparkle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
+          <span>Find My Card (30-Sec Smart Match) →</span>
+        </button>
+        <a href="#calculator-section" class="btn btn-secondary hero-secondary-cta">
+          <span>Calculate My Net Rewards ↓</span>
+        </a>
+      </div>
 
       <!-- Search Input -->
       <div class="search-box-wrapper">
@@ -199,12 +208,27 @@
             type="text" 
             id="searchInput" 
             class="search-input" 
-            placeholder="Search cards, banks, perks (e.g. SBI, Lounge)..." 
+            placeholder="Search by card name, bank, or perk (e.g. SBI Cashback, Lounge, Swiggy)..." 
             autocomplete="off"
           />
         </div>
         <!-- Google-Style Omnibox Autocomplete Dropdown -->
         <div id="searchAutocompleteDropdown" class="search-autocomplete-dropdown hidden"></div>
+      </div>
+
+      <!-- High-Intent Popular Searches Strip -->
+      <div class="popular-searches-bar">
+        <span class="popular-searches-label">Popular Searches:</span>
+        <div class="popular-searches-chips" id="popularSearchesContainer">
+          <button type="button" class="popular-chip" data-popular-preset="salary-30k">⚡ Under ₹30k Salary</button>
+          <button type="button" class="popular-chip" data-popular-preset="cashback">💳 Best Cashback Cards</button>
+          <button type="button" class="popular-chip" data-popular-preset="ltf">🆓 Lifetime Free Cards</button>
+          <button type="button" class="popular-chip" data-popular-preset="amazon-flipkart">🛍️ Amazon & Flipkart</button>
+          <button type="button" class="popular-chip" data-popular-preset="upi-rupay">📲 RuPay UPI Cards</button>
+          <button type="button" class="popular-chip" data-popular-preset="fuel">⛽ Best Fuel Cards</button>
+          <button type="button" class="popular-chip" data-popular-preset="travel-lounge">✈️ Travel & Lounge</button>
+          <button type="button" class="popular-chip" data-popular-preset="beginners">🎯 Best for Beginners</button>
+        </div>
       </div>
 
       <!-- Category Filter Chips -->
@@ -268,7 +292,7 @@
 
           <select id="sortBySelect" class="custom-select" aria-label="Sort Credit Cards">
             <option value="popularity">Sort: Most Popular</option>
-            <option value="approval-odds">Sort: Highest Approval Odds</option>
+            <option value="approval-odds">Sort: High Eligibility Feasibility</option>
             <option value="rating">Sort: Highest Rated</option>
             <option value="fee-low">Sort: Lowest Annual Fee</option>
             <option value="fee-high">Sort: Premium First</option>
@@ -302,14 +326,15 @@
           </div>
         </div>
 
-        <div class="calc-collapsible-body" id="calcCollapsibleBody">
-          <div class="calc-grid">
-            <!-- Sliders Side -->
+        <!-- Collapsible Content Wrapper -->
+        <div class="calc-collapsible-content" id="calcCollapsibleBody">
+          <div class="calc-layout-grid">
+            <!-- Sliders Input Side -->
             <div class="sliders-wrapper">
               <!-- Online Shopping -->
               <div class="slider-group">
                 <div class="slider-label-row">
-                  <label class="slider-label">Online Shopping (Amazon, Flipkart, Myntra)</label>
+                  <label class="slider-label">Online Shopping (Amazon, Flipkart, etc.)</label>
                   <span class="slider-value-display" id="display-online">₹15,000</span>
                 </div>
                 <input type="range" class="range-slider" data-calc-category="online" min="0" max="100000" step="1000" value="15000" />
@@ -318,25 +343,25 @@
               <!-- Dining & Food Delivery -->
               <div class="slider-group">
                 <div class="slider-label-row">
-                  <label class="slider-label">Food & Dining (Swiggy, Zomato, Restaurants)</label>
-                  <span class="slider-value-display" id="display-dining">₹6,000</span>
+                  <label class="slider-label">Dining & Food Delivery (Swiggy, Zomato)</label>
+                  <span class="slider-value-display" id="display-dining">₹8,000</span>
                 </div>
-                <input type="range" class="range-slider" data-calc-category="dining" min="0" max="50000" step="500" value="6000" />
+                <input type="range" class="range-slider" data-calc-category="dining" min="0" max="50000" step="500" value="8000" />
               </div>
 
-              <!-- Groceries -->
+              <!-- Groceries & Supermarkets -->
               <div class="slider-group">
                 <div class="slider-label-row">
-                  <label class="slider-label">Groceries (Blinkit, Zepto, DMart, Supermarkets)</label>
-                  <span class="slider-value-display" id="display-grocery">₹8,000</span>
+                  <label class="slider-label">Groceries & Supermarkets (Blinkit, Zepto)</label>
+                  <span class="slider-value-display" id="display-grocery">₹6,000</span>
                 </div>
-                <input type="range" class="range-slider" data-calc-category="grocery" min="0" max="50000" step="500" value="8000" />
+                <input type="range" class="range-slider" data-calc-category="grocery" min="0" max="50000" step="500" value="6000" />
               </div>
 
-              <!-- Fuel -->
+              <!-- Fuel & Petrol -->
               <div class="slider-group">
                 <div class="slider-label-row">
-                  <label class="slider-label">Fuel (Petrol / Diesel / EV Charging)</label>
+                  <label class="slider-label">Fuel & Petrol Stations</label>
                   <span class="slider-value-display" id="display-fuel">₹4,000</span>
                 </div>
                 <input type="range" class="range-slider" data-calc-category="fuel" min="0" max="30000" step="500" value="4000" />
@@ -345,7 +370,7 @@
               <!-- Travel & Flights -->
               <div class="slider-group">
                 <div class="slider-label-row">
-                  <label class="slider-label">Flights & Hotel Bookings</label>
+                  <label class="slider-label">Travel, Flights & Hotels</label>
                   <span class="slider-value-display" id="display-travel">₹5,000</span>
                 </div>
                 <input type="range" class="range-slider" data-calc-category="travel" min="0" max="100000" step="1000" value="5000" />
@@ -383,21 +408,21 @@
 
 
     <!-- ==========================================================================
-         INSTANT PERSONAL LOANS SECTION
+         PERSONAL LOANS SECTION (Secondary Monetization)
          ========================================================================== -->
     <section class="loans-section" id="loans-section">
       <div class="container">
         <div class="loans-section-header">
-          <span class="promo-badge promo-badge-calc">Instant Disbursal • Paperless KYC</span>
-          <h2>Compare Instant Personal Loans in India</h2>
-          <p>Get instant cash loans from ₹10,000 up to ₹35 Lakh with flexible tenures and minimum documentation. Disbursal directly into your bank account in under 2 hours.</p>
+          <span class="promo-badge promo-badge-calc">Personal Loan Comparison • Paperless Application</span>
+          <h2>Compare Personal Loans & Credit Lines in India</h2>
+          <p>Explore transparent loan options from ₹10,000 up to ₹35 Lakh with flexible tenures. Fast digital application and disbursal upon lender verification and approval.</p>
 
           <!-- Value Highlight Pills -->
           <div class="loans-highlight-pills">
-            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> 2-Hour Disbursal</span>
-            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> Paperless KYC</span>
-            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> Rates from 10.49%</span>
-            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 6v2m0 8v2"></path></svg> Up to ₹35 Lakh</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Fast Disbursal (2–24 Hrs)*</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> Paperless Application</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg> Rates from 10.49% p.a.</span>
+            <span class="loans-pill"><svg class="pill-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 6v2m0 8v2"></path></svg> Up to ₹35 Lakh (Subject to eligibility)</span>
           </div>
 
           <!-- Collapsible Trigger Button for Loan Calculator -->
@@ -471,8 +496,8 @@
 
         <!-- Leading Personal Loan Providers Grid (Shown by default) -->
         <div class="loans-providers-header" style="text-align: center; margin-bottom: 1.75rem;">
-          <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Top Approved Instant Loan Providers (2026)</h3>
-          <p class="text-secondary" style="font-size: 0.88rem;">100% digital KYC with rapid disbursal for salaried and self-employed applicants.</p>
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Curated Personal Loan & Credit Line Options (2026)</h3>
+          <p class="text-secondary" style="font-size: 0.88rem;">Digital verification with transparent repayment terms for salaried and self-employed applicants.</p>
         </div>
 
         <div class="loans-grid" id="loansCardsGrid">
@@ -484,6 +509,45 @@
     <section class="blog-section" id="credit-guides-section">
       <div id="creditGuidesSection">
         <!-- Rendered dynamically by blog.js -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         WHY TRUST INSTANTCRED SECTION
+         ========================================================================== -->
+    <section class="why-trust-section" id="why-trust-us">
+      <div class="trust-container">
+        <div class="trust-header">
+          <span class="promo-badge promo-badge-trust">Trust & Transparency</span>
+          <h2>Why Trust InstantCred?</h2>
+          <p>InstantCred is an independent credit card and personal finance decision engine built for Indian consumers. Here is how we operate with total transparency.</p>
+        </div>
+
+        <div class="trust-cards-grid">
+          <div class="trust-card">
+            <div class="trust-icon-box">📊</div>
+            <h3>Independent Mathematical Model</h3>
+            <p>We do not rank cards based on who advertises the most. Our algorithms calculate net value by multiplying real category cashback rates, subtracting annual fees, and verifying waiver spend thresholds.</p>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon-box">🤝</div>
+            <h3>How We Make Money (Affiliate Disclosure)</h3>
+            <p>InstantCred is 100% free for consumers. When you click our partner links and get approved, we may receive a referral fee from banks or affiliate networks (such as Cuelinks). This never costs you an extra rupee or affects your card terms.</p>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon-box">🔒</div>
+            <h3>Zero Spam & Absolute Privacy</h3>
+            <p>We will never ask for your mobile number, PAN, or Aadhaar, and we never make telemarketing calls. You can compare cards and calculate your rewards 100% anonymously.</p>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon-box">🛡️</div>
+            <h3>Real Terms & No Fake Promises</h3>
+            <p>We will never promise "guaranteed approval" or "instant free money". Approval decisions are made solely by issuing banks based on credit underwriting. We display clear, transparent eligibility criteria upfront.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -575,121 +639,23 @@
     </div>
   </div>
 
-  <!-- 5. Affiliate & Monetization Control Center Modal (Password Protected with Fake Maintenance State) -->
+  <!-- 5. Affiliate & Monetization Control Center Modal (Admin Only) -->
   <div class="modal-backdrop" id="affiliateModal" role="dialog" aria-modal="true">
     <div class="modal-container affiliate-control-modal">
 
-      <!-- A. Fake Maintenance & Password Gate Screen -->
-      <div id="affiliateGateScreen" class="affiliate-gate-screen">
-        <div class="modal-header">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div class="affiliate-modal-icon" style="background: rgba(99, 102, 241, 0.12); color: #6366f1;">⚙️</div>
-            <div>
-              <h3 class="modal-title" style="margin: 0; font-size: 1.15rem;">Partner Gateway & Core Diagnostics</h3>
-              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.15rem;">
-                InstantCred Enterprise Gateway • Build 2026.09-RC3 (Scheduled Maintenance)
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
-        </div>
-
-        <div class="modal-body" style="padding: 1.5rem 1.75rem 1.75rem; max-height: 72vh; overflow-y: auto;">
-          <!-- Fake Maintenance Notice Card -->
-          <div class="aff-maintenance-card">
-            <div class="aff-maintenance-badge">
-              <span class="aff-pulse-dot"></span>
-              <span>Scheduled Maintenance & Core Synchronization</span>
-            </div>
-            
-            <h4 class="aff-maintenance-title">Banking Partner Gateway v2.4 Upgrade in Progress</h4>
-            
-            <p class="aff-maintenance-desc">
-              We are currently deploying real-time banking partner routing protocols, automated credit scoring webhooks, and refreshed 2026 financial rate-sheets. Administrative controls and publisher configuration tools are temporarily locked during this update window.
-            </p>
-
-            <div class="aff-maintenance-alert-box">
-              <div class="aff-alert-title">
-                <span>⏳</span>
-                <strong>Please wait for the latest updates</strong>
-              </div>
-              <p class="aff-alert-text">
-                The public release with automated CIBIL score matching and direct bank portal pipelines will go live automatically upon deployment completion. Thank you for your patience while we roll out the latest updates.
-              </p>
-            </div>
-
-            <!-- Fake Realtime Progress Bar -->
-            <div class="aff-progress-section">
-              <div class="aff-progress-header">
-                <span style="font-weight: 600; color: var(--text-primary);">Core Engine Synchronizer</span>
-                <span style="font-weight: 700; color: #6366f1;">93% Completed</span>
-              </div>
-              <div class="aff-fake-progress-bar">
-                <div class="aff-fake-progress-fill"></div>
-              </div>
-              <div class="aff-progress-steps">
-                <span>✓ RBI Tokenization Handshake: OK</span>
-                <span>✓ Partner Rate Engine: Synced</span>
-                <span>⏳ Direct Apply Routing: Finalizing...</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Secret Administrator Password Unlock Section -->
-          <div class="aff-admin-auth-box">
-            <div class="aff-auth-header">
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <span style="font-size: 1.1rem;">🔐</span>
-                <strong style="font-size: 0.9rem; color: var(--text-primary);">Authorized Administrative Access</strong>
-              </div>
-              <span class="aff-badge-staff">Console Locked</span>
-            </div>
-            <p style="font-size: 0.79rem; color: var(--text-muted); margin: 0.4rem 0 0.85rem; line-height: 1.45;">
-              Enter your administrative security passphrase to bypass the maintenance hold and open the Affiliate & Monetization Control Center.
-            </p>
-
-            <form id="formAffiliateAdminUnlock" class="aff-auth-form" onsubmit="return false;">
-              <div class="aff-auth-input-wrap">
-                <input 
-                  type="password" 
-                  id="inputAffiliateAdminPassword" 
-                  class="aff-auth-input" 
-                  placeholder="Enter administrator authorization key..." 
-                  autocomplete="current-password"
-                />
-                <button type="button" id="btnToggleAdminPw" class="aff-btn-eye" title="Show / Hide Password">
-                  👁️
-                </button>
-              </div>
-              <button type="submit" class="btn btn-primary" id="btnUnlockAffiliateConsole" style="height: 42px; white-space: nowrap; font-size: 0.86rem; font-weight: 600;">
-                Unlock Console →
-              </button>
-            </form>
-
-            <div id="affiliateAdminError" class="aff-auth-error" style="display: none;">
-              <span>⚠️</span>
-              <span id="affiliateAdminErrorText">Invalid authorization key. Access restricted. Please wait for latest public updates.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- B. Real Affiliate & Monetization Control Center (Locked Behind Password) -->
-      <div id="affiliateRealScreen" style="display: none;">
+      <!-- Real Affiliate & Monetization Control Center (Accessible via ?admin=instantcred or Ctrl+Shift+A) -->
+      <div id="affiliateRealScreen">
         <div class="modal-header">
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <div class="affiliate-modal-icon">⚙️</div>
             <div>
               <h3 class="modal-title" style="margin: 0; font-size: 1.15rem;">Cuelinks Monetization Control Center</h3>
               <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.15rem;">
-                Official Cuelinks.com 2-Tier Link Monetization & Real-Time Tracking Console
+                Official Cuelinks.com 2-Tier Link Monetization & Tracking Console
               </div>
             </div>
           </div>
           <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <button type="button" class="btn btn-secondary btn-sm" id="btnLockAffiliateConsole" title="Lock Console" style="font-size: 0.76rem; padding: 0.35rem 0.65rem; display: inline-flex; align-items: center; gap: 0.3rem;">
-              🔒 Lock Console
-            </button>
             <button type="button" class="btn-close-icon" aria-label="Close modal">✕</button>
           </div>
         </div>
