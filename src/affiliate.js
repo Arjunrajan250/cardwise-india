@@ -153,7 +153,12 @@ export class AffiliateManager {
       if (customUrl) return customUrl;
     }
 
-    // 2. Resolve exclusively through Cuelinks
+    // 2. If item is not monetized / has no active affiliate, route directly to prevent Cuelinks unmonetized warnings
+    if (item && item.hasAffiliate === false) {
+      return item.directUrl || rawUrl || 'https://www.instantcred.in';
+    }
+
+    // 3. Resolve exclusively through Cuelinks
     const cuelinks = this.settings.cuelinks || this.settings.networks?.cuelinks || {};
     const channelId = cuelinks.channelId || '317055';
     const pubId = cuelinks.pubId || '271664';
@@ -170,8 +175,8 @@ export class AffiliateManager {
       return `https://cprewritten.cuelinks.com/?channel=cuelinks&pub_id=${encodeURIComponent(pubId)}&sub_id=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
     }
 
-    // Primary & Verified Cuelinks Format: linksredirect with Channel ID
-    return `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
+    // Primary & Verified Cuelinks Format: linksredirect with Channel ID and LinkKit source
+    return `https://linksredirect.com/?cid=${encodeURIComponent(channelId)}&source=linkkit&subid=${encodeURIComponent(subId)}&url=${encodeURIComponent(directUrl)}`;
   }
 
   getAffiliateUrl(item) {
