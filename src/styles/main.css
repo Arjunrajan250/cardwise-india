@@ -880,10 +880,12 @@ input, select {
 
 .category-cards-row {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(9, minmax(0, 1fr));
   gap: 0.65rem;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .category-card-btn {
@@ -901,8 +903,10 @@ input, select {
   transition: all var(--transition-fast);
   box-shadow: 0 1px 3px rgba(20, 20, 20, 0.02);
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
 }
 
 .category-card-btn:hover {
@@ -1109,8 +1113,16 @@ input, select {
 
 .top-picks-cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1100px) and (min-width: 861px) {
+  .top-picks-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .top-pick-card {
@@ -1124,6 +1136,10 @@ input, select {
   cursor: pointer;
   transition: all var(--transition-fast);
   box-shadow: 0 2px 8px rgba(20, 20, 20, 0.03);
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .top-pick-card:hover {
@@ -1137,6 +1153,8 @@ input, select {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.65rem;
+  gap: 0.4rem;
+  min-width: 0;
 }
 
 .top-pick-badge {
@@ -1148,6 +1166,11 @@ input, select {
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  max-width: 72%;
 }
 
 .badge-overall {
@@ -1185,6 +1208,7 @@ input, select {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  flex-shrink: 0;
 }
 
 .star-gold {
@@ -1196,6 +1220,8 @@ input, select {
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.65rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .top-pick-thumb-wrap {
@@ -1219,6 +1245,8 @@ input, select {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 
 .top-pick-card-name {
@@ -1230,16 +1258,19 @@ input, select {
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
+  min-width: 0;
 }
 
 .top-pick-desc {
   font-size: 0.72rem;
   color: #665F58;
-  line-height: 1.3;
+  line-height: 1.35;
   margin: 0.15rem 0 0;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .top-pick-perks-row {
@@ -1251,6 +1282,10 @@ input, select {
   border-radius: 8px;
   padding: 0.4rem 0.55rem;
   margin-bottom: 0.65rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .top-pick-mini-pill {
@@ -1261,6 +1296,7 @@ input, select {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .top-pick-footer-bar {
@@ -1270,11 +1306,16 @@ input, select {
   margin-top: auto;
   padding-top: 0.6rem;
   border-top: 1px solid var(--border-subtle);
+  gap: 0.5rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .top-pick-val-block {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .val-sub {
@@ -1312,6 +1353,8 @@ input, select {
   border: none;
   cursor: pointer;
   transition: all var(--transition-fast);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .btn-top-pick-explore:hover {
