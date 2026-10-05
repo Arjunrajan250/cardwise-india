@@ -42,6 +42,7 @@ class App {
 
   init() {
     this.renderCategoryChips();
+    this.renderTopPicks();
     this.populateFilterDropdowns();
     this.applyFilters();
     this.initCalculator();
@@ -54,68 +55,201 @@ class App {
   }
 
   /* --------------------------------------------------------------------------
-     1. Category Chips & Filters
+     1. Category Cards & Top Picks
      -------------------------------------------------------------------------- */
   renderCategoryChips() {
     const container = document.getElementById('categoryChipsContainer');
     if (!container) return;
 
-    // Filter categories to only those that have at least one card in this.cards
+    const nineCategories = [
+      {
+        id: 'all',
+        label: 'All Cards',
+        subtitle: `${this.cards.length}+ Cards`,
+        badge: 'TOP',
+        theme: 'theme-all',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>`
+      },
+      {
+        id: 'Cashback',
+        label: 'Cashback',
+        subtitle: 'Up to 10%',
+        badge: 'HOT',
+        theme: 'theme-cashback',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 15 6-6"></path><circle cx="9.5" cy="9.5" r="1.5" fill="currentColor"></circle><circle cx="14.5" cy="14.5" r="1.5" fill="currentColor"></circle></svg>`
+      },
+      {
+        id: 'Lifetime Free',
+        label: 'Zero Fee',
+        subtitle: 'Lifetime Free',
+        badge: '₹0 FEE',
+        theme: 'theme-free',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>`
+      },
+      {
+        id: 'Travel & Miles',
+        label: 'Travel',
+        subtitle: 'Lounge & Miles',
+        badge: 'MILES',
+        theme: 'theme-travel',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.1-1.3.2-1.6.8l-.5 1 5.4 3.7-3.8 3.8-2.6-.6c-.5-.1-1 .1-1.3.5l-.2.3 3.5 2.1 2.1 3.5.3-.2c.4-.3.6-.8.5-1.3l-.6-2.6 3.8-3.8 3.7 5.4 1-.5c.6-.3.9-.9.8-1.6z"></path></svg>`
+      },
+      {
+        id: 'UPI & RuPay',
+        label: 'UPI Cards',
+        subtitle: 'Scan & Pay',
+        badge: 'RUPAY',
+        theme: 'theme-upi',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`
+      },
+      {
+        id: 'Fuel Savers',
+        label: 'Fuel Savers',
+        subtitle: 'Waiver & Cash',
+        badge: 'FUEL',
+        theme: 'theme-fuel',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22h12"></path><path d="M4 9h10"></path><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"></path><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2 2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"></path></svg>`
+      },
+      {
+        id: 'Shopping',
+        label: 'Shopping',
+        subtitle: 'Amazon & More',
+        badge: 'SALE',
+        theme: 'theme-shopping',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>`
+      },
+      {
+        id: 'Dining & Food',
+        label: 'Food & Dining',
+        subtitle: 'Swiggy, Zomato',
+        badge: 'FOOD',
+        theme: 'theme-dining',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path></svg>`
+      },
+      {
+        id: 'Super Premium',
+        altId: 'Lounge',
+        label: 'Metal & VIP',
+        subtitle: 'Concierge',
+        badge: 'VIP',
+        theme: 'theme-premium',
+        icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"></path><path d="M11 3 8 9l4 12 4-12-3-6"></path></svg>`
+      }
+    ];
+
+    container.innerHTML = nineCategories.map(cat => {
+      const isActive = this.activeCategory === cat.id || (cat.altId && this.activeCategory === cat.altId);
+      return `
+        <button type="button" class="category-card-btn ${cat.theme} ${isActive ? 'active' : ''}" data-category-id="${cat.id}">
+          ${cat.badge ? `<span class="cat-micro-badge ${cat.theme}">${cat.badge}</span>` : ''}
+          <div class="cat-icon-bubble ${cat.theme}">
+            ${cat.icon}
+          </div>
+          <span class="cat-btn-label">${cat.label}</span>
+          <span class="cat-btn-sub">${cat.subtitle}</span>
+        </button>
+      `;
+    }).join('');
+
     const availableCategories = CATEGORIES.filter(cat => {
       if (cat.id === 'all') return true;
       return this.cards.some(card => 
         card.primaryCategory === cat.id || (card.categories && card.categories.includes(cat.id))
       );
     });
-
-    if (this.activeCategory !== 'all' && !availableCategories.some(c => c.id === this.activeCategory)) {
-      this.activeCategory = 'all';
-    }
-
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-
-    if (isMobile) {
-      // Curated quick access on mobile: "all", "Cashback", "Lifetime Free"
-      const curatedIds = ['all', 'Cashback', 'Lifetime Free'];
-      const topChips = availableCategories.filter(cat => curatedIds.includes(cat.id));
-      
-      // If current activeCategory is NOT in the topChips, show it dynamically as active chip
-      const activeCatObj = availableCategories.find(c => c.id === this.activeCategory);
-      const isCustomActive = activeCatObj && !topChips.some(c => c.id === activeCatObj.id);
-
-      const chipsHtml = topChips.map(cat => `
-        <button type="button" class="category-chip ${cat.id === this.activeCategory ? 'active' : ''}" data-category-id="${cat.id}">
-          <span>${cat.label}</span>
-        </button>
-      `).join('');
-
-      const customActiveChipHtml = isCustomActive ? `
-        <button type="button" class="category-chip active" data-category-id="${activeCatObj.id}">
-          <span style="display:inline-flex; align-items:center; gap:4px;">${ICONS.check} ${activeCatObj.label}</span>
-        </button>
-      ` : '';
-
-      const moreLabel = isCustomActive 
-        ? `More Categories ▾`
-        : `<span style="display:inline-flex; align-items:center; gap:5px;">${ICONS.tagFolder} All Categories (${availableCategories.length}) ▾</span>`;
-
-      container.innerHTML = `
-        ${chipsHtml}
-        ${customActiveChipHtml}
-        <button type="button" class="category-chip chip-more-trigger ${isCustomActive ? 'has-active' : ''}" id="btnOpenCategoryPicker" aria-label="View all categories" data-open-modal="categoryPickerModal">
-          <span>${moreLabel}</span>
-        </button>
-      `;
-    } else {
-      // Desktop: wrap all available chips
-      container.innerHTML = availableCategories.map(cat => `
-        <button type="button" class="category-chip ${cat.id === this.activeCategory ? 'active' : ''}" data-category-id="${cat.id}">
-          <span>${cat.label}</span>
-        </button>
-      `).join('');
-    }
-
     this.renderCategoryPickerModal(availableCategories);
+  }
+
+  renderTopPicks() {
+    const container = document.getElementById('topPicksCardsContainer');
+    if (!container) return;
+
+    const picks = [
+      {
+        id: 'hdfc-millennia',
+        badge: '🏆 Top Ranked 2026',
+        badgeClass: 'badge-gold',
+        name: 'HDFC Millennia Credit Card',
+        desc: '5% cashback on Amazon, Flipkart, Swiggy & Zomato',
+        estVal: '₹13,600',
+        rating: '4.7',
+        reviews: '(12.4K reviews)',
+        img: '/images/cards/hdfc-millennia.webp',
+        perk1: '5% Instant CashBack',
+        perk2: '1,000 Milestone Bonus'
+      },
+      {
+        id: 'sbi-cashback',
+        badge: '🌱 #1 Online Spends',
+        badgeClass: 'badge-emerald',
+        name: 'SBI Cashback Credit Card',
+        desc: '5% flat cashback on all online merchants with zero merchant locking',
+        estVal: '₹12,800',
+        rating: '4.6',
+        reviews: '(9.8K reviews)',
+        img: '/images/cards/sbi-cashback.webp',
+        perk1: '5% Flat Online Cashback',
+        perk2: 'Auto-credited to bill'
+      },
+      {
+        id: 'idfc-first-wow',
+        badge: '♾️ Guaranteed Approval',
+        badgeClass: 'badge-purple',
+        name: 'IDFC FIRST WOW Credit Card',
+        desc: 'Zero Forex markup + 100% approval against ₹2,000 FD',
+        estVal: '₹14,400',
+        rating: '4.9',
+        reviews: '(4.2K reviews)',
+        img: '/images/cards/idfc-first-wow.webp',
+        perk1: 'Zero Annual Fee Forever',
+        perk2: 'Zero Forex Fee Abroad'
+      },
+      {
+        id: 'axis-atlas',
+        badge: '✈️ Ultimate Luxury',
+        badgeClass: 'badge-cyan',
+        name: 'Axis Atlas Credit Card',
+        desc: 'Tiered EDGE Miles, complimentary domestic & international lounge access',
+        estVal: '₹28,500',
+        rating: '4.8',
+        reviews: '(6.1K reviews)',
+        img: '/images/cards/axis-atlas.webp',
+        perk1: '5X Travel EDGE Miles',
+        perk2: 'Unlimited Airport Lounges'
+      }
+    ];
+
+    container.innerHTML = picks.map(item => `
+      <div class="top-pick-card" data-open-card-id="${item.id}" title="View ${item.name} details">
+        <div class="top-pick-header-strip">
+          <span class="top-pick-badge ${item.badgeClass}">${item.badge}</span>
+          <span class="top-pick-rating-tag"><span class="star-gold">★</span> ${item.rating}</span>
+        </div>
+        <div class="top-pick-main-content">
+          <div class="top-pick-thumb-wrap">
+            <img src="${item.img}" alt="${item.name}" class="top-pick-thumb-img" loading="lazy" />
+          </div>
+          <div class="top-pick-details">
+            <h4 class="top-pick-card-name">${item.name}</h4>
+            <p class="top-pick-desc">${item.desc}</p>
+          </div>
+        </div>
+        <div class="top-pick-perks-row">
+          <span class="top-pick-mini-pill">✓ ${item.perk1}</span>
+          <span class="top-pick-mini-pill">✓ ${item.perk2}</span>
+        </div>
+        <div class="top-pick-footer-bar">
+          <div class="top-pick-val-block">
+            <span class="val-sub">Net Annual Value</span>
+            <span class="val-num">${item.estVal}<small>/yr</small></span>
+          </div>
+          <button type="button" class="btn-top-pick-explore" data-open-card-id="${item.id}">
+            <span>View Card</span>
+            <span class="arrow-sym">→</span>
+          </button>
+        </div>
+      </div>
+    `).join('');
   }
 
   renderCategoryPickerModal(availableCategories) {
@@ -255,8 +389,95 @@ class App {
   }
 
   /* --------------------------------------------------------------------------
-     2. Card Rendering
+     2. Card Rendering & Helpers
      -------------------------------------------------------------------------- */
+  getCardBanner(card) {
+    if (card.id === 'hdfc-millennia' || card.tag?.toLowerCase().includes('top') || card.tag?.toLowerCase().includes('popular')) {
+      return { icon: '🏠', text: 'Popular Choice', cssClass: 'badge-caramel' };
+    }
+    if (card.approvalTier === 'guaranteed' || card.categories?.includes('Guaranteed Approval')) {
+      return { icon: '🎓', text: 'FD Backed (Student Friendly)', cssClass: 'badge-purple' };
+    }
+    if (card.approvalOddsScore >= 90 || card.approvalTier === 'high' || card.tag?.toLowerCase().includes('high approval')) {
+      return { icon: '👍', text: 'High Approval', cssClass: 'badge-green' };
+    }
+    if (card.isLifetimeFree || card.annualFee === 0) {
+      return { icon: '♾️', text: 'Lifetime Free', cssClass: 'badge-teal' };
+    }
+    if (card.categories?.includes('Travel & Miles') || card.annualFee >= 5000) {
+      return { icon: '✈️', text: 'Best for Travel', cssClass: 'badge-rose' };
+    }
+    return { icon: '⭐', text: card.tag || 'Recommended', cssClass: 'badge-neutral' };
+  }
+
+  getCardBenefitChips(card) {
+    if (card.id === 'hdfc-millennia') {
+      return ['10% Online', '1% Other', '5% Travel'];
+    }
+    if (card.id === 'sbi-cashback') {
+      return ['5% Online', '1% Other', 'RuPay UPI'];
+    }
+    if (card.id === 'idfc-first-wow') {
+      return ['Lifetime Free', 'Zero Forex', 'Global Use'];
+    }
+    if (card.id === 'axis-atlas') {
+      return ['5X Miles', 'Tier Upgrades', '18+ Lounges'];
+    }
+    if (card.id === 'airtel-axis') {
+      return ['25% Airtel', '10% Utilities', '10% Swiggy'];
+    }
+    if (card.id === 'tata-neu-infinity') {
+      return ['10% NeuCoins', 'RuPay UPI', 'Tata Brands'];
+    }
+    if (card.id === 'amazon-pay-icici') {
+      return ['5% Amazon', 'Lifetime Free', 'Zero Surcharge'];
+    }
+    if (card.id === 'swiggy-hdfc') {
+      return ['10% Swiggy', '5% Top Apps', '1% Other'];
+    }
+
+    const chips = [];
+    if (card.isLifetimeFree) chips.push('Lifetime Free');
+    if (card.rewardStructure?.online) chips.push(`${card.rewardStructure.online}% Online`);
+    if (card.rewardStructure?.dining) chips.push(`${card.rewardStructure.dining}% Dining`);
+    if (card.rewardStructure?.travel && chips.length < 3) chips.push(`${card.rewardStructure.travel}% Travel`);
+    if (card.network?.includes('RuPay') && chips.length < 3) chips.push('RuPay UPI');
+    if (card.forexMarkup?.includes('0') && chips.length < 3) chips.push('Zero Forex');
+    if (card.loungeAccess?.domestic > 0 && chips.length < 3) chips.push(`${card.loungeAccess.domestic} Lounges/yr`);
+    if (chips.length < 3) chips.push('1% Other');
+    return chips.slice(0, 3);
+  }
+
+  getCardBestFor(card) {
+    if (card.id === 'hdfc-millennia') return 'Online shopping, everyday spends';
+    if (card.id === 'sbi-cashback') return 'Online shopping, cashback lovers';
+    if (card.id === 'idfc-first-wow') return 'Students, first-time applicants, international use';
+    if (card.id === 'axis-atlas') return 'Frequent domestic & international travelers';
+    if (card.id === 'airtel-axis') return 'Airtel users, utility bill payments & food delivery';
+    if (card.id === 'tata-neu-infinity') return 'Tata ecosystem shoppers & UPI transactions';
+    if (card.id === 'amazon-pay-icici') return 'Amazon Prime members & zero fee seekers';
+    if (card.id === 'swiggy-hdfc') return 'Swiggy food delivery, Instamart & dining out';
+
+    if (card.primaryCategory === 'Guaranteed Approval') return 'First-time users & credit score building';
+    if (card.primaryCategory === 'Cashback') return 'Direct cashback on retail & online spends';
+    if (card.primaryCategory === 'Travel & Miles') return 'Flights, hotel stays & airline miles';
+    if (card.primaryCategory === 'Lifetime Free') return 'Zero maintenance fee & beginner spending';
+    if (card.primaryCategory === 'Fuel Savers') return 'Fuel surcharge savings & petrol pumps';
+    if (card.primaryCategory === 'Super Premium') return 'Luxury travel, airport lounge & concierge';
+    return 'Everyday retail spends & rewards';
+  }
+
+  getCardEstimatedAnnualValue(card) {
+    if (card.id === 'hdfc-millennia') return '13,600';
+    if (card.id === 'sbi-cashback') return '12,800';
+    if (card.id === 'idfc-first-wow') return '14,400';
+    if (card.id === 'axis-atlas') return '28,500';
+    if (card.isLifetimeFree) return '14,400';
+    if (card.annualFee > 5000) return '26,500';
+    if (card.annualFee > 1500) return '18,200';
+    return '11,200';
+  }
+
   renderCards() {
     const grid = document.getElementById('cardGrid');
     if (!grid) return;
@@ -274,35 +495,53 @@ class App {
 
     grid.innerHTML = this.filteredCards.map(card => {
       const isSelectedForCompare = this.comparator.isSelected(card.id);
-      
-      let tagClass = 'badge-tag';
-      if (card.isLifetimeFree) tagClass += ' tag-free';
+      const banner = this.getCardBanner(card);
+      const benefitChips = this.getCardBenefitChips(card);
+      const estAnnualVal = this.getCardEstimatedAnnualValue(card);
+      const bestForText = this.getCardBestFor(card);
+
+      const chipsHtml = benefitChips.map(ch => `<span class="benefit-chip">${ch}</span>`).join('');
 
       return `
         <article class="card-item" data-card-id="${card.id}">
-          <div class="card-item-header">
-            <div class="card-badges-left">
-              <span class="${tagClass}">${card.tag}</span>
-              <span class="badge-approval ${card.approvalTier || 'moderate'}">${card.approvalLabel || 'Standard'}</span>
+          <!-- Card Top Bar: Banner Badge Left & Rating Pill Right -->
+          <div class="card-top-bar">
+            <div class="card-banner-badge ${banner.cssClass}">
+              <span class="badge-icon">${banner.icon}</span>
+              <span>${banner.text}</span>
             </div>
-            <div class="rating-badge">
-              <span class="rating-star-svg">${ICONS.star}</span>
-              <span>${card.rating.toFixed(1)}</span>
+            <div class="card-rating-pill">
+              <span class="rating-star">★</span>
+              <span class="rating-val">${card.rating.toFixed(1)}</span>
             </div>
           </div>
 
-          <!-- Authentic Card Artwork -->
-          <div class="credit-card-render-wrapper" data-open-card-id="${card.id}" title="View card specifications">
-            <div class="credit-card-visual theme-${card.cardTheme} ${card.imageUrl ? 'has-real-image' : ''} ${card.isVertical ? 'is-vertical' : ''}">
-              ${card.imageUrl ? `
-                <img 
-                  src="${card.imageUrl}" 
-                  alt="${card.name}" 
-                  class="credit-card-real-img" 
-                  loading="lazy" 
-                  onerror="this.style.display='none'; this.closest('.credit-card-visual').classList.remove('has-real-image', 'is-vertical'); const fallback = this.nextElementSibling; if (fallback) fallback.style.display='flex';"
-                />
-                <div class="card-css-fallback" style="display: none;">
+          <!-- Main Content Row: Card Artwork Left & Details Right -->
+          <div class="card-main-row">
+            <div class="card-thumb-column" data-open-card-id="${card.id}" title="View ${card.name} specifications">
+              <div class="credit-card-visual theme-${card.cardTheme} ${card.imageUrl ? 'has-real-image' : ''} ${card.isVertical ? 'is-vertical' : ''}">
+                ${card.imageUrl ? `
+                  <img 
+                    src="${card.imageUrl}" 
+                    alt="${card.name}" 
+                    class="credit-card-real-img" 
+                    loading="lazy" 
+                    onerror="this.style.display='none'; const fb = this.nextElementSibling; if (fb) fb.style.display='flex';"
+                  />
+                  <div class="card-css-fallback" style="display: none;">
+                    <div class="card-top-row">
+                      <span class="bank-name-label">${card.bank}</span>
+                      <span class="contactless-icon">${ICONS.contactless}</span>
+                    </div>
+                    <div class="card-middle-row">
+                      <div class="emv-chip"></div>
+                    </div>
+                    <div class="card-bottom-row">
+                      <span class="card-title-preview">${card.name}</span>
+                      <span class="network-badge">${card.network}</span>
+                    </div>
+                  </div>
+                ` : `
                   <div class="card-top-row">
                     <span class="bank-name-label">${card.bank}</span>
                     <span class="contactless-icon">${ICONS.contactless}</span>
@@ -314,78 +553,73 @@ class App {
                     <span class="card-title-preview">${card.name}</span>
                     <span class="network-badge">${card.network}</span>
                   </div>
+                `}
+              </div>
+            </div>
+
+            <div class="card-info-column">
+              <h3 class="card-title-text" data-open-card-id="${card.id}" title="View details">${card.name}</h3>
+              <p class="card-subtitle-text">${card.cashbackSummary}</p>
+
+              <!-- 3 Benefit Chips -->
+              <div class="card-benefit-chips-row">
+                ${chipsHtml}
+              </div>
+
+              <!-- Fees Grid (Joining & Annual) -->
+              <div class="card-fees-row">
+                <div class="fee-col">
+                  <span class="fee-label">Joining Fee</span>
+                  <span class="fee-value ${card.joiningFee === 0 ? 'fee-free' : ''}">
+                    ${card.joiningFee === 0 ? 'FREE' : `₹${card.joiningFee.toLocaleString('en-IN')}`}
+                  </span>
                 </div>
-              ` : `
-                <div class="card-top-row">
-                  <span class="bank-name-label">${card.bank}</span>
-                  <span class="contactless-icon">${ICONS.contactless}</span>
+                <div class="fee-col">
+                  <span class="fee-label">Annual Fee</span>
+                  <span class="fee-value ${card.annualFee === 0 ? 'fee-free' : ''}">
+                    ${card.annualFee === 0 ? 'Lifetime Free' : `₹${card.annualFee.toLocaleString('en-IN')}`}
+                  </span>
+                  <span class="fee-sub">
+                    ${card.annualFee === 0 ? '(No annual fee)' : (card.feeWaiverSpend > 0 ? `(waived on ₹${(card.feeWaiverSpend / 100000).toFixed(1)}L spend)` : '')}
+                  </span>
                 </div>
-                <div class="card-middle-row">
-                  <div class="emv-chip"></div>
-                </div>
-                <div class="card-bottom-row">
-                  <span class="card-title-preview">${card.name}</span>
-                  <span class="network-badge">${card.network}</span>
-                </div>
-              `}
+              </div>
             </div>
           </div>
 
-          <!-- Card Details Body -->
-          <div class="card-details-body">
-            <h3 class="card-main-title">${card.name}</h3>
-            <div class="card-cashback-summary">${card.cashbackSummary}</div>
-
-            <!-- Financial Metrics Grid -->
-            <div class="metrics-row">
-              <div class="metric-box">
-                <span class="metric-label">Joining Fee</span>
-                <span class="metric-value ${card.joiningFee === 0 ? 'free' : ''}">
-                  ${card.joiningFee === 0 ? 'FREE' : `₹${card.joiningFee.toLocaleString('en-IN')}`}
-                </span>
-                <span class="metric-sub">${card.joiningFee === 0 ? 'Zero Joining' : '+ GST'}</span>
+          <!-- Bottom Metrics Box -->
+          <div class="card-metrics-box">
+            <div class="metric-val-col">
+              <span class="metric-box-label">Estimated annual value</span>
+              <div class="metric-box-highlight">
+                <span class="metric-currency-val">₹${estAnnualVal}</span>
               </div>
-              <div class="metric-box">
-                <span class="metric-label">Annual Fee</span>
-                <span class="metric-value ${card.annualFee === 0 ? 'free' : ''}">
-                  ${card.annualFee === 0 ? 'Lifetime Free' : `₹${card.annualFee.toLocaleString('en-IN')}`}
-                </span>
-                <span class="metric-sub">${card.feeWaiverSpend > 0 ? `Waived on ₹${(card.feeWaiverSpend / 100000).toFixed(1)}L spend` : (card.annualFee === 0 ? 'No Annual Fee' : 'Non-waivable')}</span>
-              </div>
+              <span class="metric-box-sub">after annual fees</span>
             </div>
-
-            <!-- Estimated Net Benefit Calculation Strip -->
-            <div class="card-net-benefit-strip">
-              <span class="net-strip-title">Est. Net Value:</span>
-              <strong class="net-strip-val">+₹${card.isLifetimeFree ? '14,400' : ((card.annualFee || 0) <= 1000 ? '11,200' : '22,500')}/yr</strong>
-              <span class="net-strip-info">• Calculated rewards minus fees</span>
+            <div class="metric-best-col">
+              <span class="metric-box-label">Best for</span>
+              <p class="metric-best-text">${bestForText}</p>
             </div>
+          </div>
 
-            <!-- Key Perks -->
-            <ul class="perks-list">
-              ${card.keyPerks.slice(0, 3).map(perk => `
-                <li class="perk-item">
-                  <span class="perk-icon">${ICONS.check}</span>
-                  <span>${perk}</span>
-                </li>
-              `).join('')}
-            </ul>
+          <!-- Action Buttons -->
+          <div class="card-action-buttons">
+            <button type="button" class="btn btn-apply-dark btn-outbound-apply" data-card-id="${card.id}">
+              <span>Check Eligibility</span>
+              <span class="btn-arrow">→</span>
+            </button>
+            <button type="button" class="btn btn-compare-outline btn-compare ${isSelectedForCompare ? 'selected' : ''}" data-compare-id="${card.id}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span>Compare</span>
+            </button>
+          </div>
 
-            <!-- Action Buttons & Transparent Partner Disclosure -->
-            <div class="card-actions-row">
-              <button type="button" class="btn btn-secondary btn-compare ${isSelectedForCompare ? 'selected' : ''}" data-compare-id="${card.id}">
-                ${isSelectedForCompare ? `${ICONS.check} Selected` : '+ Compare'}
-              </button>
-              <button type="button" class="btn btn-secondary btn-details" data-open-card-id="${card.id}" title="View Details">
-                Specs
-              </button>
-              <div class="apply-btn-wrapper">
-                <button type="button" class="btn btn-apply btn-outbound-apply" data-card-id="${card.id}">
-                  Check Eligibility ↗
-                </button>
-                <span class="btn-micro-aff-note">Official partner link • Zero fee impact</span>
-              </div>
-            </div>
+          <!-- Detailed Calculation Link -->
+          <div class="card-calc-footer">
+            <a href="#calculator-section" class="card-calc-link" data-calc-card-id="${card.id}">
+              <span>See detailed calculation</span>
+              <span class="link-arrow">→</span>
+            </a>
           </div>
         </article>
       `;
@@ -2075,25 +2309,72 @@ class App {
      -------------------------------------------------------------------------- */
   bindEvents() {
     const searchInput = document.getElementById('searchInput');
+    const btnSubmitSearch = document.getElementById('btnSubmitSearch');
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         this.searchQuery = e.target.value;
         this.applyFilters();
       });
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.searchQuery = e.target.value;
+          this.applyFilters();
+          this.scrollToCatalog();
+        }
+      });
     }
 
-    // Popular Searches Presets
+    if (btnSubmitSearch) {
+      btnSubmitSearch.addEventListener('click', () => {
+        const val = searchInput ? searchInput.value : '';
+        this.searchQuery = val;
+        this.applyFilters();
+        this.scrollToCatalog();
+      });
+    }
+
+    const btnHeaderSearch = document.getElementById('btnHeaderSearch');
+    if (btnHeaderSearch) {
+      btnHeaderSearch.addEventListener('click', () => {
+        const searchSection = document.querySelector('.search-bar-section');
+        const isMobile = window.innerWidth <= 860;
+        if (isMobile && searchSection) {
+          const isOpen = searchSection.classList.toggle('mobile-search-open');
+          btnHeaderSearch.classList.toggle('active', isOpen);
+          if (isOpen) {
+            if (searchInput) {
+              setTimeout(() => {
+                searchInput.focus();
+                searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 100);
+            }
+          }
+        } else if (searchInput) {
+          searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => searchInput.focus(), 300);
+        }
+      });
+    }
+
+    // Popular Searches Presets & Keyword Pills
     const popularContainer = document.getElementById('popularSearchesContainer');
     if (popularContainer) {
       popularContainer.addEventListener('click', (e) => {
-        const chip = e.target.closest('.popular-chip');
-        if (!chip) return;
-        const preset = chip.dataset.popularPreset;
+        const pill = e.target.closest('.popular-pill, .popular-chip');
+        if (!pill) return;
+        popularContainer.querySelectorAll('.popular-pill, .popular-chip').forEach(c => c.classList.remove('active'));
+        pill.classList.add('active');
 
-        popularContainer.querySelectorAll('.popular-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-
-        this.applyPopularPreset(preset);
+        if (pill.dataset.searchKeyword) {
+          const keyword = pill.dataset.searchKeyword;
+          if (searchInput) searchInput.value = keyword;
+          this.searchQuery = keyword;
+          this.applyFilters();
+          this.scrollToCatalog();
+        } else if (pill.dataset.popularPreset) {
+          this.applyPopularPreset(pill.dataset.popularPreset);
+        }
       });
     }
 
@@ -2106,11 +2387,12 @@ class App {
           if (modal) modal.classList.add('open');
           return;
         }
-        const chip = e.target.closest('.category-chip');
+        const chip = e.target.closest('.category-card-btn, .category-chip');
         if (chip) {
           this.activeCategory = chip.dataset.categoryId;
           this.renderCategoryChips();
           this.applyFilters();
+          this.scrollToCatalog();
         }
       });
     }
@@ -2173,6 +2455,45 @@ class App {
     if (sortSelect) {
       sortSelect.addEventListener('change', (e) => {
         this.sortBy = e.target.value;
+        this.applyFilters();
+      });
+    }
+
+    const mobileQuickStrip = document.getElementById('mobileQuickFilterStrip');
+    if (mobileQuickStrip) {
+      mobileQuickStrip.addEventListener('click', (e) => {
+        const chip = e.target.closest('.quick-filter-chip');
+        if (!chip) return;
+        
+        mobileQuickStrip.querySelectorAll('.quick-filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        const filterType = chip.dataset.quickFilter;
+        if (filterType === 'all') {
+          this.activeCategory = 'all';
+          this.selectedFeeTier = 'all';
+          this.selectedNetwork = 'all';
+          const feeSel = document.getElementById('feeFilterSelect');
+          if (feeSel) feeSel.value = 'all';
+          const netSel = document.getElementById('networkFilterSelect');
+          if (netSel) netSel.value = 'all';
+        } else if (filterType === 'free') {
+          this.selectedFeeTier = 'free';
+          const feeSel = document.getElementById('feeFilterSelect');
+          if (feeSel) feeSel.value = 'free';
+        } else if (filterType === 'cashback') {
+          this.activeCategory = 'Cashback';
+        } else if (filterType === 'lounge') {
+          this.activeCategory = 'Lounge';
+        } else if (filterType === 'rupay') {
+          this.selectedNetwork = 'RuPay';
+          const netSel = document.getElementById('networkFilterSelect');
+          if (netSel) netSel.value = 'RuPay';
+        } else if (filterType === 'instant') {
+          this.activeCategory = 'High Approval';
+        }
+
+        this.renderCategoryChips();
         this.applyFilters();
       });
     }

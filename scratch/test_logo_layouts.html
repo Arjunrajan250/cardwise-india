@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FAF8F5; margin: 0; padding: 40px; color: #141414; }
+.card { background: #FFFFFF; border: 1px solid #EBE5DB; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(20,20,20,0.03); }
+h3 { margin-top: 0; color: #7A7067; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #FAF8F5; border: 1px solid #EAE4D9; border-radius: 12px; }
+
+/* Option 1: Full emblem standalone */
+.logo-opt1 { display: flex; align-items: center; }
+.logo-opt1 img { height: 52px; width: auto; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.15)); }
+
+/* Option 2: Full emblem (44px) + Typography */
+.logo-opt2 { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-opt2 img { width: 44px; height: 44px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); }
+.brand-title { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: #141414; line-height: 1.1; }
+.brand-sub { font-size: 0.7rem; color: #8C827A; font-weight: 500; margin-top: 2px; }
+
+/* Option 3: Dark Navbar showcase */
+.dark-row { background: #141414; color: #FFFFFF; border: none; }
+.dark-row .brand-title { color: #FFFFFF; }
+.dark-row .brand-sub { color: #D4AF37; }
+
+.cta-btn { background: #9E773F; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; }
+.links { display: flex; gap: 20px; font-size: 14px; font-weight: 600; color: #4A423B; }
+.dark-row .links { color: #D6D0C7; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h3>Option A: Standalone Full Luxury Badge (Height 52px)</h3>
+  <div class="nav-row">
+    <div class="logo-opt1">
+      <img src="../public/logo.png" alt="InstantCred.in">
+    </div>
+    <div class="links"><span>Credit Cards</span><span>Calculators</span><span>Guides</span></div>
+    <button class="cta-btn">Find My Card →</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Option B: 44px Gold Crest Badge + Clean Typography (Recommended Brand Standard)</h3>
+  <div class="nav-row">
+    <div class="logo-opt2">
+      <img src="../public/logo.png" alt="InstantCred Logo">
+      <div>
+        <div class="brand-title">InstantCred<span style="color:#9E773F;">.in</span></div>
+        <div class="brand-sub">India's Independent Credit Card Comparison</div>
+      </div>
+    </div>
+    <div class="links"><span>Credit Cards</span><span>Calculators</span><span>Guides</span></div>
+    <button class="cta-btn">Find My Card →</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Option C: Footer / Dark Mode Showcase</h3>
+  <div class="nav-row dark-row">
+    <div class="logo-opt2">
+      <img src="../public/logo.png" alt="InstantCred Logo">
+      <div>
+        <div class="brand-title">InstantCred<span style="color:#D4AF37;">.in</span></div>
+        <div class="brand-sub">India's Independent Credit Card Comparison</div>
+      </div>
+    </div>
+    <div class="links"><span>About</span><span>Privacy</span><span>Contact</span></div>
+    <button class="cta-btn" style="background: #D4AF37; color:#141414;">Compare Now</button>
+  </div>
+</div>
+
+</body>
+</html>

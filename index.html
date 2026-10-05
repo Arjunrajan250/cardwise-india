@@ -110,13 +110,13 @@
   }
   </script>
   
-  <!-- Google Fonts: Inter & Plus Jakarta Sans (Non-blocking async load) -->
+  <!-- Google Fonts: Inter, Plus Jakarta Sans, Playfair Display (Non-blocking async load) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" media="print" onload="this.media='all'" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'" />
   <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
   </noscript>
 
   <!-- App Stylesheets -->
@@ -136,142 +136,252 @@
     <div class="container nav-container">
       <a href="#" class="brand-logo" aria-label="InstantCred Home">
         <div class="brand-logo-mark">
-          <img src="/logo.png" alt="InstantCred Logo" class="brand-logo-img" width="36" height="36" />
+          <img src="/logo.png" alt="InstantCred Logo" class="brand-logo-img" width="42" height="42" />
         </div>
-        <span class="brand-logo-text">
-          <span class="brand-name">InstantCred</span><span class="brand-domain">.in</span>
-        </span>
-        <span class="brand-badge"><span class="brand-badge-dot" aria-hidden="true"></span>2026 Edition</span>
+        <div class="brand-text-col">
+          <div class="brand-logo-text">
+            <span class="brand-name">InstantCred</span><span class="brand-domain">.in</span>
+          </div>
+          <span class="brand-subline">Compare • Choose • Better</span>
+        </div>
       </a>
 
       <nav class="nav-menu">
         <a href="#card-directory" class="nav-link active">Credit Cards</a>
-        <a href="#calculator-section" class="nav-link">Spend Calculator</a>
-        <a href="#loans-section" class="nav-link">Personal Loans</a>
+        <a href="#calculator-section" class="nav-link">Calculators</a>
         <a href="#credit-guides-section" class="nav-link">Guides</a>
+        <a href="#loans-section" class="nav-link">Personal Loans</a>
         <a href="#why-trust-us" class="nav-link">Why Trust Us</a>
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="btn btn-secondary btn-launch-quiz" style="gap: 0.45rem; font-weight: 600;">
-          <svg class="ui-icon ui-icon-sparkle" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
-          <span>Smart Match</span>
-        </button>
-        <button type="button" class="btn-icon-only" id="btnShareSite" title="Share InstantCred.in" aria-label="Share InstantCred">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="18" cy="5" r="3"></circle>
-            <circle cx="6" cy="12" r="3"></circle>
-            <circle cx="18" cy="19" r="3"></circle>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        <button type="button" class="btn-icon-search" id="btnHeaderSearch" title="Search cards" aria-label="Search cards">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
+        </button>
+        <button type="button" class="btn btn-gold btn-launch-quiz" id="btnHeaderFindMyCard">
+          <span>Find My Card</span>
+          <span class="btn-arrow">→</span>
         </button>
       </div>
     </div>
-
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (2-Column Premium Editorial Presentation) -->
   <section class="hero-section">
+    <div class="container hero-grid-layout">
+      <!-- Left Column: Headline, Value Proposition & Trust Points -->
+      <div class="hero-copy-col">
+        <div class="hero-tag-badge">
+          <span>INDIA'S INDEPENDENT CREDIT CARD COMPARISON</span>
+        </div>
+        <h1 class="hero-title">
+          Find the credit card that fits <span class="hero-italic-serif">your life.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Compare 25+ top Indian credit cards based on real rewards, cashback, fees and benefits — calculated for your actual spending, not advertising.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-row">
+          <button type="button" class="btn btn-hero-dark btn-launch-quiz">
+            <span class="hero-sparkle-symbol">✦</span>
+            <span>Find My Best Card</span>
+            <span class="hero-arrow-symbol">→</span>
+          </button>
+          <a href="#card-directory" class="btn btn-hero-light" id="btnHeroCompareAll">
+            <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+            <span>Compare All Cards</span>
+          </a>
+        </div>
+
+        <!-- 4 Key Value/Trust Points in a Row -->
+        <div class="hero-trust-row">
+          <div class="hero-trust-item">
+            <div class="trust-circle-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            </div>
+            <div class="trust-item-text">
+              <strong>25+ Cards</strong>
+              <span>from top banks</span>
+            </div>
+          </div>
+
+          <div class="hero-trust-item">
+            <div class="trust-circle-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v8"></path><path d="M9 10h6"></path></svg>
+            </div>
+            <div class="trust-item-text">
+              <strong>Real reward value</strong>
+              <span>with fee calculation</span>
+            </div>
+          </div>
+
+          <div class="hero-trust-item">
+            <div class="trust-circle-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h18"></path></svg>
+            </div>
+            <div class="trust-item-text">
+              <strong>No hidden bias</strong>
+              <span>independent &amp; transparent</span>
+            </div>
+          </div>
+
+          <div class="hero-trust-item">
+            <div class="trust-circle-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 21h5v-5"></path></svg>
+            </div>
+            <div class="trust-item-text">
+              <strong>Updated regularly</strong>
+              <span>with latest card details</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: 3D Fanned Cards Presentation & Floating Widget -->
+      <div class="hero-visual-col">
+        <div class="hero-fanned-cards-wrap">
+          <!-- Card 1: Gold / Sapphiro Back Card -->
+          <div class="fanned-card card-gold">
+            <img src="/images/cards/indusind-legend.webp" alt="Gold Credit Card" class="fanned-img" />
+          </div>
+          <!-- Card 2: SBI Cashback Card -->
+          <div class="fanned-card card-blue">
+            <img src="/images/cards/sbi-cashback.webp" alt="SBI Cashback Card" class="fanned-img" />
+          </div>
+          <!-- Card 3: HDFC Millennia Front Card -->
+          <div class="fanned-card card-front">
+            <img src="/images/cards/hdfc-millennia.webp" alt="HDFC Millennia Credit Card" class="fanned-img" />
+          </div>
+          <!-- Card 4: Axis Bank Card -->
+          <div class="fanned-card card-axis">
+            <img src="/images/cards/axis-atlas.webp" alt="Axis Atlas Credit Card" class="fanned-img" />
+          </div>
+        </div>
+
+        <!-- Floating Value Calculator Widget -->
+        <div class="hero-float-card" id="heroFloatWidget">
+          <div class="float-card-header">
+            <span class="float-card-title">Your potential annual value</span>
+            <span class="float-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9E773F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </span>
+          </div>
+          <div class="float-card-body">
+            <span class="float-card-val">₹11,200</span>
+            <span class="float-card-badge">+22% vs average card</span>
+          </div>
+          <div class="float-card-footer">
+            <span class="float-card-sub">Based on your monthly spending</span>
+            <a href="#calculator-section" class="float-card-circle-btn" title="Calculate net rewards" aria-label="Calculate rewards">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search & Popular Filter Bar -->
+  <section class="search-bar-section">
     <div class="container">
-      <div class="hero-pill">
-        <span>✨ Independent Credit Card Decision Engine • Zero Bias, Pure Math</span>
-      </div>
-      <h1 class="hero-title">
-        Which credit card is actually best for you?
-      </h1>
-      <p class="hero-subtitle">
-        Tell us your salary and monthly spending. We compare 35+ top Indian credit cards based on calculated net cashback, rewards, annual fees, and true benefits — not bank advertising hype.
-      </p>
-
-      <!-- Hero Call-to-Actions -->
-      <div class="hero-cta-actions">
-        <button type="button" class="btn btn-primary btn-launch-quiz hero-primary-cta">
-          <svg class="ui-icon ui-icon-sparkle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
-          <span>Find My Card (30-Sec Smart Match) →</span>
-        </button>
-        <a href="#calculator-section" class="btn btn-secondary hero-secondary-cta">
-          <span>Calculate My Net Rewards ↓</span>
-        </a>
-      </div>
-
-      <!-- Search Input -->
-      <div class="search-box-wrapper">
-        <div class="search-input-group">
-          <span class="search-icon" aria-hidden="true">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </span>
+      <div class="search-box-pill">
+        <div class="search-input-field-wrap">
+          <svg class="search-svg-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
           <input 
             type="text" 
             id="searchInput" 
-            class="search-input" 
-            placeholder="Search by card name, bank, or perk (e.g. SBI Cashback, Lounge, Swiggy)..." 
+            class="search-main-input" 
+            placeholder="Search by card name, bank, or benefit..." 
             autocomplete="off"
           />
+          <button type="button" class="btn btn-search-tan" id="btnSubmitSearch">Search</button>
         </div>
-        <!-- Google-Style Omnibox Autocomplete Dropdown -->
         <div id="searchAutocompleteDropdown" class="search-autocomplete-dropdown hidden"></div>
-      </div>
 
-      <!-- High-Intent Popular Searches Strip -->
-      <div class="popular-searches-bar">
-        <span class="popular-searches-label">Popular Searches:</span>
-        <div class="popular-searches-chips" id="popularSearchesContainer">
-          <button type="button" class="popular-chip" data-popular-preset="salary-30k">⚡ Under ₹30k Salary</button>
-          <button type="button" class="popular-chip" data-popular-preset="cashback">💳 Best Cashback Cards</button>
-          <button type="button" class="popular-chip" data-popular-preset="ltf">🆓 Lifetime Free Cards</button>
-          <button type="button" class="popular-chip" data-popular-preset="amazon-flipkart">🛍️ Amazon & Flipkart</button>
-          <button type="button" class="popular-chip" data-popular-preset="upi-rupay">📲 RuPay UPI Cards</button>
-          <button type="button" class="popular-chip" data-popular-preset="fuel">⛽ Best Fuel Cards</button>
-          <button type="button" class="popular-chip" data-popular-preset="travel-lounge">✈️ Travel & Lounge</button>
-          <button type="button" class="popular-chip" data-popular-preset="beginners">🎯 Best for Beginners</button>
+        <div class="popular-searches-strip">
+          <span class="popular-strip-label">Popular searches:</span>
+          <div class="popular-strip-chips" id="popularSearchesContainer">
+            <button type="button" class="popular-pill" data-search-keyword="SBI Cashback">SBI Cashback</button>
+            <button type="button" class="popular-pill" data-search-keyword="HDFC Millennia">HDFC Millennia</button>
+            <button type="button" class="popular-pill" data-search-keyword="Lounge Access">Lounge Access</button>
+            <button type="button" class="popular-pill" data-search-keyword="Lifetime Free">Lifetime Free</button>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Category Filter Chips -->
-      <div class="category-chips-scroll" id="categoryChipsContainer">
-        <!-- Rendered dynamically by app.js -->
+  <!-- 9 Category Navigation Quick-Select Cards -->
+  <section class="category-cards-section">
+    <div class="container">
+      <!-- Mobile Exclusive Spotlight Micro-Banner -->
+      <div class="mobile-spotlight-card">
+        <div class="spotlight-left-col">
+          <div class="spotlight-kicker">
+            <span class="kicker-dot">✦</span>
+            <span>AI CARD RECOMMENDATION</span>
+          </div>
+          <h2 class="spotlight-title">Not sure which card <span class="spotlight-serif">fits your life?</span></h2>
+          <p class="spotlight-desc">Compare real reward return on your actual spending</p>
+        </div>
+        <button type="button" class="btn-spotlight-action btn-launch-quiz" aria-label="Start Card Quiz">
+          <span>Match Me</span>
+          <span class="spotlight-arrow">→</span>
+        </button>
+      </div>
+
+      <div class="category-section-header">
+        <span class="cat-section-title">Explore by Category</span>
+        <span class="cat-swipe-hint">Swipe →</span>
+      </div>
+
+      <div class="category-cards-row" id="categoryChipsContainer">
+        <!-- Rendered dynamically by app.js (All Cards, Cashback, Lifetime Free, Travel, UPI, Fuel, Shopping, Food & Dining, Premium) -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Picks for You Section -->
+  <section class="top-picks-section" id="topPicksSection">
+    <div class="container">
+      <div class="top-picks-header-row">
+        <div class="top-picks-headings">
+          <h2 class="top-picks-title">Top Picks for You</h2>
+          <span class="top-picks-subtitle">Handpicked cards for the most common user needs.</span>
+        </div>
+        <a href="#card-directory" class="top-picks-view-all" id="btnViewAllTopPicks">
+          <span>View all cards</span>
+          <span class="arrow-glyph">→</span>
+        </a>
+      </div>
+
+      <div class="top-picks-cards-grid" id="topPicksCardsContainer">
+        <!-- 4 Curated Cards (HDFC Millennia, SBI Cashback, IDFC FIRST WOW, Axis Atlas) rendered dynamically -->
       </div>
     </div>
   </section>
 
   <!-- Main Directory Container -->
   <main class="container" id="card-directory">
-
-    <!-- Promo Action Cards (Quiz & Calculator Callouts) -->
-    <div class="promo-grid">
-      <div class="promo-card promo-card-quiz">
-        <div>
-          <span class="promo-badge promo-badge-quiz">✨ 30-Sec Smart Match</span>
-          <h3>Find Your Perfect Credit Card Match</h3>
-          <p>Answer 3 quick questions about your monthly income and primary spending habits to see the cards with the highest approval odds and net reward value.</p>
-        </div>
-        <div>
-          <button type="button" class="btn btn-primary btn-launch-quiz">
-            Start Smart Match
-          </button>
-        </div>
-      </div>
-
-      <div class="promo-card promo-card-calc">
-        <div>
-          <span class="promo-badge promo-badge-calc">Net Savings Estimator</span>
-          <h3>Estimate Your Annual Net Rewards</h3>
-          <p>Enter your monthly spend on online shopping, dining, fuel, and travel to calculate your net savings after accounting for annual fees.</p>
-        </div>
-        <div>
-          <a href="#calculator-section" class="btn btn-emerald">
-            Open Spend Calculator
-          </a>
-        </div>
-      </div>
-    </div>
-
     <!-- Filter & Sort Controls Bar -->
     <section class="controls-bar">
+      <!-- Mobile Quick Filter Pill Bar -->
+      <div class="mobile-quick-filter-strip" id="mobileQuickFilterStrip">
+        <button type="button" class="quick-filter-chip active" data-quick-filter="all">All Cards</button>
+        <button type="button" class="quick-filter-chip" data-quick-filter="free">🎁 Lifetime Free</button>
+        <button type="button" class="quick-filter-chip" data-quick-filter="cashback">💰 5% Cashback</button>
+        <button type="button" class="quick-filter-chip" data-quick-filter="lounge">✈️ Airport Lounge</button>
+        <button type="button" class="quick-filter-chip" data-quick-filter="rupay">💳 RuPay UPI</button>
+        <button type="button" class="quick-filter-chip" data-quick-filter="instant">⚡ Fast Approval</button>
+      </div>
+
       <div class="filter-row">
         <div class="filter-selectors">
           <select id="bankFilterSelect" class="custom-select" aria-label="Filter by Bank">
@@ -291,7 +401,7 @@
           </select>
 
           <select id="sortBySelect" class="custom-select" aria-label="Sort Credit Cards">
-            <option value="popularity">Sort: Most Popular</option>
+            <option value="popularity">Sort: Recommended</option>
             <option value="approval-odds">Sort: High Eligibility Feasibility</option>
             <option value="rating">Sort: Highest Rated</option>
             <option value="fee-low">Sort: Lowest Annual Fee</option>
@@ -300,7 +410,7 @@
         </div>
 
         <div class="results-count" id="resultsCount">
-          Showing <strong>16</strong> Credit Cards
+          Showing <strong>25</strong> of 25 Credit Cards
         </div>
       </div>
     </section>
@@ -999,11 +1109,14 @@
         <div class="footer-brand">
           <div class="brand-logo">
             <div class="brand-logo-mark">
-              <img src="/logo.png" alt="InstantCred Logo" class="brand-logo-img" width="36" height="36" />
+              <img src="/logo.png" alt="InstantCred Logo" class="brand-logo-img" width="44" height="44" />
             </div>
-            <span class="brand-logo-text">
-              <span class="brand-name">InstantCred</span><span class="brand-domain">.in</span>
-            </span>
+            <div class="brand-text-col">
+              <span class="brand-logo-text">
+                <span class="brand-name" style="color: #FFFFFF;">InstantCred</span><span class="brand-domain" style="color: var(--brand-gold, #D4AF37);">.in</span>
+              </span>
+              <span class="brand-subline" style="color: rgba(255, 255, 255, 0.65);">Compare • Choose • Better</span>
+            </div>
           </div>
           <p>Independent credit card comparison and financial analytics platform for Indian consumers.</p>
         </div>

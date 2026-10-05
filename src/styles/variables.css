@@ -1,42 +1,57 @@
 :root {
   /* ==========================================================================
-     Professional Financial Typography & Color Palette
-     Clean, authoritative, high-trust palette modeled after institutional finance portals
+     Warm Editorial Financial Palette & Typography
+     Matches the reference InstantCred.in design with warm eggshell/cream tones,
+     luxurious gold/cognac accents, dark charcoal contrast, and editorial serif styling.
      ========================================================================== */
 
   /* Neutral Backgrounds */
-  --bg-primary: #f8fafc;        /* Slate 50 - clean warm background */
+  --bg-primary: #FAF8F5;        /* Warm parchment / linen tone */
   --bg-secondary: #ffffff;      /* Pure white for cards & elevated surfaces */
   --bg-surface: #ffffff;
-  --bg-subtle: #f1f5f9;         /* Slate 100 */
-  --bg-muted: #e2e8f0;          /* Slate 200 */
+  --bg-subtle: #F5F1EB;         /* Subtle warm cream */
+  --bg-muted: #EDE7DE;          /* Muted warm border/surface */
 
   /* Borders & Dividers */
-  --border-subtle: #e2e8f0;     /* Slate 200 */
-  --border-strong: #cbd5e1;     /* Slate 300 */
-  --border-focus: #0052cc;      /* High-trust Royal Blue */
+  --border-subtle: #EBE6DF;     /* Warm light border */
+  --border-medium: #DFD8CD;     /* Medium warm border */
+  --border-strong: #CDC4B6;     /* Defined warm border */
+  --border-focus: #9E773F;      /* Cognac/Gold focus */
 
   /* Typography Colors */
-  --text-primary: #0f172a;      /* Slate 900 - Crisp near-black */
-  --text-secondary: #475569;    /* Slate 600 - Readable editorial gray */
-  --text-muted: #64748b;        /* Slate 500 */
-  --text-light: #94a3b8;        /* Slate 400 */
+  --text-primary: #141414;      /* Deep rich near-black */
+  --text-secondary: #5A524A;    /* Warm slate gray */
+  --text-muted: #8C827A;        /* Muted gray-brown */
+  --text-light: #A89F95;
   --text-inverse: #ffffff;
 
-  /* Primary Brand & Financial Trust Colors */
-  --brand-primary: #0052cc;     /* Deep Trust Blue (Atlassian / Visa / Chase style) */
-  --brand-primary-hover: #0747a6;
-  --brand-primary-light: #e9f2ff;
+  /* Primary Brand & Gold / Cognac Palette */
+  --brand-gold: #9E773F;        /* Signature warm gold / cognac */
+  --brand-gold-hover: #86622E;
+  --brand-gold-light: #FAF5EC;  /* Selected category card background */
+  --brand-gold-border: #C8AB7B; /* Selected category border */
+  --brand-gold-subtle: #F3EBDD;
+
+  /* Dark Contrast Primary */
+  --brand-dark: #141414;
+  --brand-dark-hover: #262626;
+
+  /* Success / Cashback Green */
+  --brand-success: #1A7B3E;     /* High-contrast forest green */
+  --brand-success-hover: #146231;
+  --brand-success-light: #E8F7ED;
+  --brand-success-border: #B7E4C7;
+
+  /* Legacy primary compatibility */
+  --brand-primary: #9E773F;
+  --brand-primary-hover: #86622E;
+  --brand-primary-light: #FAF5EC;
   
-  --brand-success: #0d7a57;     /* High-trust Forest Green (Cashback & Savings) */
-  --brand-success-light: #ecfdf5;
-  --brand-success-border: #a7f3d0;
+  --brand-accent: #9E773F;
+  --brand-accent-light: #FAF5EC;
   
-  --brand-accent: #b45309;      /* Warm Amber / Gold (Rewards & Air Miles) */
-  --brand-accent-light: #fef3c7;
-  
-  --brand-danger: #be123c;      /* Rose 700 */
-  --brand-danger-light: #ffe4e6;
+  --brand-danger: #BE123C;
+  --brand-danger-light: #FFE4E6;
 
   /* Card Visual Gradients (Accurate, Authentic Bank Brand Colors) */
   --card-sbi: linear-gradient(135deg, #0b3c68 0%, #03203f 100%);
@@ -58,21 +73,22 @@
   /* Typography System */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-heading: 'Plus Jakarta Sans', var(--font-sans);
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
 
-  /* Radius System (Refined, standard UI corners) */
+  /* Radius System (Refined modern curves) */
   --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-pill: 9999px;
 
-  /* Elevation Shadows (Soft, authentic physical depth) */
-  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 12px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
-  --shadow-xl: 0 20px 40px -6px rgba(15, 23, 42, 0.16);
+  /* Elevation Shadows (Soft natural ambient depth) */
+  --shadow-xs: 0 1px 2px rgba(20, 20, 20, 0.04);
+  --shadow-sm: 0 2px 6px rgba(20, 20, 20, 0.05), 0 1px 2px rgba(20, 20, 20, 0.03);
+  --shadow-md: 0 6px 18px -2px rgba(20, 20, 20, 0.07), 0 2px 6px -1px rgba(20, 20, 20, 0.03);
+  --shadow-lg: 0 14px 34px -4px rgba(20, 20, 20, 0.09), 0 4px 12px -2px rgba(20, 20, 20, 0.04);
+  --shadow-xl: 0 24px 48px -8px rgba(20, 20, 20, 0.12);
 
   /* Mobile Ergonomics & Safe Areas */
   --safe-area-top: env(safe-area-inset-top, 0px);
